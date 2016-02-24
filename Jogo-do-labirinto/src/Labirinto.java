@@ -1,4 +1,5 @@
 public class Labirinto {
+	
 		public char lab[][] = {{'X','X','X','X','X','X','X','X','X','X'},
 								 {'X','H',' ',' ',' ',' ',' ',' ',' ','X'},
 								 {'X',' ','X','X',' ','X',' ','X',' ','X'},
@@ -9,8 +10,7 @@ public class Labirinto {
 								 {'X',' ','X','X',' ','X',' ','X',' ','X'},
 								 {'X','E','X','X',' ',' ',' ',' ',' ','X'},
 								 {'X','X','X','X','X','X','X','X','X','X'}};
-		
-		
+			
 		public class Saida {
 			public int x;
 			public int y;
@@ -35,7 +35,7 @@ public class Labirinto {
 		
 		public void print() {
 			for (int i = 0; i < lab.length; i++) {	
-				for (int j = 0; j < lab[1].length; j++) {
+				for (int j = 0; j < lab[i].length; j++) {
 					System.out.print(lab[i][j] + " ");
 				}
 				

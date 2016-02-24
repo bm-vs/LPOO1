@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Jogo {
 	public static void main(String[] args) {
+		
 		Labirinto labirinto = new Labirinto();
 		Heroi heroi = new Heroi(1,1);
 		Dragao dragao = new Dragao(1,3);
@@ -13,6 +14,7 @@ public class Jogo {
 		while (true) {
 			System.out.println("Move: ");
 			String tecla = sc.next();
+			
 			if (tecla.equals("w") || tecla.equals("a") || tecla.equals("s") || tecla.equals("d")) {
 				heroi.move(tecla, labirinto);
 				if (heroi.x == labirinto.saida.x && heroi.y == labirinto.saida.y) {
@@ -21,8 +23,7 @@ public class Jogo {
 					break;
 				}
 				
-				heroi.apanha(labirinto.espada, labirinto);
-				
+				heroi.apanha(labirinto.espada, labirinto);			
 				int luta = heroi.lutardragao(dragao);
 				
 				if (luta == 1) {
@@ -35,7 +36,6 @@ public class Jogo {
 					System.out.println("O dragao morreu!");
 				}
 			}
-			
 			
 			labirinto.print();
 		}

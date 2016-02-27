@@ -79,6 +79,7 @@ public class Heroi {
 		if (espada.x == x && espada.y == y) {
 			arma = 'A';
 			labirinto.lab[y][x] = arma;
+			labirinto.existeEspada=false;
 			
 			return true;
 		}

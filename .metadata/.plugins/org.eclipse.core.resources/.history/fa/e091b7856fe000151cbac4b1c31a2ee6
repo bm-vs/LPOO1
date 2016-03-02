@@ -1,0 +1,38 @@
+package jogo.cli;
+
+import java.util.Scanner;
+import jogo.logic.*;
+
+public class Ui {
+	public static void main(String [] args) {
+		Jogo jogo = new Jogo();
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print(jogo.return_board());
+		
+		loop:
+		while (true) {
+			System.out.println("Move: ");
+			
+			do {
+				String tecla = sc.next();
+			while (!(tecla.equals("w") || tecla.equals("a") || tecla.equals("s") || tecla.equals("d")));
+			
+			switch(jogo.play(tecla)) {
+			case 1: System.out.print(jogo.return_board());  // WIN
+					System.out.println("O heroi venceu!");
+					break loop;
+			case 2: System.out.print(jogo.return_board());  // LOSE
+					System.out.println("O heroi morreu!");
+					break loop;
+			case 3: System.out.print(jogo.return_board());  // DRAGON DIE
+					System.out.println("O dragao morreu!");
+					break;
+			}
+			
+			System.out.print(jogo.return_board());
+		}
+		
+		sc.close();
+	}
+}

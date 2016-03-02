@@ -1,0 +1,26 @@
+package jogo.cli;
+
+import java.util.Scanner;
+import jogo.logic.*;
+
+public class Ui {
+	public static void main(String [] args) {
+		Jogo jogo = new Jogo();
+		Scanner sc = new Scanner(System.in);
+		
+		jogo.print();
+		
+		while (true) {
+			System.out.println("Move: ");
+			String tecla = sc.next();
+			jogo.play(tecla);
+			jogo.print();
+		}
+		
+		// sc.close();
+	}
+	
+	public void printBoard() {
+		
+	}
+}

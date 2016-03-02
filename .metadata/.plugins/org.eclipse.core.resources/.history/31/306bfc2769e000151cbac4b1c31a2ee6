@@ -1,0 +1,5 @@
+package jogo.cli;
+
+public class Ui {
+
+}

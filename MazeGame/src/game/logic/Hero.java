@@ -94,4 +94,9 @@ public class Hero {
 		
 		return false;
 	}
+	
+	public Point getHeroPosition()
+	{
+		return  (new Point(y, x));
+	}
 }

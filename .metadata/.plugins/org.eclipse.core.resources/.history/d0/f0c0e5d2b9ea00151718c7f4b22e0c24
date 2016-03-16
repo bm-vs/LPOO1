@@ -1,4 +1,0 @@
-
-public interface Facility {
-	public String getName();
-}

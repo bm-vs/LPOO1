@@ -1,9 +1,0 @@
-
-public class File {
-	
-	public File (Folder parent, String name) {
-		this.parent = parent;
-		this.name = name;
-	}
-
-}

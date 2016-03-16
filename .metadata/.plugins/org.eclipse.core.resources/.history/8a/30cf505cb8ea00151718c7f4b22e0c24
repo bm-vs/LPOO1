@@ -1,5 +1,0 @@
-
-public class Room {
-	private Building building;
-	private int number;
-}

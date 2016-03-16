@@ -1,6 +1,0 @@
-package geometria;
-
-public class FiguraComposta extends Figura {
-	
-
-}

@@ -1,8 +1,0 @@
-
-public class Folder {
-	public Folder parent;
-	
-	public Folder getParent() {
-		return parent;
-	}
-}

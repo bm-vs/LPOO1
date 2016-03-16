@@ -27,7 +27,7 @@ public class Game {
 			dragons.add(new Dragon(x, y));
 		}
 
-	}
+	} 
 
 	public String return_board() {
 		return maze.return_board();

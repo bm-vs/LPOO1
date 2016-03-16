@@ -1,0 +1,28 @@
+
+public class FileSystem {
+	public String type;
+	public Folder root;
+	public NameFormatter nf;
+	
+	public FileSystem(String type) {
+		this.type = type;
+		try {
+			root = new Folder(null, "");
+		}
+		catch (DuplicateNameException e){
+		}
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public Folder getRoot() {
+		return root;
+	}
+	
+	public void setNameFormatter() {
+		
+	}
+	
+}

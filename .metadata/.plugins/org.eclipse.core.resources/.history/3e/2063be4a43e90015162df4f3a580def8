@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class Comboio {
+	public String nome;
+	public ArrayList<Carruagem> carruagens;
+	
+	public Comboio(String nome) {
+		this.nome = nome;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void addCarruagem(Carruagem c) {
+		carruagens.add(c);
+	}
+	
+}

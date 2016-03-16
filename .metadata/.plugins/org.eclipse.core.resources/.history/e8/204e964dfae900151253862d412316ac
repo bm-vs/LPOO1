@@ -1,0 +1,24 @@
+
+public class Node {
+	public Node parent;
+	public String name;
+	public Node[] child;
+	
+	public Node (Node parent, String name) {
+		this.parent = parent;
+		this.name = name;
+	}
+	
+	public Node getParent() {
+		return parent;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public Node[] getChild() {
+		return child;
+	}
+
+}

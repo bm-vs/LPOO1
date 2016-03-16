@@ -1,0 +1,60 @@
+import java.util.*;
+
+public class Node {
+	public Node parent;
+	public String name;
+	public Node[] child;
+	
+	public Node (Node parent, String name) {
+		this.parent = parent;
+		this.name = name;
+		child = new Node[] {};
+		
+		ArrayList<Node> tmp = new ArrayList<Node>();
+		if (parent != null) {
+			for (int i = 0; i < parent.child.length; i++) {
+				tmp.add(parent.child[i]);
+			}
+		}
+		tmp.add(this);
+		
+		if (parent != null) {
+			parent.child = tmp.toArray(parent.child);
+		}
+	}
+	
+	public Node getParent() {
+		return parent;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public Node[] getChild() {
+		return child;
+	}
+	
+	public Node getChildByName(String name) throws DuplicateNameException{
+		Node child_node = new Node(null, "");
+		int n = 0;
+		
+		for (int i = 0; i < child.length; i++) {
+			if (child[i].getName() == name) {
+				child_node = child[i];
+				n++;
+			}
+		}
+		
+		if (n > 1) {
+			throw new DuplicateNameException();
+		}
+		else if (n == 1) {
+			return child_node;
+		}
+		
+		
+		return null;
+	}
+
+}

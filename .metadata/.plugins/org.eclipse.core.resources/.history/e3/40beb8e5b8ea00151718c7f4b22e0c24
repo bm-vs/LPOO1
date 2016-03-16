@@ -1,0 +1,37 @@
+
+public class Room {
+	private Building building;
+	private String number;
+	private int floor;
+	private String name;
+	
+	public Room(Building building, String number, int floor) {
+		this.building = building;
+		this.number = number;
+		this.floor = floor;
+		name = building.getName() + number;
+	}
+
+	public Building getBuilding() {
+		return building;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public int getFloor() {
+		return floor;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	
+	
+	
+	
+	
+	
+}

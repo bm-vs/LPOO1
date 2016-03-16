@@ -1,0 +1,21 @@
+
+public class Room {
+	private Building building;
+	private String number;
+	private int floor;
+	private String name;
+	
+	public Room(Building building, String number, int floor) {
+		this.building = building;
+		this.number = number;
+		this.floor = floor;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,16 @@
+package gametest;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+import gamelogic.*;
+
+public class TestMazeBuilder {
+
+	@Test
+	public void printMaze() {
+		char[][] maze = MazeBuilder.this.buildMaze(10);
+		
+		for (int i = 0; i < )
+	}
+	
+}

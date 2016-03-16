@@ -1,0 +1,6 @@
+package geometria;
+
+public class Figura {
+	public double getArea() {}
+	public double getPerimetro() {}
+}

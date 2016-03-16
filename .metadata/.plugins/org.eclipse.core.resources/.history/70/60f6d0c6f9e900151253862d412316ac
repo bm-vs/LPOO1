@@ -1,0 +1,19 @@
+
+public class Node {
+	public Folder parent;
+	public String name;
+	public Node[] child;
+	
+	public Folder getParent() {
+		return parent;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public Node[] getChild() {
+		return child;
+	}
+
+}

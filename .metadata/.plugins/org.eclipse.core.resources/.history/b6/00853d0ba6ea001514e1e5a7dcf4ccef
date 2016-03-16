@@ -1,0 +1,13 @@
+package atm;
+
+public class Session {
+	private ATM atm;
+	
+	public Session(ATM atm) {
+		this.atm = atm;
+	}
+	
+	public ATM getATM() {
+		return atm;
+	}
+}

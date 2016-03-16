@@ -1,0 +1,18 @@
+package atm;
+
+public class Withdrawal {
+	private ATM atm;
+	private Session session;
+	private Card card;
+	private int amount;
+	
+	public Withdrawal(ATM atm, Session session, Card card, int amount) {
+		this.atm = atm;
+		this.session = session;
+		this.card = card;
+		this.amount = amount;
+	}
+	
+	
+	
+}

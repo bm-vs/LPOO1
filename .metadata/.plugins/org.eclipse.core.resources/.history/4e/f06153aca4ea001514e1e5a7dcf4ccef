@@ -1,0 +1,15 @@
+package atm;
+
+public class ATM {
+	private int number;
+	private String city;
+	private String bank;
+	
+	public ATM(int number, String city, String bank) {
+		this.number = number;
+		this.city = city;
+		this.bank = bank;
+	}
+	
+	
+}

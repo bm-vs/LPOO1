@@ -1,0 +1,10 @@
+
+public class UnixFormatter implements NameFormatter {
+	public char separator = '/';	
+	
+	public UnixFormatter() {
+	}
+	
+	
+	
+}

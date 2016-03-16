@@ -1,0 +1,12 @@
+
+public class Folder extends Node{
+	
+	public Folder (Folder parent, String name) {
+		this.parent = parent;
+		this.name = name;
+	}
+	
+	public Folder getParent() {
+		return parent;
+	}
+}

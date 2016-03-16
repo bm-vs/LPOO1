@@ -1,0 +1,5 @@
+
+public class ServicoRegular extends ServicoABordo{
+	public String descricao = "Servico Regular.";
+
+}

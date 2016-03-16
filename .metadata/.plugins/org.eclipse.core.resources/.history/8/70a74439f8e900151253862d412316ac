@@ -1,0 +1,6 @@
+
+public class Node {
+	public Folder parent;
+	public String name;
+
+}

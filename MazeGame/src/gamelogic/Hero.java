@@ -1,7 +1,7 @@
-package game.logic;
+package gamelogic;
 
-import game.logic.Dragon;
-import game.logic.Maze;
+import gamelogic.Dragon;
+import gamelogic.Maze;
 
 public class Hero {
 	public int x;

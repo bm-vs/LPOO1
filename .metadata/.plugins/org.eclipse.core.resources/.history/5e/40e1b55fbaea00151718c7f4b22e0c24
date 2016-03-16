@@ -1,0 +1,50 @@
+
+public class Room implements Facility {
+	private Building building;
+	private String number;
+	private int floor;
+	private String name;
+	
+	public Room(Building building, String number, int floor) throws IllegalArgumentException{
+		this.building = building;
+		this.floor = floor;
+		
+		if (floor > building.getMaxFloor() || floor < building.getMinFloor()) {
+			throw new IllegalArgumentException();
+		}
+		
+		
+		
+		this.number = number;
+		name = building.getName() + number;
+		
+	}
+
+	public Building getBuilding() {
+		return building;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public int getFloor() {
+		return floor;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public String toString() {
+		return "Room(" + building.getName() + "," + number + ")";
+	}
+	
+	
+	
+	
+	
+	
+	
+}

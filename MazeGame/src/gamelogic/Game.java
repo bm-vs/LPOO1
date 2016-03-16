@@ -34,9 +34,6 @@ public class Game {
 			else if (dragon.is_sleeping == 'd')
 				if (dragon.mode(maze) == 0)
 					dragon.wakeUp(maze);
-
-				else if (dragon.mode(maze) == 1)
-					dragon.wakeUp(maze);
 		}
 		// gameMode == "2" -> stand still
 		

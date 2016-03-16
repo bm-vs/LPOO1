@@ -1,0 +1,28 @@
+package statistics;
+
+public class NormalDistribution {
+	private double mean;
+	private double stddev;
+	
+	public NormalDistribution() {
+		this.mean = 0;
+		this.stddev = 1;
+	}
+	
+	public NormalDistribution(double mean, double stddev) throws IllegalArgumentException{
+		if (stddev == 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.mean = mean;
+		this.stddev = stddev;
+	}
+
+	public double getMean() {
+		return mean;
+	}
+
+	public double getStddev() {
+		return stddev;
+	}
+}

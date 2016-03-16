@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.pitest.pitclipse.core.mutationTest">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/Teste_2011/src/Comboio.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Comboio"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Teste_2011"/>
+<stringAttribute key="org.pitest.pitclipse.core.test.avoidCallsTo" value="java.util.logging, org.apache.log4j, org.slf4j, org.apache.commons.logging"/>
+<stringAttribute key="org.pitest.pitclipse.core.test.container" value=""/>
+<stringAttribute key="org.pitest.pitclipse.core.test.excludeClasses" value=""/>
+<stringAttribute key="org.pitest.pitclipse.core.test.excludeMethods" value=""/>
+<booleanAttribute key="org.pitest.pitclipse.core.test.incrementalAnalysis" value="false"/>
+<booleanAttribute key="org.pitest.pitclipse.core.test.parallel" value="true"/>
+</launchConfiguration>

@@ -3,15 +3,18 @@ package gamelogic;
 import java.util.*;
 
 
-public class MazeBuilder{
-	static char[][] maze;
-	static int exit_x;
-	static int exit_y;
+public class MazeBuilder implements IMazeBuilder{
+	public char[][] maze;
+	public int exit_x;
+	public int exit_y;
+	public int sword_x;
+	public int sword_y;
 	
-	static public char[][] buildMaze(int size) throws IllegalArgumentException{
-		Random rnd = new Random();
+	public char[][] buildMaze(int size) throws IllegalArgumentException{
+		Random rnd = new Random(System.currentTimeMillis());
 		maze = new char[size][size];
 		
+		do {
 		// fill maze
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -86,7 +89,20 @@ public class MazeBuilder{
 				path.push(next);
 			}
 		}
+		} while (checkWalls(maze));
 		
+		
+		// Get random position for sword
+		while (true) {
+			sword_x = rnd.nextInt(maze.length - 2);
+			sword_y = rnd.nextInt(maze.length - 2);
+			
+			if (maze[sword_y][sword_x] == ' ') {
+				break;
+			}
+		}
+		
+		maze[sword_y][sword_x] = 'E';
 		
 		return maze;
 	}
@@ -151,6 +167,28 @@ public class MazeBuilder{
 		}
 		
 		return new Point(-1,-1);
+	}
+	
+	// Check bad walls
+	public boolean checkWalls(char[][] maze) {
+		char[][] badWalls = {
+				{'X', 'X', 'X'},
+				{'X', 'X', 'X'},
+				{'X', 'X', 'X'}};
+		
+		
+		for (int i = 0; i < maze.length - badWalls.length; i++)
+			for (int j = 0; j < maze.length - badWalls.length; j++) {
+				boolean match = true;
+				for (int y = 0; y < badWalls.length; y++)
+					for (int x = 0; x < badWalls.length; x++) {
+						if (maze[i+y][j+x] != badWalls[y][x])
+							match = false;
+					}
+				if (match)
+					return true;
+			}		
+		return false; 
 	}
 	
 	

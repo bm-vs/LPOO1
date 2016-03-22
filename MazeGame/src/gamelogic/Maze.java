@@ -1,22 +1,8 @@
 package gamelogic;
 
-import java.util.Random;
-import java.lang.Object;
-
 public class Maze {
-
-	public Random rand = new Random(System.currentTimeMillis());
-	public char board[][] = {
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-			{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', 'D', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', 'E', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-			{ 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+	public char board[][];
+	public boolean sword_exists;
 
 	public class Exit {
 		public int x;
@@ -31,15 +17,18 @@ public class Maze {
 	public Exit exit = new Exit();
 	public Sword sword = new Sword();
 
-	public Maze() {
-		exit.x = 9;
-		exit.y = 5;
-
-		sword.x = 1;
-		sword.y = 5;
+	public Maze(int maze_size) {
+		MazeBuilder mb = new MazeBuilder();
+		board = mb.buildMaze(maze_size);
+		
+		exit.x = mb.exit_x;
+		exit.y = mb.exit_y;
+		
+		sword.x = mb.sword_x;
+		sword.y = mb.sword_y;
+		
+		sword_exists = true;
 	}
-
-	public boolean sword_exists = true;
 	
 	public String return_board () {
 		String board_string = "";

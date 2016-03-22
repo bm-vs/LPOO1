@@ -1,5 +1,7 @@
 package gamelogic;
 
+import java.util.Random;
+
 import gamelogic.Dragon;
 import gamelogic.Maze;
 
@@ -8,10 +10,22 @@ public class Hero {
 	public int y;
 	public char has_sword;
 	
-	public Hero(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Hero(Maze maze) {
+		Random rand = new Random(System.currentTimeMillis());
+		
+		// Get random starting position for hero
+		while (true) {
+			x = rand.nextInt(maze.board.length - 2);
+			y = rand.nextInt(maze.board.length - 2);
+			
+			if (maze.board[y][x] == ' ') {
+				break;
+			}
+		}
+		
+		// Place hero on board
 		this.has_sword = 'H';
+		maze.board[y][x] = has_sword;
 	}
 	
 	public boolean move(String key, Maze maze) {		

@@ -1,32 +1,23 @@
 package gamelogic;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
 
 import gamelogic.Dragon;
 import gamelogic.Hero;
 import gamelogic.Maze;
 
 public class Game {
-	
-	public Random rand = new Random(System.currentTimeMillis());
 	public Maze maze;
 	public Hero hero;
 	public ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 
-	public Game() {
-		maze = new Maze();
-		hero = new Hero(1, 1); 
+	public Game(int maze_size, int number_dragons) {		
+		maze = new Maze(maze_size);
+		hero = new Hero(maze);
 
-		int numero = rand.nextInt() % 5 + 1;// numero de dragons de 1 a 5
-		for (int i = 0; i < numero; i++) {
-			int x = rand.nextInt() % 8 + 1;// depois temos que mudar
-			int y = rand.nextInt() % 8 + 1;
-
-			dragons.add(new Dragon(x, y));
+		for (int i = 0; i < number_dragons; i++) {
+			dragons.add(new Dragon(maze));
 		}
-
 	} 
 
 	public String return_board() {
@@ -36,24 +27,21 @@ public class Game {
 	public int play(String game_mode, String key) {
 		if (game_mode.equals("0")) {
 			for (Dragon d : dragons)
-				if (d.is_alive)
-					d.move(maze);
+				d.move(maze);
 		}
 
 		if (game_mode.equals("1")) {
 			for (Dragon d : dragons) {
-				if (d.is_alive) {
-					if (d.is_sleeping == 'D') {
-						if (d.mode(maze) == 0)
-							d.move(maze);
+				if (d.is_sleeping == 'D') {
+					if (d.mode(maze) == 0)
+						d.move(maze);
 
-						else if (d.mode(maze) == 1)
-							d.fallAsleep(maze);
+					else if (d.mode(maze) == 1)
+						d.fallAsleep(maze);
 
-					} else if (d.is_sleeping == 'd')
-						if (d.mode(maze) == 0 || d.mode(maze) == 1)
-							d.wakeUp(maze);
-				}
+				} else if (d.is_sleeping == 'd')
+					if (d.mode(maze) == 0 || d.mode(maze) == 1)
+						d.wakeUp(maze);	
 			}
 		}
 		// gameMode == "2" -> stand still
@@ -67,17 +55,16 @@ public class Game {
 
 		for (Dragon d : dragons) {
 
-			int dragonsDead = 0;
-
 			switch (hero.fightDragon(d)) {
 			case 1:
 				return 2; // LOSE
-
 			case 2:
-				dragonsDead++;
 				d.dies(maze); // WIN
-				if (dragonsDead == dragons.size())
-					return 3;
+				dragons.remove(d);
+				if (dragons.isEmpty())
+					maze.board[maze.exit.y][maze.exit.x] = ' ';
+				
+				return 3;
 			}
 		}
 

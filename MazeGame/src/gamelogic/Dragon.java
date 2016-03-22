@@ -1,22 +1,37 @@
 package gamelogic;
 
+import java.util.Random;
+
 import gamelogic.Maze;
 
 public class Dragon {
 	public int x;
 	public int y;
 	public char is_sleeping;
-	public boolean is_alive;
 
-	public Dragon(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Dragon(Maze maze) {
+		Random rand = new Random(System.currentTimeMillis());
+		
+		// Get random starting position for dragon
+		while (true) {
+			x = rand.nextInt(maze.board.length - 2);
+			y = rand.nextInt(maze.board.length - 2);
+			
+			if (maze.board[y][x] == ' ' && maze.board[y-1][x] != 'H' && maze.board[y+1][x] != 'H'
+					&& maze.board[y][x-1] != 'H' && maze.board[y][x+1] != 'H') {
+				break;
+			}
+		}
+		
 		this.is_sleeping = 'D';
-		this.is_alive = true;
+		
+		// Place dragon on maze
+		maze.board[y][x] = is_sleeping;
 	}
 
 	public int mode(Maze maze){
-		int mode = maze.rand.nextInt() % 2; // 0 - move  // 1 - sleep
+		Random rand = new Random(System.currentTimeMillis());
+		int mode = rand.nextInt() % 2; // 0 - move, 1 - sleep
 		
 		return mode;
 		
@@ -34,12 +49,12 @@ public class Dragon {
 	
 	public void dies(Maze maze) {
 		maze.board[y][x] = ' ';
-		maze.board[maze.exit.y][maze.exit.x] = ' ';
-		is_alive = false;
 	}
 
 	public void move(Maze maze) {
-		int i = maze.rand.nextInt() % 4;
+		Random rand = new Random(System.currentTimeMillis());
+		
+		int i = rand.nextInt() % 4;
 
 		if (i == 0) {
 			if (maze.board[y - 1][x] == ' ') {

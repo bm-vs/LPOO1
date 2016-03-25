@@ -1,7 +1,9 @@
 package gametest;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
+
 import gamelogic.*;
 
 public class TestHero {
@@ -15,21 +17,21 @@ public class TestHero {
 
 	@Test
 	public void testMoveHeroToFreeCell() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;
 		game.hero.y = 1;
 
-		assertEquals(new Point(3, 1), game.hero.getHeroPosition());
+		assertEquals(new Point(1,3), game.hero.getHeroPosition());
 		game.hero.move("a", game.maze);
 		
-		assertEquals(new Point(2, 1), game.hero.getHeroPosition());
+		assertEquals(new Point(1,2), game.hero.getHeroPosition());
 	};
 	
 	@Test
 	public void testHeroWall() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;
@@ -47,7 +49,7 @@ public class TestHero {
 	
 	@Test
 	public void testHeroSword() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;
@@ -69,53 +71,62 @@ public class TestHero {
 
 	@Test
 	public void testHeroDies() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;
 		game.hero.y = 1;
 		
-		game.dragon.x = 3;
-		game.dragon.y = 3;
+		game.dragons.get(0).x = 3;
+		game.dragons.get(0).y = 3;
 		
 		game.hero.move("s", game.maze);
 			
-		assertEquals(1, game.hero.fightDragon(game.dragon));
+		assertEquals(1, game.hero.fightDragon(game.dragons.get(0)));
 	}
 	
 	@Test
 	public void testHeroKillDragon() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;
 		game.hero.y = 1;
 		game.hero.has_sword = 'A';
 		
-		game.dragon.x = 3;
-		game.dragon.y = 3;
+		game.dragons.get(0).x = 3;
+		game.dragons.get(0).y = 3;
 
 		game.hero.move("s", game.maze);
 		
-		assertEquals(2, game.hero.fightDragon(game.dragon));
+		assertEquals(2, game.hero.fightDragon(game.dragons.get(0)));
 	
 	
 	}
 	
 	@Test
 	public void testHerowins() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;
 		game.hero.y = 1;
-		game.hero.has_sword = 'A';//supostamente apanhei a espada
+		game.hero.has_sword = 'A';//pickup sword
 		
 		game.maze.exit.x = 4;
 		game.maze.exit.y = 1;
+		game.dragons.get(0).x = 3;
+		game.dragons.get(0).y = 3;
 		
-		game.dragon.dies(game.maze);//supostamente matei o dragao
-
+				
+		game.hero.move("s", game.maze);
+		if(game.hero.fightDragon(game.dragons.get(0))== 2)
+		{
+			game.maze.board[1][4]=' ';
+		}
+		assertEquals(' ', game.maze.board[1][4]);//killed dragon
+		
+		game.hero.move("w", game.maze);
 		game.hero.move("d", game.maze);
 		
 		assertEquals(true, (game.hero.x == game.maze.exit.x && game.hero.y == game.maze.exit.y));	
@@ -123,7 +134,7 @@ public class TestHero {
 
 	@Test
 	public void testHeroOut() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;
@@ -140,7 +151,7 @@ public class TestHero {
 	
 	@Test
 	public void testHeroOutWithSword() {
-		Game game = new Game();
+		Game game = new Game(5,1);
 
 		game.maze.board = m1;
 		game.hero.x = 3;

@@ -17,6 +17,8 @@ public class Hero {
 		while (true) {
 			x = rand.nextInt(maze.board.length - 2);
 			y = rand.nextInt(maze.board.length - 2);
+			x++;
+			y++;
 			
 			if (maze.board[y][x] == ' ') {
 				break;

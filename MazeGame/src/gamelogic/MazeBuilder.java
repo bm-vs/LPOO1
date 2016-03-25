@@ -96,6 +96,9 @@ public class MazeBuilder implements IMazeBuilder{
 		while (true) {
 			sword_x = rnd.nextInt(maze.length - 2);
 			sword_y = rnd.nextInt(maze.length - 2);
+			sword_x++;
+			sword_y++;
+			
 			
 			if (maze[sword_y][sword_x] == ' ') {
 				break;

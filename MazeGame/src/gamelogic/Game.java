@@ -11,6 +11,9 @@ public class Game {
 	public Hero hero;
 	public ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 
+	public Game() {
+	}
+	
 	public Game(int maze_size, int number_dragons) {		
 		maze = new Maze(maze_size);
 		hero = new Hero(maze);

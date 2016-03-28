@@ -1,8 +1,6 @@
 package gamecli;
 
 import java.util.Scanner;
-import java.util.*;
-import gamelogic.*;
 import gamelogic.Game;
 
 public class Ui {

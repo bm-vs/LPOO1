@@ -103,7 +103,7 @@ public class Gui {
 		dragon_type_input = new JComboBox<String>();
 		dragon_type_input.setBounds(223, 112, 138, 20);
 		frmMazeGame.getContentPane().add(dragon_type_input);
-		dragon_type_input.addItem("Est√°ticos");
+		dragon_type_input.addItem("Est·ticos");
 		dragon_type_input.addItem("Mover");
 		dragon_type_input.addItem("Mover e adormecer");
 

@@ -24,7 +24,7 @@ public class Gui {
 	private JFrame frmMazeGame;
 	private JTextField maze_size_input;
 	private JTextField number_dragons_input;
-	private JComboBox dragon_type_input;
+	private JComboBox<String> dragon_type_input;
 	private JLabel dragon_type;
 	private JLabel estado;
 	private JLabel number_dragons;
@@ -100,7 +100,7 @@ public class Gui {
 		dragon_type.setBounds(51, 115, 162, 14);
 		frmMazeGame.getContentPane().add(dragon_type);
 
-		dragon_type_input = new JComboBox();
+		dragon_type_input = new JComboBox<String>();
 		dragon_type_input.setBounds(223, 112, 138, 20);
 		frmMazeGame.getContentPane().add(dragon_type_input);
 		dragon_type_input.addItem("Estáticos");
@@ -153,12 +153,6 @@ public class Gui {
 		new_game.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
-		
-				int size = Integer.parseInt(maze_size_input.getText());
-				int dragons = Integer.parseInt(number_dragons_input.getText());
-				boolean accepted = true;
-
 				try {
 					Integer.parseInt(maze_size_input.getText());
 					Integer.parseInt(number_dragons_input.getText());
@@ -166,6 +160,10 @@ public class Gui {
 				} catch (Exception e) {
 					estado.setText("Invalid argument!");
 				}
+		
+				int size = Integer.parseInt(maze_size_input.getText());
+				int dragons = Integer.parseInt(number_dragons_input.getText());
+				boolean accepted = true;
 				
 				if (size * size < 50.0 && dragons == 1)
 					estado.setText("You can play!");

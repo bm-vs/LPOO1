@@ -29,7 +29,7 @@ public class Gui {
 	private JLabel estado;
 	private JLabel number_dragons;
 	private JLabel maze_size;
-	private Game game;
+	private Game game;  
 	private JButton move_up;
 	private JButton move_down;
 	private JButton move_left;
@@ -159,6 +159,14 @@ public class Gui {
 				int dragons = Integer.parseInt(number_dragons_input.getText());
 				boolean accepted = true;
 
+				try {
+					Integer.parseInt(maze_size_input.getText());
+					Integer.parseInt(number_dragons_input.getText());
+					estado.setText("You can play!");
+				} catch (Exception e) {
+					estado.setText("Invalid argument!");
+				}
+				
 				if (size * size < 50.0 && dragons == 1)
 					estado.setText("You can play!");
 
@@ -166,11 +174,13 @@ public class Gui {
 					estado.setText("You can play!");
 				} else {
 					estado.setText("Invalid number of dragons!");
+					maze_area.setText("");
 					accepted = false;
 				}
 
 				if (size < 5 || size > 33) {
 					estado.setText("Invalid size!");
+					maze_area.setText("");
 					accepted = false;
 				}
 

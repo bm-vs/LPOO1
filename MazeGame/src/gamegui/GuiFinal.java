@@ -7,10 +7,12 @@ import gamelogic.Hero;
 import gamelogic.Maze;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
@@ -40,6 +42,11 @@ public class GuiFinal {
 	private JButton guardar_button;
 	private Game game;
 	private JFrame jogo;
+	private JButton move_up;
+	private JButton move_down;
+	private JButton move_left;
+	private JButton move_right;
+	private JTextArea maze_area;
 
 	int size;
 	int dragons;
@@ -76,16 +83,56 @@ public class GuiFinal {
 		menu_frame = new JFrame();
 		menu_frame.setTitle("Maze game");
 		menu_frame.setAutoRequestFocus(false);
-		menu_frame.setBounds(100, 100, 900, 600);
+		menu_frame.setBounds(100, 100, 900, 900);
 		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu_frame.getContentPane().setLayout(null);
 
 		// ================
+		//jogo
 		jogo = new JFrame();
 		jogo.setTitle("jogo");
 		jogo.setAutoRequestFocus(false);
-		jogo.setBounds(100, 100, 450, 300);
+		jogo.setBounds(100, 100, 600, 600);
 		jogo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		move_up = new JButton("Cima");
+		move_left = new JButton("Esquerda");
+		move_down = new JButton("Baixo");
+		move_right = new JButton("Direita");
+		
+//		move_up.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}});
+//
+//		move_up.setBounds(632, 285, 88, 44);
+//		jogo.getContentPane().add(move_up);
+		
+//		
+//		move_left.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}});
+//
+//		move_left.setBounds(632, 285, 88, 44);
+//		jogo.getContentPane().add(move_left);
+//		
+//		move_right.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}});
+//
+//		move_right.setBounds(632, 285, 88, 44);
+//		jogo.getContentPane().add(move_right);
+//		
+//		move_up.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}});
+//
+//		move_up.setBounds(632, 285, 88, 44);
+//		jogo.getContentPane().add(move_up);
+//		
 
 		// =================================================================================================
 		// CONFIGURAR
@@ -180,7 +227,7 @@ public class GuiFinal {
 			public void actionPerformed(ActionEvent e) {
 
 
-				game.maze = new Maze(5);
+				game.maze = new Maze(size);
 				game.hero = new Hero(game.maze);
 
 				game.dragons.clear();
@@ -191,15 +238,12 @@ public class GuiFinal {
 
 				char board[][] = game.maze.board;
 				jogo.setVisible(true);
-
-				for (int i = 0; i < size; i++) {
-					for (int j = 0; j < size; j++) {
-						Demo panel = new Demo(j * 40, i * 40)//nao esta a dar
-						panel.repaint();
-						jogo.getContentPane().add(panel);
-					}
-
-				}
+				
+				
+			Demo demo = new Demo(board);
+			jogo.getContentPane().add(demo);
+			demo.repaint();
+				
 
 			}
 		});

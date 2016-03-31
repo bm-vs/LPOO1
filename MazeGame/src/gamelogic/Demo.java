@@ -14,18 +14,44 @@ import javax.swing.JPanel;
 
 public class Demo extends JPanel {
 	private BufferedImage hero;
-	private int x, y, width = 20, height = 20;
+	private BufferedImage hero_small;
+	private BufferedImage wall;
+	private BufferedImage dragon;
+	private BufferedImage espada;
+	private int x, y;
+	public char board[][];
 
-	public Demo(int xx, int yy) {
-		
-		this.x = xx;
-		this.y = yy;
-		
+	public Demo(char board[][]) {
+		this.board = board;
+
 		try {
 			hero = ImageIO.read(new File("hero.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			hero_small = ImageIO.read(new File("hero_small.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			espada = ImageIO.read(new File("espada.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			wall = ImageIO.read(new File("wall.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			dragon = ImageIO.read(new File("dragon.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 
 		addMouseListener(new MouseListener() {
 			@Override
@@ -93,8 +119,29 @@ public class Demo extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(hero, x, y, x + width - 1, y + height - 1, 0, 0,
-				hero.getWidth(), hero.getHeight(), null);
-	}
 
+		for (int i = 0; i < board.length; i++)
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == 'X') {
+					g.drawImage(wall, j * 30, i * 30, 30, 30, null);
+				}
+				if (board[i][j] == 'H') {
+					g.drawImage(hero_small, j * 30, i * 30, 30, 30, null);
+					
+				}
+				if (board[i][j] == 'A') {
+					g.drawImage(hero, j * 30, i * 30, 30, 30, null);
+					
+				}
+
+				if (board[i][j] == 'D') {
+					g.drawImage(dragon, j * 30, i * 30, 30, 30, null);
+				}
+				
+				if (board[i][j] == 'E') {
+					g.drawImage(espada, j * 30, i * 30, 30, 30, null);
+				}
+			}
+
+	}
 }

@@ -92,7 +92,7 @@ public class GuiFinal {
 		jogo = new JFrame();
 		jogo.setTitle("jogo");
 		jogo.setAutoRequestFocus(false);
-		jogo.setBounds(100, 100, 600, 600);
+		jogo.setBounds(100, 50, 620, 640);
 		jogo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		move_up = new JButton("Cima");
@@ -176,7 +176,7 @@ public class GuiFinal {
 		dragon_type_input.setBounds(241, 109, 138, 20);
 		configurar_frame.getContentPane().add(dragon_type_input);
 
-		dragon_type_input.addItem("Est√°ticos");
+		dragon_type_input.addItem("Est·ticos");
 		dragon_type_input.addItem("Mover");
 		dragon_type_input.addItem("Mover e adormecer");
 
@@ -205,11 +205,18 @@ public class GuiFinal {
 					return;
 				}
 
-				if (size < 5 || size > 33) {
+				if (size < 5 || size > 100) {
 					estado.setText("Invalid size!");
 					return;
 				}
 				
+				if (dragon_type_input.getSelectedItem().equals(dragon_type_input.getItemAt(0))) {
+					game.game_mode = "2";
+				} else if (dragon_type_input.getSelectedItem().equals(dragon_type_input.getItemAt(1))) {
+					game.game_mode = "0";
+				} else {
+					game.game_mode = "1";
+				}
 
 				configurar_frame.setVisible(false);
 				menu_frame.setVisible(true);

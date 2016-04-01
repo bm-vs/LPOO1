@@ -9,6 +9,7 @@ import gamelogic.Maze;
 public class Game {
 	public Maze maze;
 	public Hero hero;
+	public  String game_mode;
 	public ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 
 	public Game() {

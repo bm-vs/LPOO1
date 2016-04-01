@@ -18,6 +18,7 @@ public class Demo extends JPanel {
 	private BufferedImage wall;
 	private BufferedImage dragon;
 	private BufferedImage espada;
+	private BufferedImage dragon_espada;
 	private Game game;
 	private int x, y;
 	public char board[][];
@@ -38,6 +39,12 @@ public class Demo extends JPanel {
 		}
 		try {
 			espada = ImageIO.read(new File("espada.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			dragon_espada = ImageIO.read(new File("dragon_espada.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -86,54 +93,26 @@ public class Demo extends JPanel {
 		addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// System.out.println("x=" + x);
 				switch (e.getKeyCode()) {
-				case KeyEvent.VK_LEFT:
-					if (board[y][x-1] == ' ')
-						{
-						board[y][x]= ' ';
-						x--;
-						board[y][x]='H';			
-						
-						}
 
+				case KeyEvent.VK_LEFT:
+					keyAction("a");
 					break;
 
 				case KeyEvent.VK_RIGHT:
-					if (board[y][x+1] == ' ')
-					{
-					board[y][x]= ' ';
-					x++;
-					board[y][x]='H';			
-					
-					}
-					
+					keyAction("d");
 					break;
 
 				case KeyEvent.VK_UP:
-					if (board[y-1][x] == ' ')
-					{
-					board[y][x]= ' ';
-					y--;
-					board[y][x]='H';			
-					
-					}
+					keyAction("w");
 					break;
 
 				case KeyEvent.VK_DOWN:
-					if (board[y+1][x] == ' ')
-					{
-					board[y][x]= ' ';
-					y++;
-					board[y][x]='H';			
-					
-					}
-					//keyAction("s");
+					keyAction("s");
 					break;
 				}
 				repaint();
@@ -149,56 +128,59 @@ public class Demo extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		int lenght;
+		if (board.length >= 19)
+			lenght = 600 / board.length;
+		else
+			lenght = 30;
 
 		for (int i = 0; i < board.length; i++)
 			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] == 'X') {
-					g.drawImage(wall, j * 30, i * 30, 30, 30, null);
+					g.drawImage(wall, j * lenght, i * lenght, lenght, lenght,
+							null);
 				}
 				if (board[i][j] == 'H') {
-					g.drawImage(hero_small, j * 30, i * 30, 30, 30, null);
+					g.drawImage(hero_small, j * lenght, i * lenght, lenght,
+							lenght, null);
 
 				}
 				if (board[i][j] == 'A') {
-					g.drawImage(hero, j * 30, i * 30, 30, 30, null);
+					g.drawImage(hero, j * lenght, i * lenght, lenght, lenght,
+							null);
 
 				}
 
 				if (board[i][j] == 'D') {
-					g.drawImage(dragon, j * 30, i * 30, 30, 30, null);
+					g.drawImage(dragon, j * lenght, i * lenght, lenght, lenght,
+							null);
 				}
 
 				if (board[i][j] == 'E') {
-					g.drawImage(espada, j * 30, i * 30, 30, 30, null);
+					g.drawImage(espada, j * lenght, i * lenght, lenght, lenght,
+							null);
+				}
+				if (board[i][j] == 'F') {
+					g.drawImage(dragon_espada, j * lenght, i * lenght, lenght, lenght,
+							null);
 				}
 			}
 
 	}
-	private void keyAction(String key) {
-		String game_mode = "0";
-//		if (dragon_type_input.getSelectedItem().equals(dragon_type_input.getItemAt(0))) {
-//			game_mode = "2";
-//		} else if (dragon_type_input.getSelectedItem().equals(dragon_type_input.getItemAt(1))) {
-//			game_mode = "0";
-//		} else {
-//			game_mode = "1";
-//		}
 
-		switch (game.play(game_mode, key)) {
+	private void keyAction(String key) {
+
+		switch (game.play(game.game_mode, key)) {
 		case 1:
-			repaint();
-			//estado.setText("The hero has won!");// WIN
-			//close();
+
+			// estado.setText("The hero has won!");// WIN
 			break;
 		case 2:
-			repaint();
-			//estado.setText("The hero has died!"); // LOSE
-			//close();
+			// estado.setText("The hero has died!"); // LOSE
 			break;
 		case 3:
-			repaint();
-			//estado.setText("The dragon has died!"); // DRAGON DIES
+			// estado.setText("The dragon has died!"); // DRAGON DIES
 			break;
 		}
-}
+	}
 }

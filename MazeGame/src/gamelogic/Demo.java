@@ -19,6 +19,7 @@ public class Demo extends JPanel {
 	private BufferedImage dragon;
 	private BufferedImage espada;
 	private BufferedImage dragon_espada;
+	private BufferedImage dragon_sleep;
 	private Game game;
 	private int x, y;
 	public char board[][];
@@ -45,6 +46,11 @@ public class Demo extends JPanel {
 		
 		try {
 			dragon_espada = ImageIO.read(new File("dragon_espada.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			dragon_sleep = ImageIO.read(new File("dragon_sleep.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -153,6 +159,11 @@ public class Demo extends JPanel {
 
 				if (board[i][j] == 'D') {
 					g.drawImage(dragon, j * lenght, i * lenght, lenght, lenght,
+							null);
+				}
+				
+				if (board[i][j] == 'd') {
+					g.drawImage(dragon_sleep, j * lenght, i * lenght, lenght, lenght,
 							null);
 				}
 

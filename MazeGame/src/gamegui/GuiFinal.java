@@ -94,6 +94,12 @@ public class GuiFinal {
 		jogo.setAutoRequestFocus(false);
 		jogo.setBounds(100, 50, 620, 640);
 		jogo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		maze_area = new JTextArea();
+		maze_area.setFont(new Font("Courier", Font.PLAIN, 13));
+		maze_area.setBounds(0, 0, 300, 300);
+//		jogo.getContentPane().add(maze_area);
+//		jogo.getContentPane().setLayout(null);
 
 		move_up = new JButton("Cima");
 		move_left = new JButton("Esquerda");
@@ -105,18 +111,18 @@ public class GuiFinal {
 //				
 //			}});
 //
-//		move_up.setBounds(632, 285, 88, 44);
+//		move_up.setBounds(310, 310, 88, 44);
 //		jogo.getContentPane().add(move_up);
-		
+//		
 //		
 //		move_left.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				
 //			}});
 //
-//		move_left.setBounds(632, 285, 88, 44);
+//		move_left.setBounds(400, 360, 88, 44);
 //		jogo.getContentPane().add(move_left);
-//		
+		
 //		move_right.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				

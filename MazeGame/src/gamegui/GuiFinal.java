@@ -83,7 +83,7 @@ public class GuiFinal {
 		menu_frame = new JFrame();
 		menu_frame.setTitle("Maze game");
 		menu_frame.setAutoRequestFocus(false);
-		menu_frame.setBounds(100, 100, 900, 900);
+		menu_frame.setBounds(100, 100, 800, 600);
 		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu_frame.getContentPane().setLayout(null);
 
@@ -209,9 +209,11 @@ public class GuiFinal {
 					estado.setText("Invalid size!");
 					return;
 				}
+				
 
 				configurar_frame.setVisible(false);
 				menu_frame.setVisible(true);
+				jogar_button.setEnabled(true);
 			}
 		});
 
@@ -223,6 +225,7 @@ public class GuiFinal {
 		jogar_button = new JButton("Jogar");
 		jogar_button.setBounds(350, 125, 200, 60);
 		menu_frame.getContentPane().add(jogar_button);
+		jogar_button.setEnabled(false);
 		jogar_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -235,14 +238,14 @@ public class GuiFinal {
 				for (int i = 0; i < dragons; i++) {
 					game.dragons.add(new Dragon(game.maze));
 				}
-
-				char board[][] = game.maze.board;
 				jogo.setVisible(true);
 				
 				
-			Demo demo = new Demo(board);
+			Demo demo = new Demo(game);
 			jogo.getContentPane().add(demo);
 			demo.repaint();
+			
+			demo.requestFocus();
 				
 
 			}

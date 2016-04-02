@@ -9,6 +9,14 @@ public class Dragon {
 	public int y;
 	public char is_sleeping;
 
+	public Dragon(int x, int y) {
+		this.x = x;
+		this.y = y;
+		
+		this.is_sleeping = 'D';
+	}
+	
+	
 	public Dragon(Maze maze) {
 		Random rand = new Random(System.currentTimeMillis());
 

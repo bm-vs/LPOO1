@@ -17,6 +17,28 @@ public class Maze {
 	public Exit exit = new Exit();
 	public Sword sword = new Sword();
 
+	public Maze() {
+	}
+	
+	public Maze(char[][] board) {
+		this.board = board;
+		
+		for (int i = 0; i < board.length; i++) {
+			for (int a = 0; a < board.length; a++) {
+				if (board[a][i] == 'S') {
+					exit.x = a;
+					exit.y = i;
+				}
+				else if (board[a][i] == 'E') {
+					sword.x = a;
+					sword.y = i;
+				}
+			}
+		}
+	}
+	
+	
+	
 	public Maze(int maze_size) {
 		MazeBuilder mb = new MazeBuilder();
 		board = mb.buildMaze(maze_size);
@@ -29,6 +51,20 @@ public class Maze {
 		
 		sword_exists = true;
 	}
+	
+	public Maze(int maze_size, String empty) {
+		board = new char[maze_size][maze_size];
+		
+		for (int i = 0; i < maze_size; i++) {
+			for (int a = 0; a < maze_size; i++) {
+				if (i == 0 || a == 0 || a == maze_size - 1 || i == maze_size - 1) {
+					board[a][i] = 'X';
+				}
+			}
+		}
+		
+	}
+	
 	
 	public String return_board () {
 		String board_string = "";

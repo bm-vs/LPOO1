@@ -10,6 +10,23 @@ public class Hero {
 	public int y;
 	public char has_sword;
 	
+	public Hero() {
+	}
+	
+	public Hero(char[][] board) {		
+		for (int i = 0; i < board.length; i++) {
+			for (int a = 0; a < board.length; a++) {
+				if (board[a][i] == 'H') {
+					x = a;
+					y = i;
+				}
+			}
+		}
+		
+		this.has_sword = 'H';
+	}
+	
+	
 	public Hero(Maze maze) {
 		Random rand = new Random(System.currentTimeMillis());
 		

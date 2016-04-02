@@ -9,11 +9,28 @@ import gamelogic.Maze;
 public class Game {
 	public Maze maze;
 	public Hero hero;
-	public  String game_mode;
+	public String game_mode;
 	public ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 
 	public Game() {
+		maze = new Maze();
+		hero = new Hero();
 	}
+	
+	public Game (char[][] board) {
+		maze = new Maze(board);
+		hero = new Hero(board);
+		
+		for (int i = 0; i < board.length; i++) {
+			for (int a = 0; a < board.length; a++) {
+				if (board[a][i] == 'D') {
+					dragons.add(new Dragon(a,i));
+				}
+			}
+		}
+	}
+	
+	
 	
 	public Game(int maze_size, int number_dragons) {		
 		maze = new Maze(maze_size);

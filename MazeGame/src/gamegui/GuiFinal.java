@@ -8,16 +8,10 @@ import gamelogic.Hero;
 import gamelogic.Maze;
 
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
@@ -25,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import java.awt.Font;
 
 public class GuiFinal {
 
@@ -32,37 +27,21 @@ public class GuiFinal {
 	private Game game;
 	private JPanel menu;
 	private JPanel configuration;
-	private JFrame menu_frame;
-	private JFrame configurar_frame;
-	private JButton jogar_button;
-	private JButton construir_button;
-	private JButton configurar_button;
 	private JButton button_exit;
 	private JTextField input_maze_size;
 	private JTextField input_number_dragons;
 	private JComboBox<String> input_dragon_type;
 	private JLabel maze_size;
 	private JLabel dragon_type;
-	private JLabel estado;
+	private JLabel config_status;
 	private JLabel number_dragons;
 	private JButton save_button;
-	private JFrame jogo;
-	private JButton move_up;
-	private JButton move_down;
-	private JButton move_left;
-	private JButton move_right;
-	private JTextArea maze_area;
-	private JPanel build;
 	private JFrame popup;
 	private JTextField input_size;
 	private int size = 11;
 	private int dragons = 1;
-	private String default_dragon_type = "Estáticos";
 	
 	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -76,16 +55,10 @@ public class GuiFinal {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public GuiFinal() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 
 		// =================================================================================================
@@ -110,41 +83,11 @@ public class GuiFinal {
 		frame.getContentPane().add(menu, "menu");
 		menu.setLayout(null);
 		
-		
-		/*
-		JButton play_button = new JButton("Jogar");
-		play_button.setBounds(350, 125, 200, 60);
-		menu.add(play_button);
-		play_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
-				
-				cl.show(frame.getContentPane(), "menu2");
-			}
-		});
-		
-
-		JPanel menu2 = new JPanel();
-		frame.getContentPane().add(menu2, "menu2");
-		menu2.setLayout(null);
-		
-		
-		JButton play_button2 = new JButton("Jugar");
-		play_button2.setBounds(350, 125, 200, 60);
-		menu2.add(play_button2);
-		play_button2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
-				cl.show(frame.getContentPane(), "menu");
-			}
-		});
-		*/
-		
 		// =================================================================================================
 		// PLAY
 		
 		JButton button_play = new JButton("Jogar");
-		button_play.setBounds(350, 125, 200, 60);
+		button_play.setBounds(380, 125, 200, 60);
 		menu.add(button_play);
 		button_play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -192,7 +135,7 @@ public class GuiFinal {
 				cl.show(frame.getContentPane(), "configuration");
 			}
 		});
-		button_configuration.setBounds(350, 325, 200, 60);
+		button_configuration.setBounds(380, 325, 200, 60);
 		menu.add(button_configuration);
 		
 		
@@ -201,65 +144,70 @@ public class GuiFinal {
 		configuration.setLayout(null);
 
 		maze_size = new JLabel("Dimens\u00E3o do labirinto");
-		maze_size.setBounds(52, 42, 162, 14);
+		maze_size.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		maze_size.setBounds(310, 146, 175, 19);
 		configuration.add(maze_size);
 
 		input_maze_size = new JTextField();
+		input_maze_size.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		input_maze_size.setText(Integer.toString(size));
-		input_maze_size.setBounds(242, 36, 65, 20);
+		input_maze_size.setBounds(513, 145, 65, 20);
 		configuration.add(input_maze_size);
 		input_maze_size.setColumns(10);
 
 		number_dragons = new JLabel("N\u00FAmero de drag\u00F5es");
-		number_dragons.setBounds(52, 78, 162, 14);
+		number_dragons.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		number_dragons.setBounds(310, 182, 175, 19);
 		configuration.add(number_dragons);
 
 		input_number_dragons = new JTextField();
+		input_number_dragons.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		input_number_dragons.setText(Integer.toString(dragons));
 		input_number_dragons.setColumns(10);
-		input_number_dragons.setBounds(242, 72, 65, 20);
+		input_number_dragons.setBounds(513, 181, 65, 20);
 		configuration.add(input_number_dragons);
 
-		estado = new JLabel("You can play!");
-		estado.setBounds(52, 214, 191, 20);
-		configuration.add(estado);
+		config_status = new JLabel("");
+		config_status.setBounds(310, 280, 341, 20);
+		configuration.add(config_status);
 
 		dragon_type = new JLabel("Tipo de drag\u00F5es");
-		dragon_type.setBounds(51, 115, 162, 14);
+		dragon_type.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dragon_type.setBounds(310, 217, 163, 19);
 		configuration.add(dragon_type);
 
 		input_dragon_type = new JComboBox<String>();
-		input_dragon_type.setBounds(241, 109, 138, 20);
+		input_dragon_type.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		input_dragon_type.setBounds(513, 216, 138, 20);
 		configuration.add(input_dragon_type);
 
-		input_dragon_type.addItem("Estáticos");
+		input_dragon_type.addItem("Est\u00E1ticos");
 		input_dragon_type.addItem("Mover");
 		input_dragon_type.addItem("Mover e adormecer");
 
 		save_button = new JButton("Guardar");
+		save_button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		save_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					size = Integer.parseInt(input_maze_size.getText());
 					dragons = Integer.parseInt(input_number_dragons.getText());
-					estado.setText("You can play!");
 				} catch (Exception exc) {
-					estado.setText("Invalid argument!");
+					config_status.setText("Invalid arguments");
 					return;
 				}
 
 				if (size * size < 50.0 && dragons == 1)
-					estado.setText("You can play!");
-
+					config_status.setText("");
 				else if (dragons <= size * size / 50.0 && dragons > 0) {
-					estado.setText("You can play!");
+					config_status.setText("");
 				} else {
-					estado.setText("Invalid number of dragons!");
+					config_status.setText("Invalid number of dragons");
 					return;
 				}
 
 				if (size < 5 || size > 100) {
-					estado.setText("Invalid size!");
+					config_status.setText("Invalid maze size");
 					return;
 				}
 				
@@ -275,162 +223,14 @@ public class GuiFinal {
 				cl.show(frame.getContentPane(), "menu");
 			}
 		});
-		save_button.setBounds(261, 209, 118, 30);
+		save_button.setBounds(421, 332, 118, 37);
 		configuration.add(save_button);
 		
-		
-		/*
-		// =================================================================================================
-		// JOGO
-		jogo = new JFrame();
-		jogo.setTitle("jogo");
-		jogo.setAutoRequestFocus(false);
-		jogo.setBounds(100, 50, 620, 640);
-		jogo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		maze_area = new JTextArea();
-		maze_area.setFont(new Font("Courier", Font.PLAIN, 13));
-		maze_area.setBounds(0, 0, 300, 300);
-		
-		
-		jogar_button = new JButton("Jogar");
-		jogar_button.setBounds(350, 125, 200, 60);
-		menu_frame.getContentPane().add(jogar_button);
-		jogar_button.setEnabled(false);
-		jogar_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-
-				game.maze = new Maze(size);
-				game.hero = new Hero(game.maze);
-
-				game.dragons.clear();
-
-				for (int i = 0; i < dragons; i++) {
-					game.dragons.add(new Dragon(game.maze));
-				}
-				jogo.setVisible(true);
-				
-				
-				GamePanel game_panel = new GamePanel(game);
-				jogo.getContentPane().add(game_panel);
-				game_panel.repaint();
-				
-				menu_frame.setVisible(false);
-				game_panel.requestFocus();
-			}
-		});
-
-		// =================================================================================================
-		// CONFIGURAR
-		
-		
-		configurar_button = new JButton("Configurar");
-		configurar_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				menu_frame.setVisible(false);
-				configurar_frame.setVisible(true);
-			}
-		});
-		configurar_button.setBounds(350, 325, 200, 60);
-		menu_frame.getContentPane().add(configurar_button);
-		
-		
-		configurar_frame = new JFrame();
-		configurar_frame.setTitle("Configurar");
-		configurar_frame.setAutoRequestFocus(false);
-		configurar_frame.setBounds(100, 100, 450, 300);
-		configurar_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		configurar_frame.getContentPane().setLayout(null);
-
-		maze_size = new JLabel("Dimens\u00E3o do labirinto");
-		maze_size.setBounds(52, 42, 162, 14);
-		configurar_frame.getContentPane().add(maze_size);
-
-		input_maze_size = new JTextField();
-		input_maze_size.setText("11");
-		input_maze_size.setBounds(242, 36, 65, 20);
-		configurar_frame.getContentPane().add(input_maze_size);
-		input_maze_size.setColumns(10);
-
-		number_dragons = new JLabel("N\u00FAmero de drag\u00F5es");
-		number_dragons.setBounds(52, 78, 162, 14);
-		configurar_frame.getContentPane().add(number_dragons);
-
-		input_number_dragons = new JTextField();
-		input_number_dragons.setText("1");
-		input_number_dragons.setColumns(10);
-		input_number_dragons.setBounds(242, 72, 65, 20);
-		configurar_frame.getContentPane().add(input_number_dragons);
-
-		estado = new JLabel("You can play!");
-		estado.setBounds(52, 214, 191, 20);
-		configurar_frame.getContentPane().add(estado);
-
-		dragon_type = new JLabel("Tipo de drag\u00F5es");
-		dragon_type.setBounds(51, 115, 162, 14);
-		configurar_frame.getContentPane().add(dragon_type);
-
-		input_dragon_type = new JComboBox<String>();
-		input_dragon_type.setBounds(241, 109, 138, 20);
-		configurar_frame.getContentPane().add(input_dragon_type);
-
-		input_dragon_type.addItem("Estáticos");
-		input_dragon_type.addItem("Mover");
-		input_dragon_type.addItem("Mover e adormecer");
-
-		guardar_button = new JButton("Guardar");
-		guardar_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					Integer.parseInt(input_maze_size.getText());
-					Integer.parseInt(input_number_dragons.getText());
-					estado.setText("You can play!");
-				} catch (Exception exc) {
-					estado.setText("Invalid argument!");
-					return;
-				}
-
-				size = Integer.parseInt(input_maze_size.getText());
-				dragons = Integer.parseInt(input_number_dragons.getText());
-
-				if (size * size < 50.0 && dragons == 1)
-					estado.setText("You can play!");
-
-				else if (dragons <= size * size / 50.0 && dragons > 0) {
-					estado.setText("You can play!");
-				} else {
-					estado.setText("Invalid number of dragons!");
-					return;
-				}
-
-				if (size < 5 || size > 100) {
-					estado.setText("Invalid size!");
-					return;
-				}
-				
-				if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
-					game.game_mode = "2";
-				} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
-					game.game_mode = "0";
-				} else {
-					game.game_mode = "1";
-				}
-
-				configurar_frame.setVisible(false);
-				menu_frame.setVisible(true);
-				jogar_button.setEnabled(true);
-			}
-		});
-		
-		guardar_button.setBounds(261, 209, 118, 30);
-		configurar_frame.getContentPane().add(guardar_button);
-		*/
 		// ===================================================================================================
 		// BUILD
 		
 		JButton button_build = new JButton("Construir");
-		button_build.setBounds(350, 225, 200, 60);
+		button_build.setBounds(380, 225, 200, 60);
 		menu.add(button_build);
 		
 		button_build.addActionListener(new ActionListener() {
@@ -439,11 +239,6 @@ public class GuiFinal {
 				popup.setAutoRequestFocus(true);
 			}
 		});
-		
-		
-		build = new JPanel();
-		frame.getContentPane().add(build, "build");
-		build.setLayout(null);
 		
 		popup = new JFrame();
 		popup.setAutoRequestFocus(true);
@@ -506,7 +301,7 @@ public class GuiFinal {
 				input_dragon_type.setBounds(140, 40, 138, 20);
 				build.add(input_dragon_type);
 
-				input_dragon_type.addItem("Estáticos");
+				input_dragon_type.addItem("Est\u00E1ticos");
 				input_dragon_type.addItem("Mover");
 				input_dragon_type.addItem("Mover e adormecer");
 				
@@ -564,7 +359,7 @@ public class GuiFinal {
 				System.exit(0);
 			}
 		});
-		button_exit.setBounds(350, 425, 200, 60);
+		button_exit.setBounds(380, 425, 200, 60);
 		menu.add(button_exit);
 	}
 }

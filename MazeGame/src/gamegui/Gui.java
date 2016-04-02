@@ -36,9 +36,7 @@ public class Gui {
 	private JButton move_right;
 	private JTextArea maze_area;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -52,16 +50,12 @@ public class Gui {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public Gui() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 		game = new Game();
 
@@ -103,7 +97,7 @@ public class Gui {
 		dragon_type_input = new JComboBox<String>();
 		dragon_type_input.setBounds(223, 112, 138, 20);
 		frmMazeGame.getContentPane().add(dragon_type_input);
-		dragon_type_input.addItem("Estáticos");
+		dragon_type_input.addItem("Est\u00E1ticos");
 		dragon_type_input.addItem("Mover");
 		dragon_type_input.addItem("Mover e adormecer");
 

@@ -476,7 +476,7 @@ public class GuiFinal {
 					return;
 				}
 				
-				if (size < 5 || size > 30) {
+				if (size < 5 || size > 100) {
 					return;
 				}
 				

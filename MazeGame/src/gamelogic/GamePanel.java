@@ -1,6 +1,8 @@
 package gamelogic;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -10,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
@@ -23,11 +27,68 @@ public class GamePanel extends JPanel {
 	private BufferedImage dragon_sleep;
 	private BufferedImage gate;
 	private Game game;
+	private JButton move_up;
+	private JButton move_down;
+	private JButton move_left;
+	private JButton move_right;
+	private JLabel estado;
 	public char board[][];
 
 	public GamePanel(Game game) {
 		this.board = game.maze.board;
 		this.game = game;
+		
+		this.setLayout(null);
+		
+		estado = new JLabel();
+		estado.setBounds(31, 540, 210, 20);
+		add(estado);
+
+		move_up = new JButton("Cima");
+		move_up.setBounds(536, 129, 88, 44);
+		this.add(move_up);
+		move_up.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("w");
+				requestFocus();
+				repaint();
+			}
+		});
+		
+		move_left = new JButton("Esquerda");
+		move_left.setBounds(486, 184, 88, 44);
+		add(move_left);
+		move_left.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("a");
+				requestFocus();
+				repaint();
+			}
+		});
+		
+		
+		move_down = new JButton("Baixo");
+		move_down.setBounds(536, 239, 88, 44);
+		this.add(move_down);
+		move_down.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("s");
+				requestFocus();
+				repaint();
+			}
+		});
+		
+		move_right = new JButton("Direita");
+		move_right.setBounds(584, 184, 88, 44);
+		this.add(move_right);
+		move_right.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("d");
+				requestFocus();
+				repaint();
+			}
+		});
+		
 
 		try {
 			hero = ImageIO.read(new File("hero.jpg"));
@@ -135,8 +196,8 @@ public class GamePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int length;
-		if (board.length >= 19)
-			length = 600 / board.length;
+		if (board.length >= 15)
+			length = 450 / board.length;
 		else
 			length = 30;
 
@@ -189,15 +250,25 @@ public class GamePanel extends JPanel {
 
 		switch (game.play(game.game_mode, key)) {
 		case 1:
-
-			// estado.setText("The hero has won!");// WIN
+			close();
+			estado.setText("The hero has won!");// WIN
 			break;
 		case 2:
-			// estado.setText("The hero has died!"); // LOSE
+			close();
+			estado.setText("The hero has died!"); // LOSE
 			break;
 		case 3:
-			// estado.setText("The dragon has died!"); // DRAGON DIES
+			if (game.dragons.isEmpty())
+				estado.setText("The dragon has died!"); // DRAGON DIES
 			break;
 		}
+	}
+	
+	private void close() {
+		setEnabled(false);
+		move_up.setEnabled(false);
+		move_down.setEnabled(false);
+		move_left.setEnabled(false);
+		move_right.setEnabled(false);
 	}
 }

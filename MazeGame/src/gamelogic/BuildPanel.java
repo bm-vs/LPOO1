@@ -1,9 +1,10 @@
 package gamelogic;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -34,9 +35,9 @@ public class BuildPanel extends JPanel {
 	private JButton button_dragon;
 	private JButton button_sword;
 	private JButton button_exit;
-	private JButton button_play;
 	private int x, y;
 	private int cursor = -1;
+	private int length = 15;
 	public char board[][];
 
 	public BuildPanel(char board[][]) {
@@ -47,10 +48,7 @@ public class BuildPanel extends JPanel {
 		button_wall.setBounds(0, 0, 100, 30);
 		button_wall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon("wall.jpg").getImage(),
-						new java.awt.Point(15,15),"cursor wall"));
-				cursor = 0;
+				buttonAction("wall.jpg", "cursor wall");
 			}});
 		
 		button_hero = new JButton("Herói");
@@ -58,10 +56,7 @@ public class BuildPanel extends JPanel {
 		button_hero.setBounds(100, 0, 100, 30);
 		button_hero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon("hero.jpg").getImage(),
-						new java.awt.Point(15,15),"cursor hero"));
-				cursor = 1;
+				buttonAction("hero.jpg", "cursor hero");
 			}});
 		
 		button_dragon = new JButton("Dragão");
@@ -69,21 +64,15 @@ public class BuildPanel extends JPanel {
 		button_dragon.setBounds(200, 0, 100, 30);
 		button_dragon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon("dragon.jpg").getImage(),
-						new java.awt.Point(15,15),"cursor dragon"));
-				cursor = 2;
+				buttonAction("dragon.jpg", "cursor dragon");
 			}});
 		
 		button_sword = new JButton("Espada");
 		this.add(button_sword);
 		button_sword.setBounds(300, 0, 100, 30);
 		button_sword.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon("espada.jpg").getImage(),
-						new java.awt.Point(15,15),"cursor sword"));
-				cursor = 3;
+			public void actionPerformed(ActionEvent e) {				
+				buttonAction("espada.jpg", "cursor sword");
 			}});
 		
 		button_exit = new JButton("Saída");
@@ -91,14 +80,15 @@ public class BuildPanel extends JPanel {
 		button_exit.setBounds(400, 0, 100, 30);
 		button_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-						new ImageIcon("gate.jpg").getImage(),
-						new java.awt.Point(15,15),"cursor exit"));
-				cursor = 4;
+				buttonAction("gate.jpg", "cursor exit");
 			}});
 		
 		
 		this.board = board;
+		if (this.board.length >= 15)
+			length = 450 / board.length;
+		else
+			length = 30;
 		repaint();
 
 		try {
@@ -186,11 +176,6 @@ public class BuildPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int length;
-		if (board.length >= 19)
-			length = 600 / board.length;
-		else
-			length = 30;
 
 		for (int i = 0; i < board.length; i++)
 			for (int j = 0; j < board[i].length; j++) {
@@ -240,9 +225,8 @@ public class BuildPanel extends JPanel {
 		x = e.getX();
 		y = e.getY();
 		
-		int length;
-		if (board.length >= 19)
-			length = 600 / board.length;
+		if (board.length >= 15)
+			length = 450 / board.length;
 		else
 			length = 30;
 		
@@ -298,10 +282,10 @@ public class BuildPanel extends JPanel {
 				if(board[i][a] == 'H') {
 					n_hero = 1;
 				}
-				else if(board[i][a] == 'E') {
+				if(board[i][a] == 'E') {
 					n_sword = 1;
 				}
-				else if(board[i][a] == 'S') {
+				if(board[i][a] == 'S') {
 					n_exit = 1;
 				}
 			}
@@ -310,10 +294,10 @@ public class BuildPanel extends JPanel {
 		if (n_hero == 0) {
 			button_hero.setEnabled(true);
 		}
-		else if (n_sword == 0) {
+		if (n_sword == 0) {
 			button_sword.setEnabled(true);
 		}
-		else if (n_exit == 0) {
+		if (n_exit == 0) {
 			button_exit.setEnabled(true);
 		}
 		
@@ -321,5 +305,35 @@ public class BuildPanel extends JPanel {
 		repaint();
 	}
 	
-	
+	public void buttonAction(String image, String name) {
+		ImageIcon icon = new ImageIcon(image);
+		icon.setImage(icon.getImage().getScaledInstance(length, length, Image.SCALE_DEFAULT));
+		
+		BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB); 
+		Graphics g = bi.createGraphics();
+		Color transparent = new Color(0,0,0,0);
+		g.setColor(transparent);
+		g.drawRect(0, 0, 32, 32);
+		g.drawImage(icon.getImage(), 0, 0, length, length, null); 
+		
+		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(bi, new java.awt.Point(length/2,length/2), name));
+
+		if (image == "wall.jpg") {
+			cursor = 0;
+		}
+		else if (image == "hero.jpg") {
+			cursor = 1;
+		}
+		else if (image == "dragon.jpg") {
+			cursor = 2;
+		}
+		else if (image == "espada.jpg") {
+			cursor = 3;
+		}
+		else if (image == "gate.jpg") {
+			cursor = 4;
+		}
+		
+		
+	}
 }

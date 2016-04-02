@@ -57,6 +57,26 @@ public class GuiFinal {
 
 	public GuiFinal() {
 		initialize();
+		
+		int max = 0;
+		int m = 0;
+		int min = 600;
+		int n = 0;
+		
+		for (int i = 5; i <= 100; i++) {
+			if ((600 % i) > max) {
+				max = (600 % i);
+				m = i;
+			}
+			if ((600 % i) < min && i >= 15) {
+				min = (600 % i);
+				n = i;
+			}
+			
+		}
+		
+		System.out.println("max" + m + " - " + max);
+		System.out.println("min" + n + " - " + min);	
 	}
 
 	private void initialize() {
@@ -106,7 +126,7 @@ public class GuiFinal {
 				
 				JButton button_back = new JButton("Voltar");
 				game_panel.add(button_back);
-				button_back.setBounds(0, 0, 100, 30);
+				button_back.setBounds(10, 10, 100, 30);
 				button_back.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {					
 						CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
@@ -325,7 +345,7 @@ public class GuiFinal {
 						
 						JButton button_back = new JButton("Voltar");
 						game_panel.add(button_back);
-						button_back.setBounds(0, 0, 100, 30);
+						button_back.setBounds(10, 10, 100, 30);
 						button_back.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {					
 								CardLayout cl = (CardLayout) frame.getContentPane().getLayout();

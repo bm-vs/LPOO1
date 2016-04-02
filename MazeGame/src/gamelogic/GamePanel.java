@@ -1,5 +1,6 @@
 package gamelogic;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -31,21 +33,25 @@ public class GamePanel extends JPanel {
 	private JButton move_down;
 	private JButton move_left;
 	private JButton move_right;
-	private JLabel estado;
+	private JLabel game_status;
+	double length;
 	public char board[][];
 
 	public GamePanel(Game game) {
 		this.board = game.maze.board;
 		this.game = game;
 		
+		length = 600.0 / board.length;
+		
 		this.setLayout(null);
 		
-		estado = new JLabel();
-		estado.setBounds(31, 540, 210, 20);
-		add(estado);
+		game_status = new JLabel("", SwingConstants.CENTER);
+		game_status.setBounds(682, 410, 186, 50);
+		game_status.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		add(game_status);
 
 		move_up = new JButton("Cima");
-		move_up.setBounds(536, 129, 88, 44);
+		move_up.setBounds(732, 105, 88, 44);
 		this.add(move_up);
 		move_up.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -56,7 +62,7 @@ public class GamePanel extends JPanel {
 		});
 		
 		move_left = new JButton("Esquerda");
-		move_left.setBounds(486, 184, 88, 44);
+		move_left.setBounds(682, 160, 88, 44);
 		add(move_left);
 		move_left.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -68,7 +74,7 @@ public class GamePanel extends JPanel {
 		
 		
 		move_down = new JButton("Baixo");
-		move_down.setBounds(536, 239, 88, 44);
+		move_down.setBounds(732, 215, 88, 44);
 		this.add(move_down);
 		move_down.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,7 +85,7 @@ public class GamePanel extends JPanel {
 		});
 		
 		move_right = new JButton("Direita");
-		move_right.setBounds(584, 184, 88, 44);
+		move_right.setBounds(780, 160, 88, 44);
 		this.add(move_right);
 		move_right.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,7 +128,7 @@ public class GamePanel extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		try {
 			dragon = ImageIO.read(new File("dragon.jpg"));
 		} catch (IOException e) {
@@ -195,55 +201,47 @@ public class GamePanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int length;
-		if (board.length >= 15)
-			length = 450 / board.length;
-		else
-			length = 30;
+		
+		int lr = (int) Math.floor(length);
+		int dy = (720 - board.length*lr)/2;
+
 
 		for (int i = 0; i < board.length; i++)
 			for (int j = 0; j < board[i].length; j++) {
+				
+				int lx = 10 + j*lr;
+				int ly = dy + i*lr;
+				
 				if (board[i][j] == 'X') {
-					g.drawImage(wall, j * length, 50 + i * length, length, length,
-							null);
+					g.drawImage(wall, lx, ly, lr, lr,null);
 				}
 				if (board[i][j] == 'H') {
-					g.drawImage(hero_small, j * length, 50 + i * length, length,
-							length, null);
+					g.drawImage(hero_small, lx, ly, lr, lr,null);
 
 				}
 				if (board[i][j] == 'A') {
-					g.drawImage(hero, j * length, 50 + i * length, length, length,
-							null);
+					g.drawImage(hero, lx, ly, lr, lr,null);
 
 				}
 
 				if (board[i][j] == 'D') {
-					g.drawImage(dragon, j * length, 50 + i * length, length, length,
-							null);
+					g.drawImage(dragon, lx, ly, lr, lr,null);
 				}
 				
 				if (board[i][j] == 'd') {
-					g.drawImage(dragon_sleep, j * length, 50 + i * length, length, length,
-							null);
+					g.drawImage(dragon_sleep, lx, ly, lr, lr,null);
 				}
 
 				if (board[i][j] == 'E') {
-					g.drawImage(espada, j * length, 50 + i * length, length, length,
-							null);
+					g.drawImage(espada, lx, ly, lr, lr,null);
 				}
 				if (board[i][j] == 'F') {
-					g.drawImage(dragon_espada, j * length, 50 + i * length, length, length,
-							null);
+					g.drawImage(dragon_espada, lx, ly, lr, lr,null);
 				}
 				if (board[i][j] == 'S') {
-					g.drawImage(gate, j * length, 50 + i * length, length, length,
-							null);
+					g.drawImage(gate, lx, ly, lr, lr,null);
 				}
-				
-				
-			}
-
+			}	
 	}
 
 	private void keyAction(String key) {
@@ -251,15 +249,15 @@ public class GamePanel extends JPanel {
 		switch (game.play(game.game_mode, key)) {
 		case 1:
 			close();
-			estado.setText("The hero has won!");// WIN
+			game_status.setText("Vit\u00F3ria!");// WIN
 			break;
 		case 2:
 			close();
-			estado.setText("The hero has died!"); // LOSE
+			game_status.setText("Derrota!"); // LOSE
 			break;
 		case 3:
 			if (game.dragons.isEmpty())
-				estado.setText("The dragon has died!"); // DRAGON DIES
+				game_status.setText("Drag\u00E3o morto!"); // DRAGON DIES
 			break;
 		}
 	}

@@ -11,6 +11,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,8 +37,7 @@ public class GuiFinal {
 	private JLabel config_status;
 	private JLabel number_dragons;
 	private JButton save_button;
-	private JFrame popup;
-	private JTextField input_size;
+	private String input_size;
 	private int size = 11;
 	private int dragons = 1;
 	
@@ -255,11 +255,103 @@ public class GuiFinal {
 		
 		button_build.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int size;				
+				
+				input_size = (String) JOptionPane.showInputDialog(frame,"Tamanho","Tamanho do labirinto", JOptionPane.PLAIN_MESSAGE, null, null,11);
+				
+				if (input_size == null) {
+					return;
+				}
+				
+				try {
+					size = Integer.parseInt(input_size);
+				} catch (Exception exc) {
+					return;
+				}
+				
+				if (size < 5 || size > 100) {
+					return;
+				}
+				
+				
+				char[][] board = new char[size][size];
+				for (int i = 0; i < size; i++) {
+					for (int a = 0; a < size; a++) {
+						if (i == 0 || a == 0 || a == size - 1 || i == size - 1) {
+							board[a][i] = 'X';
+						}
+						else {
+							board[a][i] = ' ';
+						}
+					}
+				}
+				
+				BuildPanel build = new BuildPanel(board);
+				frame.getContentPane().add(build, "build");
+				
+				dragon_type = new JLabel("Tipo de drag\u00F5es");
+				dragon_type.setBounds(0, 40, 162, 14);
+				build.add(dragon_type);
+
+				input_dragon_type = new JComboBox<String>();
+				input_dragon_type.setBounds(140, 40, 138, 20);
+				build.add(input_dragon_type);
+
+				input_dragon_type.addItem("Est\u00E1ticos");
+				input_dragon_type.addItem("Mover");
+				input_dragon_type.addItem("Mover e adormecer");
+				
+				JButton button_play = new JButton("Jogar");
+				build.add(button_play);
+				button_play.setBounds(500, 0, 100, 30);
+				button_play.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						game = new Game(build.board);
+						
+						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
+							game.game_mode = "2";
+						} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
+							game.game_mode = "0";
+						} else {
+							game.game_mode = "1";
+						}
+						
+						GamePanel game_panel = new GamePanel(game);
+						game_panel.setLayout(null);
+						
+						JButton button_back = new JButton("Voltar");
+						game_panel.add(button_back);
+						button_back.setBounds(10, 10, 100, 30);
+						button_back.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {					
+								CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
+								cl.show(frame.getContentPane(), "menu");
+							}});
+						
+						frame.getContentPane().add(game_panel, "play");
+						
+						CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
+						cl.show(frame.getContentPane(), "play");
+						
+						game_panel.repaint();
+						game_panel.requestFocus();			
+					}});
+				
+				
+				
+				CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
+				cl.show(frame.getContentPane(), "build");
+				
+				
+				
+				/*___
 				popup.setVisible(true);
-				popup.setAutoRequestFocus(true);
+				popup.setAutoRequestFocus(true);*/
 			}
 		});
 		
+		
+		/*___
 		popup = new JFrame();
 		popup.setAutoRequestFocus(true);
 		popup.setBounds(100, 50, 272, 170);
@@ -275,9 +367,9 @@ public class GuiFinal {
 		input_size.setText("11");
 		input_size.setBounds(91, 43, 86, 20);
 		popup.getContentPane().add(input_size);
-		input_size.setColumns(10);
+		input_size.setColumns(10);*/
 		
-		
+		/*___
 		JButton button_ok = new JButton("OK");
 		button_ok.setBounds(157, 98, 89, 23);
 		popup.getContentPane().add(button_ok);
@@ -366,7 +458,7 @@ public class GuiFinal {
 				CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
 				cl.show(frame.getContentPane(), "build");
 			}
-		});
+		});*/
 		
 
 		// ===================================================================================================

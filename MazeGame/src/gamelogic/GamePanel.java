@@ -1,6 +1,8 @@
 package gamelogic;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -10,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
@@ -24,10 +29,70 @@ public class GamePanel extends JPanel {
 	private BufferedImage gate;
 	private Game game;
 	public char board[][];
+	private JButton move_up;
+	private JButton move_down;
+	private JButton move_left;
+	private JButton move_right;
+	private JLabel estado;
+	private JFrame parentFrame;
+	private int x, y;
 
-	public GamePanel(Game game) {
+	public GamePanel(JFrame parentFrame, Game game) {
 		this.board = game.maze.board;
 		this.game = game;
+		this.parentFrame = parentFrame;
+
+		this.game = game;
+		setLayout(null);
+
+		move_up = new JButton("Cima");
+		move_left = new JButton("Esquerda");
+		move_down = new JButton("Baixo");
+		move_right = new JButton("Direita");
+
+		estado = new JLabel();
+		estado.setBounds(31, 540, 210, 20);
+		add(estado);
+
+		move_up.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("w");
+				requestFocus();
+			}
+		});
+
+		move_up.setBounds(536, 129, 88, 44);
+		add(move_up);
+
+		move_down.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("s");
+				requestFocus();
+			}
+		});
+
+		move_down.setBounds(536, 239, 88, 44);
+		add(move_down);
+
+		move_right.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("d");
+				requestFocus();
+			}
+		});
+
+		move_right.setBounds(584, 184, 88, 44);
+		add(move_right);
+
+		move_left.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyAction("a");
+				requestFocus();
+			}
+		});
+
+		move_left.setBounds(486, 184, 88, 44);
+		add(move_left);
 
 		try {
 			hero = ImageIO.read(new File("hero.jpg"));
@@ -73,6 +138,9 @@ public class GamePanel extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		x = game.hero.x;
+		y = game.hero.y;
 		addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -121,7 +189,7 @@ public class GamePanel extends JPanel {
 					break;					
 				}
 				
-				repaint();
+	
 
 			}
 
@@ -135,8 +203,8 @@ public class GamePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int length;
-		if (board.length >= 19)
-			length = 600 / board.length;
+		if (board.length >= 15)
+			length = 450 / board.length;
 		else
 			length = 30;
 
@@ -189,15 +257,26 @@ public class GamePanel extends JPanel {
 
 		switch (game.play(game.game_mode, key)) {
 		case 1:
-
-			// estado.setText("The hero has won!");// WIN
+			close();
+			estado.setText("The hero has won!");// WIN
 			break;
 		case 2:
-			// estado.setText("The hero has died!"); // LOSE
+			close();
+				estado.setText("The hero has died!"); // LOSE
 			break;
 		case 3:
-			// estado.setText("The dragon has died!"); // DRAGON DIES
+			if (game.dragons.isEmpty())
+				estado.setText("The dragon has died!"); // DRAGON DIES
 			break;
 		}
+		repaint();
+	}
+
+	private void close() {
+		setEnabled(false);
+		move_up.setEnabled(false);
+		move_down.setEnabled(false);
+		move_left.setEnabled(false);
+		move_right.setEnabled(false);
 	}
 }

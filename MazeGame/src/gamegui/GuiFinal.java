@@ -7,6 +7,7 @@ import gamelogic.Game;
 import gamelogic.Hero;
 import gamelogic.Maze;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -24,6 +25,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
+
 import javax.swing.JPanel;
 
 public class GuiFinal {
@@ -32,12 +34,8 @@ public class GuiFinal {
 	private Game game;
 	private JPanel menu;
 	private JPanel configuration;
-	private JFrame menu_frame;
-	private JFrame configurar_frame;
-	private JButton jogar_button;
-	private JButton construir_button;
-	private JButton configurar_button;
-	private JButton button_exit;
+
+
 	private JTextField input_maze_size;
 	private JTextField input_number_dragons;
 	private JComboBox<String> input_dragon_type;
@@ -46,17 +44,24 @@ public class GuiFinal {
 	private JLabel estado;
 	private JLabel number_dragons;
 	private JButton save_button;
+	private JPanel build;
+	private JFrame popup;
+	private JTextField input_size;
+	int size;
+	int dragons;
+	private JFrame menu_frame;
+	private JFrame configurar_frame;
+	private JButton jogar_button;
+	private JButton construir_button;
+	private JButton configurar_button;
+	private JButton button_exit;
 	private JFrame jogo;
 	private JButton move_up;
 	private JButton move_down;
 	private JButton move_left;
 	private JButton move_right;
 	private JTextArea maze_area;
-	private JPanel build;
-	private JFrame popup;
-	private JTextField input_size;
-	int size;
-	int dragons;
+
 
 	/**
 	 * Launch the application.
@@ -93,13 +98,14 @@ public class GuiFinal {
 		frame = new JFrame();
 		frame.setTitle("Maze game");
 		frame.setAutoRequestFocus(false);
-		frame.setBounds(100, 100, 960, 720);
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
 		
 		// =================================================================================================
-		// MENU
+		// 
+
 		
 		
 		menu = new JPanel();
@@ -155,7 +161,7 @@ public class GuiFinal {
 					game.dragons.add(new Dragon(game.maze));
 				}
 				
-				GamePanel game_panel = new GamePanel(game);
+				GamePanel game_panel = new GamePanel(menu_frame,game);
 				frame.getContentPane().add(game_panel, "play");
 				
 				CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
@@ -182,6 +188,8 @@ public class GuiFinal {
 		
 		
 		configuration = new JPanel();
+		configuration.setBounds(100, 100, 450, 300);
+		configuration.setPreferredSize(new Dimension(450, 300));
 		frame.getContentPane().add(configuration, "configuration");
 		configuration.setLayout(null);
 

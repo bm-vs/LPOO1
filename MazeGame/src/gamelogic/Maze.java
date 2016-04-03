@@ -87,9 +87,12 @@ public class Maze {
 		board = new char[maze_size][maze_size];
 		
 		for (int i = 0; i < maze_size; i++) {
-			for (int a = 0; a < maze_size; i++) {
+			for (int a = 0; a < maze_size; a++) {
 				if (i == 0 || a == 0 || a == maze_size - 1 || i == maze_size - 1) {
 					board[a][i] = 'X';
+				}
+				else {
+					board[a][i] = ' ';
 				}
 			}
 		}

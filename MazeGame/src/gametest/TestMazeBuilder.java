@@ -209,7 +209,7 @@ public class TestMazeBuilder {
 		
 		maze.setBoard(m2);
 		
-		//System.out.print(maze.return_board());
+		System.out.println(maze.return_board());
 	}
 	
 	@Test

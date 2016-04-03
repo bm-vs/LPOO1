@@ -9,6 +9,7 @@ public class Dragon {
 	private int y;
 	private char symbol;
 
+	
 	public Dragon(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -61,8 +62,12 @@ public class Dragon {
 	public char getSymbol() {
 		return symbol;
 	}
+	
+	public void setSymbol(char symbol) {
+		this.symbol = symbol;
+	}
 
-	public void set_Position(int x, int y, Maze maze) {
+	public void setPosition(int x, int y, Maze maze) {
 		maze.getBoard()[y][x] = ' ';
 		this.x = x;
 		this.y = y;

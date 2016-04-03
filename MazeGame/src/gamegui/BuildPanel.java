@@ -219,11 +219,14 @@ public class BuildPanel extends JPanel {
 		int dy = (720 - board.length*lr)/2;
 		int dx = (950 - board.length*lr)/2;
 		
-		if ((y-dy)/length < board.length && (x-dx)/length < board.length && (y-dy) >= 0 && (x-dx) >= 0) {
+		if ((y-dy) < board.length*length && (x-dx) < board.length*length && (y-dy) >= 0 && (x-dx) >= 0) {
 			if (SwingUtilities.isLeftMouseButton(e))
 				switch (cursor) {
 				case 0:
-					board[(y-dy)/lr][(x-dx)/lr] = 'X';
+					try {
+						board[(y-dy)/lr][(x-dx)/lr] = 'X';
+					} catch (Exception exc) {
+					}
 					break;
 				case 1:
 					if ((x-dx)/lr != 0 && (y-dy)/lr != 0 && (x-dx)/lr != board.length - 1 && (y-dy)/lr != board.length - 1) {

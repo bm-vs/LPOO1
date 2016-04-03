@@ -92,13 +92,18 @@ public class MazeBuilder implements IMazeBuilder{
 		
 		// Next point
 		while (!path.empty()) {
-			Point next = chooseNextPos(maze, path.peek());
-			
-			if (next.getX() == -1 && next.getY() == -1) {
-				path.pop();
+			Point next = new Point();
+			boolean exception = false;
+						
+			try {
+				next = chooseNextPos(maze, path.peek());
 			}
-			else {
-				
+			catch(Exception e) {
+				path.pop();
+				exception = true;
+			}
+			
+			if (!exception) {
 				maze[next.getY()][next.getX()] = ' ';
 				path.push(next);
 			}
@@ -128,9 +133,10 @@ public class MazeBuilder implements IMazeBuilder{
 	 * Return the next point randomly.
 	 * @param maze maze to get next position to
 	 * @param pos starting point, from which the next one will be calculated
-	 * @return next poin
+	 * @return next point
+	 * @throws NotFound if no valid point is found.
 	 */
-	static public Point chooseNextPos(char[][] maze, Point pos) {
+	static public Point chooseNextPos(char[][] maze, Point pos) throws NotFound {
 		Random rnd = new Random();
 		Vector<Point> options = new Vector<Point>();
 		options.addElement(new Point(pos.getX()+1,pos.getY()));
@@ -189,7 +195,7 @@ public class MazeBuilder implements IMazeBuilder{
 			return options.elementAt(n);
 		}
 		
-		return new Point(-1,-1);
+		throw new NotFound();
 	}
 	
 	/**

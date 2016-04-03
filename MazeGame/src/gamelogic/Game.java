@@ -29,10 +29,22 @@ public class Game {
 	 * Checks the grid for the position of the sword, exit, hero and dragons and creates the game state accordingly.
 	 * </p>
 	 * @param grid grid to build the game from
+	 * @throws NotFound if either one of the elements are missing from grid.
 	 */
-	public Game (char[][] grid) {
-		maze = new Maze(grid);
-		hero = new Hero(grid);
+	public Game (char[][] grid) throws NotFound {
+		try {
+			 maze = new Maze(grid);
+		}
+		catch(Exception e) {
+			throw new NotFound();
+		}
+		
+		try {
+			hero = new Hero(grid);
+		}
+		catch(Exception e) {
+			throw new NotFound();
+		}
 		
 		for (int i = 0; i < grid.length; i++) {
 			for (int a = 0; a < grid.length; a++) {
@@ -40,6 +52,10 @@ public class Game {
 					dragons.add(new Dragon(i,a));
 				}
 			}
+		}
+		
+		if (dragons.size() == 0) {
+			throw new NotFound();
 		}
 	}
 	

@@ -174,7 +174,14 @@ public class TestMazeBuilder {
 	@Test
 	public void testMaze()
 	{
-		Maze maze = new Maze(m1);
+		Maze maze;
+		
+		try {
+			 maze = new Maze(m1);
+		}
+		catch(Exception e) {
+			return;
+		}
 		
 		assertEquals(1, maze.getExit().getY());
 		assertEquals(4, maze.getExit().getX());
@@ -203,7 +210,15 @@ public class TestMazeBuilder {
 	@Test
 	public void testSword()
 	{
-		Maze maze = new Maze(m1);
+		Maze maze;
+		
+		try {
+			 maze = new Maze(m1);
+		}
+		catch(Exception e) {
+			return;
+		}
+		
 		maze.getSword().setX(1);
 		maze.getSword().setY(1);
 		
@@ -220,7 +235,15 @@ public class TestMazeBuilder {
 	@Test
 	public void testExit()
 	{
-		Maze maze = new Maze(m1);
+		Maze maze;
+		
+		try {
+			 maze = new Maze(m1);
+		}
+		catch(Exception e) {
+			return;
+		}
+		
 		maze.getExit().setX(0);
 		maze.getExit().setY(1);
 		

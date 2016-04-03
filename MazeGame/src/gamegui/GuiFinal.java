@@ -294,28 +294,16 @@ public class GuiFinal {
 				button_play.setBounds(822, 10, 112, 30);
 				button_play.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						game = new Game(build.getBoard());
+						try {
+							game = new Game(build.getBoard());
+						}
+						catch (Exception exc){
+							return;
+						}
 						// Check selected item
 						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
 							return;
 						}
-						// Check number of dragons (>0)
-						if (game.getNumDragons() == 0) {
-							return;
-						}
-						// Check hero
-						if (game.getHero().getX() == -1 && game.getHero().getY() == -1) {
-							return;
-						}
-						// Check sword
-						if (game.getMaze().getSword().getX() == -1 && game.getMaze().getSword().getY() == -1) {
-							return;
-						}
-						// Check exit
-						if (game.getMaze().getExit().getX() == -1 && game.getMaze().getExit().getY() == -1) {
-							return;
-						}
-						
 						
 						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
 							game.setGameMode("2");

@@ -24,12 +24,10 @@ public class Hero {
 	 * <p>
 	 * Checks the grid for the position of the hero creates the hero accordingly.
 	 * </p>
-	 * <p>
-	 * Makes x and y to -1 if not found.
-	 * </p>
 	 * @param grid grid to create the hero from
+	 * @throws NotFound hero is not found on grid.
 	 */
-	public Hero(char[][] grid) {
+	public Hero(char[][] grid) throws NotFound {
 		boolean found = false;
 		
 		for (int i = 0; i < grid.length; i++) {
@@ -43,8 +41,7 @@ public class Hero {
 		}
 		
 		if (!found) {
-			x = -1;
-			y = -1;
+			throw new NotFound();
 		}
 		
 		

@@ -64,8 +64,9 @@ public class Maze {
 	 * Checks the grid for the position of the sword and exit and creates the maze accordingly.
 	 * </p>
 	 * @param grid grid to build the maze from
+	 * @throws NotFound if sword or exit are missing from grid.
 	 */
-	public Maze(char[][] grid) {
+	public Maze(char[][] grid) throws NotFound {
 		this.grid = grid;
 		
 		boolean found_sword = false;
@@ -86,14 +87,8 @@ public class Maze {
 			}
 		}
 		
-		if (!found_exit) {
-			exit.x = -1;
-			exit.y = -1;
-		}
-		
-		if (!found_sword) {
-			sword.x = -1;
-			sword.y = -1;
+		if (!found_exit || !found_sword) {
+			throw new NotFound();
 		}
 	}
 	

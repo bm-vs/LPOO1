@@ -17,7 +17,15 @@ public class TestHero {
 
 	@Test
 	public void testStarts() {
-		Hero h= new Hero(m1);
+		Hero h;
+		
+		try {
+			 h = new Hero(m1);
+		}
+		catch(Exception e) {
+			return;
+		}
+		
 		assertequal(3,h.getX());
 		assertequal(1,h.getY());
 		

@@ -103,7 +103,14 @@ public class TestDragon {
 	
 	@Test
 	public void testDragonSetPos() {
-		Game g = new Game(m1);
+		Game g;
+		try {
+			g = new Game(m1);
+		}
+		catch (Exception e) {
+			return;
+		}
+		
 		g.getDragons().get(0).setPosition(1, 1, g.getMaze());
 		
 		assertEquals(g.getMaze().getGrid()[1][1], g.getDragons().get(0).getSymbol());
@@ -112,7 +119,13 @@ public class TestDragon {
 	
 	@Test
 	public void testDragonDies() {
-		Game g = new Game(m1);
+		Game g;
+		try {
+			g = new Game(m1);
+		}
+		catch (Exception e) {
+			return;
+		}
 		g.getDragons().get(0).setPosition(1, 1, g.getMaze());
 		g.getDragons().get(0).dies(g.getMaze());		
 		

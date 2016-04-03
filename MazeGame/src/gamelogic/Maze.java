@@ -1,5 +1,8 @@
 package gamelogic;
 
+/**
+ * Class to represent the maze of the game.
+ * */
 public class Maze {
 	private char grid[][];
 	private boolean sword_exists;
@@ -49,9 +52,19 @@ public class Maze {
 	private Exit exit = new Exit();
 	private Sword sword = new Sword();
 
+	/**
+	 * Creates an empty maze.
+	 */
 	public Maze() {
 	}
 	
+	/**
+	 * Creates a maze from the given grid.
+	 * <p>
+	 * Checks the grid for the position of the sword and exit and creates the maze accordingly.
+	 * </p>
+	 * @param grid grid to build the maze from
+	 */
 	public Maze(char[][] grid) {
 		this.grid = grid;
 		
@@ -70,6 +83,10 @@ public class Maze {
 		}
 	}
 	
+	/**
+	 * Creates a randomly generated maze with the given size.
+	 * @param maze_size size of the maze
+	 */
 	public Maze(int maze_size) {
 		MazeBuilder mb = new MazeBuilder();
 		grid = mb.buildMaze(maze_size);
@@ -83,6 +100,11 @@ public class Maze {
 		sword_exists = true;
 	}
 	
+	/**
+	 * Creates a maze with only the border filled.
+	 * @param maze_size size of the maze
+	 * @param empty string used as placeholder
+	 */
 	public Maze(int maze_size, String empty) {
 		grid = new char[maze_size][maze_size];
 		
@@ -99,35 +121,66 @@ public class Maze {
 		
 	}
 	
+	/**
+	 * Returns grid.
+	 * @return grid
+	 */
 	public char[][] getGrid() {
 		return grid;
 	}
-		
+	
+	/**
+	 * Returns sword.
+	 * @return sword
+	 */
 	public Sword getSword() {
 		return sword;
 	}
 	
+	/**
+	 * Returns exit.
+	 * @return exit
+	 */
 	public Exit getExit() {
 		return exit;
 	}
 	
+	/**
+	 * Returns sword_exists.
+	 * @return sword_exists
+	 */
 	public boolean swordExists() {
 		return sword_exists;
 	}
 
+	/**
+	 * Returns the size of the maze
+	 * @return the size of the maze
+	 */
 	public int getGridLength() {
 		return grid.length;
 	}
 
+	/**
+	 * Sets the sword_exits.
+	 * @param sword_exists sword exists
+	 */
 	public void setSwordExists(boolean sword_exists) {
 		this.sword_exists = sword_exists;
 	}
 
+	/**
+	 * Sets maze's grid.
+	 * @param grid maze's grid.
+	 */
 	public void setGrid(char[][] grid) {
 		this.grid = grid;
 	}
 	
-	
+	/**
+	 * Returns a formatted string of the grid.
+	 * @return formated string of the grid.
+	 */
 	public String return_grid () {
 		String grid_string = "";
 		

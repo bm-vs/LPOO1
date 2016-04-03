@@ -124,7 +124,9 @@ public class Hero {
 	
 	/**
 	 * Moves the hero within the maze.
+	 * @param key where the hero is supposed to move
 	 * @param maze maze the hero is in
+	 * @return true if hero is moved. false if not.
 	 */	
 	public boolean move(String key, Maze maze) {		
 		if (key.equals("w")) {

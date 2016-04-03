@@ -2,6 +2,9 @@ package gamelogic;
 
 import java.util.*;
 
+/**
+ * Class used to create a random maze.
+ */
 
 public class MazeBuilder implements IMazeBuilder{
 	private char[][] maze;
@@ -10,6 +13,17 @@ public class MazeBuilder implements IMazeBuilder{
 	private int sword_x;
 	private int sword_y;
 	
+	/**
+	 * Creates a random maze of the given size.
+	 * <p>
+	 * Starting from the cell in front of the exit go to a random adjacent cell. Save the cells on a stack.
+	 * </p>
+	 * <p>
+	 * When there are no available adjacent cells pop from the stack until there are.
+	 * </p>
+	 * @param size size of the maze to create
+	 * @return maze
+	 */
 	public char[][] buildMaze(int size) throws IllegalArgumentException{
 		Random rnd = new Random(System.currentTimeMillis());
 		maze = new char[size][size];
@@ -110,6 +124,12 @@ public class MazeBuilder implements IMazeBuilder{
 		return maze;
 	}
 	
+	/**
+	 * Return the next point randomly.
+	 * @param maze maze to get next position to
+	 * @param pos starting point, from which the next one will be calculated
+	 * @return next poin
+	 */
 	static public Point chooseNextPos(char[][] maze, Point pos) {
 		Random rnd = new Random();
 		Vector<Point> options = new Vector<Point>();
@@ -128,7 +148,7 @@ public class MazeBuilder implements IMazeBuilder{
 					(x == 0) || (x == maze[1].length - 1) || 
 					(y == 0) || (y == maze.length - 1)) {
 				
-				options.removeElementAt(n);;	
+				options.removeElementAt(n);	
 				continue;
 			}
 			
@@ -172,7 +192,11 @@ public class MazeBuilder implements IMazeBuilder{
 		return new Point(-1,-1);
 	}
 	
-	// Check bad walls
+	/**
+	 * Check if there are 3x3 walls on the maze.
+	 * @param maze maze to check
+	 * @return true if yes. false if not.
+	 */
 	public boolean checkWalls(char[][] maze) {
 		char[][] badWalls = {
 				{'X', 'X', 'X'},
@@ -194,18 +218,34 @@ public class MazeBuilder implements IMazeBuilder{
 		return false; 
 	}
 	
+	/**
+	 * Returns the x-coordinate of the sword on the maze grid.
+	 * @return x-coordinate
+	 */
 	public int getSwordX() {
 		return sword_x;
 	}
 	
+	/**
+	 * Returns the y-coordinate of the sword on the maze grid.
+	 * @return y-coordinate
+	 */
 	public int getSwordY() {
 		return sword_y;
 	}
 	
+	/**
+	 * Returns the x-coordinate of the exit on the maze grid.
+	 * @return x-coordinate
+	 */
 	public int getExitX() {
 		return exit_x;
 	}
 	
+	/**
+	 * Returns the y-coordinate of the exit on the maze grid.
+	 * @return y-coordinate
+	 */
 	public int getExitY() {
 		return exit_y;
 	}

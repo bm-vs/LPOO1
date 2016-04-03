@@ -1,14 +1,32 @@
 package gametest;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.Random;
 
 import gamelogic.Game;
+import gamelogic.Maze;
 
 public class TestMazeBuilder {
 	// Auxiliary class
+	
+	public char[][] m1 = {
+			{ 'X', 'X', 'X', 'X', 'X' },
+			{ 'X', ' ', ' ', 'H', 'S' },
+			{ 'X', ' ', ' ', ' ', 'X' }, 
+			{ 'X', 'E', ' ', 'D', 'X' },
+			{ 'X', 'X', 'X', 'X', 'X' } };
+	
+	public char[][] m2 = {
+			{ 'X', 'X', 'X', 'X', 'X' },
+			{ 'X', 'X', 'X', 'H', 'S' },
+			{ 'X', 'X', 'X', ' ', 'X' }, 
+			{ 'X', 'X', 'E', 'D', 'X' },
+			{ 'X', 'X', 'X', 'X', 'X' } };
+	
 	public static class Point {		
 		private int x, y;
 		
@@ -152,4 +170,82 @@ public class TestMazeBuilder {
 		}
 		return s.toString();
 	}
+	
+	@Test
+	public void testMaze()
+	{
+		Maze maze = new Maze(m1);
+		
+		assertEquals(1, maze.getExit().getY());
+		assertEquals(4, maze.getExit().getX());
+		
+		assertEquals(3, maze.getSword().getY());
+		assertEquals(1, maze.getSword().getX());	
+		
+	}
+	
+	@Test
+	public void testMazeEmpty()
+	{
+		Maze maze = new Maze(3, " ");
+		int vazio=0;
+		
+		for(int i=0; i< maze.getBoardLength(); i++)
+		{
+			for(int j=0; j < maze.getBoardLength(); j++)
+			if(maze.getBoard()[i][j]== ' ')
+				vazio++;	
+		}
+		assertEquals(1,vazio);
+		
+	}
+	
+	@Test
+	public void testPrintMaze()
+	{
+		Maze maze = new Maze(m1);
+		
+		System.out.println(maze.return_board());//este teste tem que ser igual ao  parametro m1 que esta em cima
+		
+		maze.setBoard(m2);
+		
+		//System.out.print(maze.return_board());
+	}
+	
+	@Test
+	public void testSword()
+	{
+		Maze maze = new Maze(m1);
+		maze.getSword().setX(1);
+		maze.getSword().setY(1);
+		
+		assertEquals(1,maze.getSword().getY());
+		assertEquals(1,maze.getSword().getX());
+		
+		assertEquals(true, maze.swordExists());
+		
+		maze.setSwordExists(false);
+		assertEquals(false, maze.swordExists());
+	
+	}
+	
+	@Test
+	public void testExit()
+	{
+		Maze maze = new Maze(m1);
+		maze.getExit().setX(0);
+		maze.getExit().setY(1);
+		
+		assertEquals(0,maze.getExit().getX());
+		assertEquals(1,maze.getExit().getY());
+	
+	
+	}
+
+
+
+
+		
+	
+	
 }

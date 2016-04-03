@@ -42,7 +42,7 @@ public class TestHero {
 		assertEquals(new Point(1,2), game.getHero().getHeroPosition());
 	};
 	
-	@Test
+	@Test 
 	public void testHeroWall() {
 		Game game = new Game(5,1);
 

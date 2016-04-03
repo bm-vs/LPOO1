@@ -37,7 +37,7 @@ public class BuildPanel extends JPanel {
 	private int x, y;
 	private int cursor = -1;
 	private double length;
-	public char board[][];
+	private char board[][];
 
 	public BuildPanel(char board[][]) {
 		this.board = board;
@@ -210,8 +210,7 @@ public class BuildPanel extends JPanel {
 				}
 			}	
 	}
-	
-	
+
 	public void mouseAction(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
@@ -330,5 +329,9 @@ public class BuildPanel extends JPanel {
 		}
 		
 		
+	}
+
+	public char[][] getBoard() {
+		return board;
 	}
 }

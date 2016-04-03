@@ -1,21 +1,53 @@
 package gamelogic;
 
 public class Maze {
-	public char board[][];
-	public boolean sword_exists;
+	private char board[][];
+	private boolean sword_exists;
 
 	public class Exit {
-		public int x;
-		public int y;
+		private int x;
+		private int y;
+		
+		public int getX() {
+			return x;
+		}
+		
+		public int getY() {
+			return y;
+		}
+		
+		public void setX(int x) {
+			this.x = x;
+		}
+		
+		public void setY(int y) {
+			this.y = y;
+		}
 	}
 
 	public class Sword {
-		public int x;
-		public int y;
+		private int x;
+		private int y;
+		
+		public int getX() {
+			return x;
+		}
+		
+		public int getY() {
+			return y;
+		}
+		
+		public void setX(int x) {
+			this.x = x;
+		}
+		
+		public void setY(int y) {
+			this.y = y;
+		}
 	}
 
-	public Exit exit = new Exit();
-	public Sword sword = new Sword();
+	private Exit exit = new Exit();
+	private Sword sword = new Sword();
 
 	public Maze() {
 	}
@@ -38,17 +70,15 @@ public class Maze {
 		}
 	}
 	
-	
-	
 	public Maze(int maze_size) {
 		MazeBuilder mb = new MazeBuilder();
 		board = mb.buildMaze(maze_size);
 		
-		exit.x = mb.exit_x;
-		exit.y = mb.exit_y;
+		exit.x = mb.getExitX();
+		exit.y = mb.getExitY();
 		
-		sword.x = mb.sword_x;
-		sword.y = mb.sword_y;
+		sword.x = mb.getSwordX();
+		sword.y = mb.getSwordY();
 		
 		sword_exists = true;
 	}
@@ -64,6 +94,34 @@ public class Maze {
 			}
 		}
 		
+	}
+	
+	public char[][] getBoard() {
+		return board;
+	}
+		
+	public Sword getSword() {
+		return sword;
+	}
+	
+	public Exit getExit() {
+		return exit;
+	}
+	
+	public boolean swordExists() {
+		return sword_exists;
+	}
+
+	public int getBoardLength() {
+		return board.length;
+	}
+
+	public void setSwordExists(boolean sword_exists) {
+		this.sword_exists = sword_exists;
+	}
+
+	public void setBoard(char[][] board) {
+		this.board = board;
 	}
 	
 	

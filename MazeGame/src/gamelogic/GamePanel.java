@@ -34,14 +34,14 @@ public class GamePanel extends JPanel {
 	private JButton move_left;
 	private JButton move_right;
 	private JLabel game_status;
-	double length;
-	int n_dragons;
-	public char board[][];
+	private double length;
+	private int n_dragons;
+	private char board[][];
 
 	public GamePanel(Game game) {
-		this.board = game.maze.board;
+		this.board = game.getMaze().getBoard();
 		this.game = game;
-		n_dragons = game.dragons.size();
+		n_dragons = game.getNumDragons();
 		
 		length = 600.0 / board.length;
 		
@@ -248,7 +248,7 @@ public class GamePanel extends JPanel {
 
 	private void keyAction(String key) {
 
-		switch (game.play(game.game_mode, key)) {
+		switch (game.play(game.getGameMode(), key)) {
 		case 1:
 			close();
 			game_status.setText("Vit\u00F3ria!");// WIN
@@ -258,7 +258,7 @@ public class GamePanel extends JPanel {
 			game_status.setText("Derrota!"); // LOSE
 			break;
 		case 3:
-			if (game.dragons.isEmpty())
+			if (game.getNumDragons() == 0)
 				if (n_dragons == 1)
 					game_status.setText("Drag\u00E3es morto!");
 				else {

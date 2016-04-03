@@ -5,15 +5,15 @@ import java.util.Random;
 import gamelogic.Maze;
 
 public class Dragon {
-	public int x;
-	public int y;
-	public char is_sleeping;
+	private int x;
+	private int y;
+	private char symbol;
 
 	public Dragon(int x, int y) {
 		this.x = x;
 		this.y = y;
 		
-		this.is_sleeping = 'D';
+		this.symbol = 'D';
 	}
 	
 	
@@ -22,33 +22,54 @@ public class Dragon {
 
 		// Get random starting position for dragon
 		while (true) {
-			x = rand.nextInt(maze.board.length - 2);
-			y = rand.nextInt(maze.board.length - 2);
+			x = rand.nextInt(maze.getBoard().length - 2);
+			y = rand.nextInt(maze.getBoard().length - 2);
 			
 			x++;//the zero position is wall
 			y++;//
 			
-			if (maze.board[y][x] == ' ' && maze.board[y - 1][x] != 'H'
-					&& maze.board[y + 1][x] != 'H'
-					&& maze.board[y][x - 1] != 'H'
-					&& maze.board[y][x + 1] != 'H') {
+			if (maze.getBoard()[y][x] == ' ' && maze.getBoard()[y - 1][x] != 'H'
+					&& maze.getBoard()[y + 1][x] != 'H'
+					&& maze.getBoard()[y][x - 1] != 'H'
+					&& maze.getBoard()[y][x + 1] != 'H') {
 				break;
 			}
 		}
 
-		this.is_sleeping = 'D';
+		this.symbol = 'D';
 
 		// Place dragon on maze
-		maze.board[y][x] = is_sleeping;
+		maze.getBoard()[y][x] = symbol;
 	}
 
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setX(int x)  {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	
+	public char getSymbol() {
+		return symbol;
+	}
+	
 	public void set_Position(int x, int y, Maze maze) {
-		maze.board[y][x] = ' ';
+		maze.getBoard()[y][x] = ' ';
 		this.x = x;
 		this.y = y;
 
 		// Place dragon on maze
-		maze.board[y][x] = is_sleeping;
+		maze.getBoard()[y][x] = symbol;
 
 	}
 
@@ -61,17 +82,17 @@ public class Dragon {
 	}
 
 	public void wakeUp(Maze maze) {
-		is_sleeping = 'D';
-		maze.board[y][x] = is_sleeping;
+		symbol = 'D';
+		maze.getBoard()[y][x] = symbol;
 	}
 
 	public void fallAsleep(Maze maze) {
-		is_sleeping = 'd';
-		maze.board[y][x] = is_sleeping;
+		symbol = 'd';
+		maze.getBoard()[y][x] = symbol;
 	}
 
 	public void dies(Maze maze) {
-		maze.board[y][x] = ' ';
+		maze.getBoard()[y][x] = ' ';
 	}
 
 	public void move(Maze maze) {
@@ -81,57 +102,57 @@ public class Dragon {
 			int i = rand.nextInt() % 5;
 			
 			if (i == 0) {
-				if (maze.board[y - 1][x] == ' ') {
-					maze.board[y][x] = ' ';
+				if (maze.getBoard()[y - 1][x] == ' ') {
+					maze.getBoard()[y][x] = ' ';
 					y--;
-					maze.board[y][x] = is_sleeping;
+					maze.getBoard()[y][x] = symbol;
 					break;
-				} else if (maze.board[y - 1][x] == 'E') {
-					maze.board[y][x] = ' ';
+				} else if (maze.getBoard()[y - 1][x] == 'E') {
+					maze.getBoard()[y][x] = ' ';
 					y--;
-					maze.board[y][x] = 'F';
+					maze.getBoard()[y][x] = 'F';
 					break;
 				}
 			}
 	
 			if (i == 1) {
-				if (maze.board[y][x + 1] == ' ') {
-					maze.board[y][x] = ' ';
+				if (maze.getBoard()[y][x + 1] == ' ') {
+					maze.getBoard()[y][x] = ' ';
 					x++;
-					maze.board[y][x] = is_sleeping;
+					maze.getBoard()[y][x] = symbol;
 					break;
-				} else if (maze.board[y][x + 1] == 'E') {
-					maze.board[y][x] = ' ';
+				} else if (maze.getBoard()[y][x + 1] == 'E') {
+					maze.getBoard()[y][x] = ' ';
 					x++;
-					maze.board[y][x] = 'F';
+					maze.getBoard()[y][x] = 'F';
 					break;
 				}
 			}
 	
 			if (i == 2) {
-				if (maze.board[y + 1][x] == ' ') {
-					maze.board[y][x] = ' ';
+				if (maze.getBoard()[y + 1][x] == ' ') {
+					maze.getBoard()[y][x] = ' ';
 					y++;
-					maze.board[y][x] = is_sleeping;
+					maze.getBoard()[y][x] = symbol;
 					break;
-				} else if (maze.board[y + 1][x] == 'E') {
-					maze.board[y][x] = ' ';
+				} else if (maze.getBoard()[y + 1][x] == 'E') {
+					maze.getBoard()[y][x] = ' ';
 					y++;
-					maze.board[y][x] = 'F';
+					maze.getBoard()[y][x] = 'F';
 					break;
 				}
 			}
 	
 			if (i == 3) {
-				if (maze.board[y][x - 1] == ' ') {
-					maze.board[y][x] = ' ';
+				if (maze.getBoard()[y][x - 1] == ' ') {
+					maze.getBoard()[y][x] = ' ';
 					x--;
-					maze.board[y][x] = is_sleeping;
+					maze.getBoard()[y][x] = symbol;
 					break;
-				} else if (maze.board[y][x - 1] == 'E') {
-					maze.board[y][x] = ' ';
+				} else if (maze.getBoard()[y][x - 1] == 'E') {
+					maze.getBoard()[y][x] = ' ';
 					x--;
-					maze.board[y][x] = 'F';
+					maze.getBoard()[y][x] = 'F';
 					break;
 				}
 			}
@@ -140,8 +161,8 @@ public class Dragon {
 			}
 		}
 
-		if ((maze.sword.y != y || maze.sword.x != x) && maze.sword_exists) {
-			maze.board[maze.sword.y][maze.sword.x] = 'E';
+		if ((maze.getSword().getY() != y || maze.getSword().getX() != x) && maze.swordExists()) {
+			maze.getBoard()[maze.getSword().getY()][maze.getSword().getX()] = 'E';
 		}
 	}
 

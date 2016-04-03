@@ -19,52 +19,52 @@ public class TestHero {
 	public void testMoveHeroToFreeCell() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
 
-		assertEquals(new Point(1,3), game.hero.getHeroPosition());
-		game.hero.move("a", game.maze);
+		assertEquals(new Point(1,3), game.getHero().getHeroPosition());
+		game.getHero().move("a", game.getMaze());
 		
-		assertEquals(new Point(1,2), game.hero.getHeroPosition());
+		assertEquals(new Point(1,2), game.getHero().getHeroPosition());
 	};
 	
 	@Test
 	public void testHeroWall() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
-		game.maze.sword.x=1;
-		game.maze.sword.y = 3;
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
+		game.getMaze().getSword().setX(1);
+		game.getMaze().getSword().setY(3);
 		
-		game.hero.move("a", game.maze);
-		game.hero.move("a", game.maze);
-		game.hero.move("s", game.maze);
-		game.hero.move("s", game.maze);
+		game.getHero().move("a", game.getMaze());
+		game.getHero().move("a", game.getMaze());
+		game.getHero().move("s", game.getMaze());
+		game.getHero().move("s", game.getMaze());
 			
-		assertEquals(true,game.hero.pickUpSword(game.maze.sword, game.maze));
+		assertEquals(true,game.getHero().pickUpSword(game.getMaze().getSword(), game.getMaze()));
 	}
 	
 	@Test
 	public void testHeroSword() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
 		
-		game.maze.sword.x = 1;
-		game.maze.sword.y = 3;
+		game.getMaze().getSword().setX(1);
+		game.getMaze().getSword().setY(3);
 		
 		
-		game.hero.move("a", game.maze);
-		game.hero.move("a", game.maze);
-		game.hero.move("s", game.maze);
-		game.hero.move("s", game.maze);
+		game.getHero().move("a", game.getMaze());
+		game.getHero().move("a", game.getMaze());
+		game.getHero().move("s", game.getMaze());
+		game.getHero().move("s", game.getMaze());
 		
-		assertEquals(true,game.hero.pickUpSword(game.maze.sword,game.maze));
+		assertEquals(true,game.getHero().pickUpSword(game.getMaze().getSword(),game.getMaze()));
 		
 	
 	}
@@ -73,33 +73,33 @@ public class TestHero {
 	public void testHeroDies() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
 		
-		game.dragons.get(0).x = 3;
-		game.dragons.get(0).y = 3;
+		game.getDragons().get(0).setX(3);
+		game.getDragons().get(0).setX(3);
 		
-		game.hero.move("s", game.maze);
+		game.getHero().move("s", game.getMaze());
 			
-		assertEquals(1, game.hero.fightDragon(game.dragons.get(0)));
+		assertEquals(1, game.getHero().fightDragon(game.getDragons().get(0)));
 	}
 	
 	@Test
 	public void testHeroKillDragon() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
-		game.hero.has_sword = 'A';
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
+		game.getHero().setSymbol('A');
 		
-		game.dragons.get(0).x = 3;
-		game.dragons.get(0).y = 3;
+		game.getDragons().get(0).setX(3);
+		game.getDragons().get(0).setX(3);
 
-		game.hero.move("s", game.maze);
+		game.getHero().move("s", game.getMaze());
 		
-		assertEquals(2, game.hero.fightDragon(game.dragons.get(0)));
+		assertEquals(2, game.getHero().fightDragon(game.getDragons().get(0)));
 	
 	
 	}
@@ -108,63 +108,63 @@ public class TestHero {
 	public void testHerowins() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
-		game.hero.has_sword = 'A';//pickup sword
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
+		game.getHero().setSymbol('A');//pickup sword
 		
-		game.maze.exit.x = 4;
-		game.maze.exit.y = 1;
-		game.dragons.get(0).x = 3;
-		game.dragons.get(0).y = 3;
+		game.getMaze().getExit().setX(4);
+		game.getMaze().getExit().setY(1);
+		game.getDragons().get(0).setX(3);
+		game.getDragons().get(0).setX(3);
 		
 				
-		game.hero.move("s", game.maze);
-		if(game.hero.fightDragon(game.dragons.get(0))== 2)
+		game.getHero().move("s", game.getMaze());
+		if(game.getHero().fightDragon(game.getDragons().get(0))== 2)
 		{
-			game.maze.board[1][4]=' ';
+			game.getMaze().getBoard()[1][4]=' ';
 		}
-		assertEquals(' ', game.maze.board[1][4]);//killed dragon
+		assertEquals(' ', game.getMaze().getBoard()[1][4]);//killed dragon
 		
-		game.hero.move("w", game.maze);
-		game.hero.move("d", game.maze);
+		game.getHero().move("w", game.getMaze());
+		game.getHero().move("d", game.getMaze());
 		
-		assertEquals(true, (game.hero.x == game.maze.exit.x && game.hero.y == game.maze.exit.y));	
+		assertEquals(true, (game.getHero().getX() == game.getMaze().getExit().getX() && game.getHero().getY() == game.getMaze().getExit().getY()));	
 	}
 
 	@Test
 	public void testHeroOut() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
 
-		game.maze.exit.x = 4;
-		game.maze.exit.y = 1;
+		game.getMaze().getExit().setX(4);
+		game.getMaze().getExit().setY(1);
 
 
-		game.hero.move("d", game.maze);
+		game.getHero().move("d", game.getMaze());
 		
-		assertEquals(false, (game.hero.x == game.maze.exit.x && game.hero.y == game.maze.exit.y));	
+		assertEquals(false, (game.getHero().getX() == game.getMaze().getExit().getX() && game.getHero().getY() == game.getMaze().getExit().getY()));	
 	}
 	
 	@Test
 	public void testHeroOutWithSword() {
 		Game game = new Game(5,1);
 
-		game.maze.board = m1;
-		game.hero.x = 3;
-		game.hero.y = 1;
-		game.hero.has_sword = 'A';
+		game.getMaze().setBoard(m1);
+		game.getHero().setX(3);
+		game.getHero().setY(1);
+		game.getHero().setSymbol('A');
 
-		game.maze.exit.x = 4;
-		game.maze.exit.y = 1;
+		game.getMaze().getExit().setX(4);
+		game.getMaze().getExit().setY(1);
 
 
-		game.hero.move("d", game.maze);
+		game.getHero().move("d", game.getMaze());
 		
-		assertEquals(false, (game.hero.has_sword == 'A' && game.hero.x == game.maze.exit.x && game.hero.y == game.maze.exit.y));	
+		assertEquals(false, (game.getHero().getSymbol() == 'A' && game.getHero().getX() == game.getMaze().getExit().getX() && game.getHero().getY() == game.getMaze().getExit().getY()));	
 	}
 	
 }

@@ -203,13 +203,13 @@ public class Gui {
 					move_left.setEnabled(true);
 					move_right.setEnabled(true);
 
-					game.maze = new Maze(size);
-					game.hero = new Hero(game.maze);
+					game.setMaze(new Maze(size));
+					game.setHero(new Hero(game.getMaze()));
 					
-					game.dragons.clear();					
+					game.clearDragons();			
 
 					for (int i = 0; i < dragons; i++) {
-						game.dragons.add(new Dragon(game.maze));
+						game.addDragon(new Dragon(game.getMaze()));
 					}
 
 					maze_area.setText(game.return_board());

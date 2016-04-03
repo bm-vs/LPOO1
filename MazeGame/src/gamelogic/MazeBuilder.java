@@ -4,11 +4,11 @@ import java.util.*;
 
 
 public class MazeBuilder implements IMazeBuilder{
-	public char[][] maze;
-	public int exit_x;
-	public int exit_y;
-	public int sword_x;
-	public int sword_y;
+	private char[][] maze;
+	private int exit_x;
+	private int exit_y;
+	private int sword_x;
+	private int sword_y;
 	
 	public char[][] buildMaze(int size) throws IllegalArgumentException{
 		Random rnd = new Random(System.currentTimeMillis());
@@ -56,23 +56,23 @@ public class MazeBuilder implements IMazeBuilder{
 		Point start = new Point();
 		
 		if (exit_x == 0) {
-			start.x = 1;
-			start.y = exit_y;
+			start.setX(1);
+			start.setY(exit_y);
 		}
 		else if (exit_x == size - 1) {
-			start.x = size - 2;
-			start.y = exit_y;
+			start.setX(size - 2);
+			start.setY(exit_y);
 		}
 		else if (exit_y == 0) {
-			start.x = exit_x;
-			start.y = 1;
+			start.setX(exit_x);
+			start.setY(1);
 		}
 		else if (exit_y == size - 1) {
-			start.x = exit_x;
-			start.y = size - 2;
+			start.setX(exit_x);
+			start.setY(size - 2);
 		}
 		
-		maze[start.y][start.x] = ' ';
+		maze[start.getY()][start.getX()] = ' ';
 		path.push(start);
 	
 		
@@ -80,12 +80,12 @@ public class MazeBuilder implements IMazeBuilder{
 		while (!path.empty()) {
 			Point next = chooseNextPos(maze, path.peek());
 			
-			if (next.x == -1 && next.y == -1) {
+			if (next.getX() == -1 && next.getY() == -1) {
 				path.pop();
 			}
 			else {
 				
-				maze[next.y][next.x] = ' ';
+				maze[next.getY()][next.getX()] = ' ';
 				path.push(next);
 			}
 		}
@@ -113,15 +113,15 @@ public class MazeBuilder implements IMazeBuilder{
 	static public Point chooseNextPos(char[][] maze, Point pos) {
 		Random rnd = new Random();
 		Vector<Point> options = new Vector<Point>();
-		options.addElement(new Point(pos.x+1,pos.y));
-		options.addElement(new Point(pos.x-1,pos.y));
-		options.addElement(new Point(pos.x,pos.y+1));
-		options.addElement(new Point(pos.x,pos.y-1));
+		options.addElement(new Point(pos.getX()+1,pos.getY()));
+		options.addElement(new Point(pos.getX()-1,pos.getY()));
+		options.addElement(new Point(pos.getX(),pos.getY()+1));
+		options.addElement(new Point(pos.getX(),pos.getY()-1));
 				
 		for (int i = 4; i >= 1; i--) {
 			int n = rnd.nextInt(i);
-			int x = options.elementAt(n).x;
-			int y = options.elementAt(n).y;
+			int x = options.elementAt(n).getX();
+			int y = options.elementAt(n).getY();
 			
 			// Ignore walls and empty spaces
 			if ((maze[y][x] == 'S') || (maze[y][x] == ' ') ||
@@ -137,21 +137,21 @@ public class MazeBuilder implements IMazeBuilder{
 			Point diag2 = new Point();
 			
 			// New point on the same vertical
-			if (x == pos.x) {
-				diag1.x = x+1;
-				diag1.y = y+(y-pos.y);
-				diag2.x = x-1;
-				diag2.y = y+(y-pos.y);
+			if (x == pos.getX()) {
+				diag1.setX(x+1);
+				diag1.setY(y+(y-pos.getY()));
+				diag2.setX(x-1);
+				diag2.setY(y+(y-pos.getY()));
 			}
 			// New point on the same horizontal
-			else if (y == pos.y) {
-				diag1.x = x+(x-pos.x);
-				diag1.y = y+1;
-				diag2.x = x+(x-pos.x);
-				diag2.y = y-1;
+			else if (y == pos.getY()) {
+				diag1.setX(x+(x-pos.getX()));
+				diag1.setY(y+1);
+				diag2.setX(x+(x-pos.getX()));
+				diag2.setY(y-1);
 			}
 			
-			if (maze[diag1.y][diag1.x] == ' ' || maze[diag2.y][diag2.x] == ' ') { // diagonal is ' ' and adjacent != ' '
+			if (maze[diag1.getY()][diag1.getX()] == ' ' || maze[diag2.getY()][diag2.getX()] == ' ') { // diagonal is ' ' and adjacent != ' '
 				options.removeElementAt(n);;	
 				continue;
 			}
@@ -194,5 +194,20 @@ public class MazeBuilder implements IMazeBuilder{
 		return false; 
 	}
 	
+	public int getSwordX() {
+		return sword_x;
+	}
+	
+	public int getSwordY() {
+		return sword_y;
+	}
+	
+	public int getExitX() {
+		return exit_x;
+	}
+	
+	public int getExitY() {
+		return exit_y;
+	}
 	
 }

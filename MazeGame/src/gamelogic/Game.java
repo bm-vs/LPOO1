@@ -7,10 +7,10 @@ import gamelogic.Hero;
 import gamelogic.Maze;
 
 public class Game {
-	public Maze maze;
-	public Hero hero;
-	public String game_mode;
-	public ArrayList<Dragon> dragons = new ArrayList<Dragon>();
+	private Maze maze;
+	private Hero hero;
+	private String game_mode;
+	private ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 
 	public Game() {
 		maze = new Maze();
@@ -30,8 +30,6 @@ public class Game {
 		}
 	}
 	
-	
-	
 	public Game(int maze_size, int number_dragons) {		
 		maze = new Maze(maze_size);
 		hero = new Hero(maze);
@@ -41,6 +39,53 @@ public class Game {
 		}
 	} 
 
+	
+	public Maze getMaze() {
+		return maze;
+	}
+	
+	public Hero getHero() {
+		return hero;
+	}
+	
+	public String getGameMode() {
+		return game_mode;
+	}
+	
+	public ArrayList<Dragon> getDragons() {
+		return dragons;
+	}
+	
+	
+	public void setMaze(Maze maze) {
+		this.maze = maze;
+	}
+	
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+	
+	public void setGameMode(String game_mode) {
+		this.game_mode = game_mode;
+	}
+	
+	public void setDragons(ArrayList<Dragon> dragons) {
+		this.dragons = dragons;
+	}
+
+	public void clearDragons() {
+		dragons.clear();
+	}
+
+	public void addDragon(Dragon d) {
+		dragons.add(d);
+	}
+
+	public int getNumDragons() {
+		return dragons.size();
+	}
+	
+	
 	public String return_board() {
 		return maze.return_board();
 	}
@@ -54,14 +99,14 @@ public class Game {
 
 		if (game_mode.equals("1")) {
 			for (int i = 0; i < dragons.size(); i++) {
-				if (dragons.get(i).is_sleeping == 'D') {
+				if (dragons.get(i).getSymbol() == 'D') {
 					if (dragons.get(i).mode(maze) == 0)
 						dragons.get(i).move(maze);
 
 					else if (dragons.get(i).mode(maze) == 1)
 						dragons.get(i).fallAsleep(maze);
 
-				} else if (dragons.get(i).is_sleeping == 'd')
+				} else if (dragons.get(i).getSymbol() == 'd')
 					if (dragons.get(i).mode(maze) == 0 || dragons.get(i).mode(maze) == 1)
 						dragons.get(i).wakeUp(maze);	
 			}
@@ -73,11 +118,11 @@ public class Game {
 			return 0;
 		}
 		
-		if (hero.x == maze.exit.x && hero.y == maze.exit.y) {
+		if (hero.getX() == maze.getExit().getX() && hero.getY() == maze.getExit().getY()) {
 			return 1;
 		}
 
-		hero.pickUpSword(maze.sword, maze);		
+		hero.pickUpSword(maze.getSword(), maze);		
 
 		for (Dragon d : dragons) {
 
@@ -88,7 +133,7 @@ public class Game {
 				d.dies(maze); // WIN
 				dragons.remove(d);
 				if (dragons.isEmpty())
-					maze.board[maze.exit.y][maze.exit.x] = ' ';
+					maze.getBoard()[maze.getExit().getY()][maze.getExit().getX()] = ' ';
 				
 				return 3;
 			}

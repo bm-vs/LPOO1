@@ -13,11 +13,11 @@ public class Ui {
 		
 		// Get maze size
 		// Min: 5
-		// Max: 128
+		// Max: 100
 		while (true) {
-			System.out.print("Maze size (5-128): ");
+			System.out.print("Maze size (5-100): ");
 			maze_size = sc.nextInt();
-			if (maze_size >= 5 && maze_size <= 128) {
+			if (maze_size >= 5 && maze_size <= 100) {
 				break;
 			}
 			else {

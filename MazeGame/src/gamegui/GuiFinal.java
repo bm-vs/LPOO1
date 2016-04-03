@@ -66,7 +66,7 @@ public class GuiFinal {
 		// WINDOW
 		
 		game = new Game();
-		game.game_mode = "2";
+		game.setGameMode("2");
 		
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -93,13 +93,13 @@ public class GuiFinal {
 		menu.add(button_play);
 		button_play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.maze = new Maze(size);
-				game.hero = new Hero(game.maze);
+				game.setMaze(new Maze(size));
+				game.setHero(new Hero(game.getMaze()));
 
-				game.dragons.clear();
+				game.clearDragons();
 
 				for (int i = 0; i < dragons; i++) {
-					game.dragons.add(new Dragon(game.maze));
+					game.addDragon(new Dragon(game.getMaze()));
 				}
 				
 				GamePanel game_panel = new GamePanel(game);
@@ -214,11 +214,11 @@ public class GuiFinal {
 				}
 				
 				if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
-					game.game_mode = "2";
+					game.setGameMode("2");
 				} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
-					game.game_mode = "0";
+					game.setGameMode("0");
 				} else {
-					game.game_mode = "1";
+					game.setGameMode("1");
 				}
 
 				CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
@@ -296,16 +296,16 @@ public class GuiFinal {
 				button_play.setBounds(822, 10, 112, 30);
 				button_play.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						game = new Game(build.board);
+						game = new Game(build.getBoard());
 						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
 							return;
 						}
 						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
-							game.game_mode = "2";
+							game.setGameMode("2");
 						} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(2))) {
-							game.game_mode = "0";
+							game.setGameMode("0");
 						} else {
-							game.game_mode = "1";
+							game.setGameMode("1");
 						}
 						
 						GamePanel game_panel = new GamePanel(game);

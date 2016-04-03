@@ -6,9 +6,9 @@ import gamelogic.Dragon;
 import gamelogic.Maze;
 
 public class Hero {
-	public int x;
-	public int y;
-	public char has_sword;
+	private int x;
+	private int y;
+	private char symbol;
 	
 	public Hero() {
 	}
@@ -23,63 +23,90 @@ public class Hero {
 			}
 		}
 		
-		this.has_sword = 'H';
+		this.symbol = 'H';
 	}
-	
 	
 	public Hero(Maze maze) {
 		Random rand = new Random(System.currentTimeMillis());
 		
 		// Get random starting position for hero
 		while (true) {
-			x = rand.nextInt(maze.board.length - 2);
-			y = rand.nextInt(maze.board.length - 2);
+			x = rand.nextInt(maze.getBoardLength() - 2);
+			y = rand.nextInt(maze.getBoardLength() - 2);
 			x++;
 			y++;
 			
-			if (maze.board[y][x] == ' ') {
+			if (maze.getBoard()[y][x] == ' ') {
 				break;
 			}
 		}
 		
 		// Place hero on board
-		this.has_sword = 'H';
-		maze.board[y][x] = has_sword;
+		this.symbol = 'H';
+		maze.getBoard()[y][x] = symbol;
+	}
+	
+	public Point getHeroPosition() {
+		return  (new Point(y, x));
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public char getSymbol() {
+		return symbol;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public void setSymbol(char symbol) {
+		this.symbol = symbol;
 	}
 	
 	public boolean move(String key, Maze maze) {		
 		if (key.equals("w")) {
-			if (maze.board[y - 1][x] == ' ' || maze.board[y - 1][x] == 'E') {
-				maze.board[y][x] = ' ';
+			if (maze.getBoard()[y - 1][x] == ' ' || maze.getBoard()[y - 1][x] == 'E') {
+				maze.getBoard()[y][x] = ' ';
 				y --;
-				maze.board[y][x] = has_sword;
+				maze.getBoard()[y][x] = symbol;
 			
 				return true;
 			}
 		}
 		else if (key.equals("a")) {
-			if (maze.board[y][x - 1] == ' ' || maze.board[y][x - 1] == 'E') {
-				maze.board[y][x] = ' ';
+			if (maze.getBoard()[y][x - 1] == ' ' || maze.getBoard()[y][x - 1] == 'E') {
+				maze.getBoard()[y][x] = ' ';
 				x --;
-				maze.board[y][x] = has_sword;
+				maze.getBoard()[y][x] = symbol;
 				
 				return true;
 			}
 		}
 		else if (key.equals("d")) {
-			if (maze.board[y][x + 1] == ' ' || maze.board[y][x + 1] == 'E') {
-				maze.board[y][x] = ' ';
+			if (maze.getBoard()[y][x + 1] == ' ' || maze.getBoard()[y][x + 1] == 'E') {
+				maze.getBoard()[y][x] = ' ';
 				x ++;
-				maze.board[y][x] = has_sword;
+				maze.getBoard()[y][x] = symbol;
 				
 				return true;
 			}
 		}
 		else if (key.equals("s")) {
-			if (maze.board[y + 1][x] == ' ' || maze.board[y + 1][x] == 'E') {
-				maze.board[y][x] = ' ';
+			if (maze.getBoard()[y + 1][x] == ' ' || maze.getBoard()[y + 1][x] == 'E') {
+				maze.getBoard()[y][x] = ' ';
 				y ++;
-				maze.board[y][x] = has_sword;
+				maze.getBoard()[y][x] = symbol;
 				
 				return true;
 			}
@@ -89,25 +116,25 @@ public class Hero {
 	}
 	
 	public int fightDragon(Dragon dragon) {
-		if (dragon.x == x) {
-			if (dragon.y == y - 1 || dragon.y == y + 1) {
-				if (has_sword == 'H') {
-					if (dragon.is_sleeping == 'd')
+		if (dragon.getX() == x) {
+			if (dragon.getY() == y - 1 || dragon.getY() == y + 1) {
+				if (symbol == 'H') {
+					if (dragon.getSymbol() == 'd')
 						return 0; // works as wall
 
 					return 1;
-				} else if (has_sword == 'A') {
+				} else if (symbol == 'A') {
 					return 2;
 				}
 			}
 		}
-		if (dragon.y == y) {
-			if (dragon.x == x - 1 || dragon.x == x + 1) {
-				if (has_sword == 'H') {
-					if (dragon.is_sleeping == 'd')
+		if (dragon.getY() == y) {
+			if (dragon.getX() == x - 1 || dragon.getX() == x + 1) {
+				if (symbol == 'H') {
+					if (dragon.getSymbol() == 'd')
 						return 0; // works as wall
 					return 1;
-				} else if (has_sword == 'A') {
+				} else if (symbol == 'A') {
 					return 2;
 				}
 			}
@@ -117,19 +144,14 @@ public class Hero {
 	}
 	
 	public boolean pickUpSword(Maze.Sword sword, Maze maze) {
-		if (sword.x == x && sword.y == y) {
-			has_sword = 'A';
-			maze.board[y][x] = has_sword;
-			maze.sword_exists = false;
+		if (sword.getX() == x && sword.getY() == y) {
+			symbol = 'A';
+			maze.getBoard()[y][x] = symbol;
+			maze.setSwordExists(false);
 			
 			return true;
 		}
 		
 		return false;
-	}
-	
-	public Point getHeroPosition()
-	{
-		return  (new Point(y, x));
 	}
 }

@@ -72,7 +72,7 @@ public class GuiFinal {
 		frame.setResizable(false);
 		frame.setTitle("Maze game");
 		frame.setAutoRequestFocus(false);
-		frame.setBounds(100, 100, 950, 720);
+		frame.setBounds(150, 25, 950, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		

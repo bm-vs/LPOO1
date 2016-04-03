@@ -12,11 +12,10 @@ public class Dragon {
 	public Dragon(int x, int y) {
 		this.x = x;
 		this.y = y;
-		
+
 		this.symbol = 'D';
 	}
-	
-	
+
 	public Dragon(Maze maze) {
 		Random rand = new Random();
 
@@ -24,11 +23,12 @@ public class Dragon {
 		while (true) {
 			x = rand.nextInt(maze.getBoard().length - 2);
 			y = rand.nextInt(maze.getBoard().length - 2);
-			
-			x++;//the zero position is wall
+
+			x++;// the zero position is wall
 			y++;//
-			
-			if (maze.getBoard()[y][x] == ' ' && maze.getBoard()[y - 1][x] != 'H'
+
+			if (maze.getBoard()[y][x] == ' '
+					&& maze.getBoard()[y - 1][x] != 'H'
 					&& maze.getBoard()[y + 1][x] != 'H'
 					&& maze.getBoard()[y][x - 1] != 'H'
 					&& maze.getBoard()[y][x + 1] != 'H') {
@@ -45,24 +45,23 @@ public class Dragon {
 	public int getX() {
 		return x;
 	}
-	
+
 	public int getY() {
 		return y;
 	}
-	
-	public void setX(int x)  {
+
+	public void setX(int x) {
 		this.x = x;
 	}
-	
+
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	
+
 	public char getSymbol() {
 		return symbol;
 	}
-	
+
 	public void set_Position(int x, int y, Maze maze) {
 		maze.getBoard()[y][x] = ' ';
 		this.x = x;
@@ -84,6 +83,11 @@ public class Dragon {
 	public void wakeUp(Maze maze) {
 		symbol = 'D';
 		maze.getBoard()[y][x] = symbol;
+
+		if (maze.getSword().getX() == x && maze.getSword().getY() == y) {
+			maze.getBoard()[y][x] = 'F';
+		}
+
 	}
 
 	public void fallAsleep(Maze maze) {
@@ -100,7 +104,7 @@ public class Dragon {
 
 		while (true) {
 			int i = rand.nextInt() % 5;
-			
+
 			if (i == 0) {
 				if (maze.getBoard()[y - 1][x] == ' ') {
 					maze.getBoard()[y][x] = ' ';
@@ -114,7 +118,7 @@ public class Dragon {
 					break;
 				}
 			}
-	
+
 			if (i == 1) {
 				if (maze.getBoard()[y][x + 1] == ' ') {
 					maze.getBoard()[y][x] = ' ';
@@ -128,7 +132,7 @@ public class Dragon {
 					break;
 				}
 			}
-	
+
 			if (i == 2) {
 				if (maze.getBoard()[y + 1][x] == ' ') {
 					maze.getBoard()[y][x] = ' ';
@@ -142,7 +146,7 @@ public class Dragon {
 					break;
 				}
 			}
-	
+
 			if (i == 3) {
 				if (maze.getBoard()[y][x - 1] == ' ') {
 					maze.getBoard()[y][x] = ' ';
@@ -161,7 +165,8 @@ public class Dragon {
 			}
 		}
 
-		if ((maze.getSword().getY() != y || maze.getSword().getX() != x) && maze.swordExists()) {
+		if ((maze.getSword().getY() != y || maze.getSword().getX() != x)
+				&& maze.swordExists()) {
 			maze.getBoard()[maze.getSword().getY()][maze.getSword().getX()] = 'E';
 		}
 	}

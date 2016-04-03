@@ -12,7 +12,7 @@ public class TestDragon {
 			{ 'X', ' ', ' ', ' ', 'S' },
 			{ 'X', ' ', 'D', ' ', 'X' }, 
 			{ 'X', 'E', ' ', ' ', 'X' },
-			{ 'X', 'X', 'X', 'X', 'X' } };
+			{ 'X', 'X', 'X', 'X', 'H' } };
 	
 	@Test (timeout=1000)
 	public void testDragonMoves() { // Check if every direction
@@ -103,12 +103,11 @@ public class TestDragon {
 	
 	@Test
 	public void testDragonSetPos() {
-		Game g;
+		Game g = new Game();
 		try {
 			g = new Game(m1);
 		}
 		catch (Exception e) {
-			return;
 		}
 		
 		g.getDragons().get(0).setPosition(1, 1, g.getMaze());
@@ -119,12 +118,11 @@ public class TestDragon {
 	
 	@Test
 	public void testDragonDies() {
-		Game g;
+		Game g = new Game();
 		try {
 			g = new Game(m1);
 		}
 		catch (Exception e) {
-			return;
 		}
 		g.getDragons().get(0).setPosition(1, 1, g.getMaze());
 		g.getDragons().get(0).dies(g.getMaze());		

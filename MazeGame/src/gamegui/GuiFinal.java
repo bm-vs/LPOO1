@@ -11,14 +11,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JPanel;
 import java.awt.Font;
 
@@ -56,27 +61,7 @@ public class GuiFinal {
 	}
 
 	public GuiFinal() {
-		initialize();
-		
-		int max = 0;
-		int m = 0;
-		int min = 600;
-		int n = 0;
-		
-		for (int i = 5; i <= 100; i++) {
-			if ((600 % i) > max) {
-				max = (600 % i);
-				m = i;
-			}
-			if ((600 % i) < min && i >= 15) {
-				min = (600 % i);
-				n = i;
-			}
-			
-		}
-		
-		System.out.println("max" + m + " - " + max);
-		System.out.println("min" + n + " - " + min);	
+		initialize();	
 	}
 
 	private void initialize() {
@@ -88,9 +73,10 @@ public class GuiFinal {
 		game.game_mode = "2";
 		
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setTitle("Maze game");
 		frame.setAutoRequestFocus(false);
-		frame.setBounds(100, 100, 960, 720);
+		frame.setBounds(100, 100, 950, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
@@ -188,6 +174,7 @@ public class GuiFinal {
 		configuration.add(input_number_dragons);
 
 		config_status = new JLabel("");
+		config_status.setFont(new Font("Tahoma", Font.BOLD, 14));
 		config_status.setBounds(310, 280, 341, 20);
 		configuration.add(config_status);
 
@@ -289,28 +276,38 @@ public class GuiFinal {
 				BuildPanel build = new BuildPanel(board);
 				frame.getContentPane().add(build, "build");
 				
-				dragon_type = new JLabel("Tipo de drag\u00F5es");
-				dragon_type.setBounds(0, 40, 162, 14);
-				build.add(dragon_type);
-
 				input_dragon_type = new JComboBox<String>();
-				input_dragon_type.setBounds(140, 40, 138, 20);
-				build.add(input_dragon_type);
-
+				input_dragon_type.setBounds(570, 10, 140, 30);
+				
+				input_dragon_type.addItem("Tipo de drag\u00F5es");
 				input_dragon_type.addItem("Est\u00E1ticos");
 				input_dragon_type.addItem("Mover");
 				input_dragon_type.addItem("Mover e adormecer");
+				build.add(input_dragon_type);
+				
+				JButton button_back = new JButton("Voltar");
+				build.add(button_back);
+				button_back.setBounds(710, 10, 112, 30);
+				button_back.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {					
+						CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
+						cl.show(frame.getContentPane(), "menu");
+					}});
+				
+				
 				
 				JButton button_play = new JButton("Jogar");
 				build.add(button_play);
-				button_play.setBounds(500, 0, 100, 30);
+				button_play.setBounds(822, 10, 112, 30);
 				button_play.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						game = new Game(build.board);
-						
 						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
+							return;
+						}
+						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
 							game.game_mode = "2";
-						} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
+						} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(2))) {
 							game.game_mode = "0";
 						} else {
 							game.game_mode = "1";

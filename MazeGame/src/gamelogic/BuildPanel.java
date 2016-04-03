@@ -37,15 +37,17 @@ public class BuildPanel extends JPanel {
 	private JButton button_exit;
 	private int x, y;
 	private int cursor = -1;
-	private int length = 15;
+	private double length;
 	public char board[][];
 
 	public BuildPanel(char board[][]) {
+		this.board = board;
+		length = 600.0 / board.length;
 		this.setLayout(null);	
 		
 		button_wall = new JButton("Parede");
 		this.add(button_wall);
-		button_wall.setBounds(0, 0, 100, 30);
+		button_wall.setBounds(10, 10, 112, 30);
 		button_wall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonAction("wall.jpg", "cursor wall");
@@ -53,7 +55,7 @@ public class BuildPanel extends JPanel {
 		
 		button_hero = new JButton("Herói");
 		this.add(button_hero);
-		button_hero.setBounds(100, 0, 100, 30);
+		button_hero.setBounds(122, 10, 112, 30);
 		button_hero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonAction("hero.jpg", "cursor hero");
@@ -61,7 +63,7 @@ public class BuildPanel extends JPanel {
 		
 		button_dragon = new JButton("Dragão");
 		this.add(button_dragon);
-		button_dragon.setBounds(200, 0, 100, 30);
+		button_dragon.setBounds(234, 10, 112, 30);
 		button_dragon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonAction("dragon.jpg", "cursor dragon");
@@ -69,7 +71,7 @@ public class BuildPanel extends JPanel {
 		
 		button_sword = new JButton("Espada");
 		this.add(button_sword);
-		button_sword.setBounds(300, 0, 100, 30);
+		button_sword.setBounds(346, 10, 112, 30);
 		button_sword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				buttonAction("espada.jpg", "cursor sword");
@@ -77,18 +79,13 @@ public class BuildPanel extends JPanel {
 		
 		button_exit = new JButton("Saída");
 		this.add(button_exit);
-		button_exit.setBounds(400, 0, 100, 30);
+		button_exit.setBounds(458, 10, 112, 30);
 		button_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonAction("gate.jpg", "cursor exit");
 			}});
 		
 		
-		this.board = board;
-		if (this.board.length >= 15)
-			length = 450 / board.length;
-		else
-			length = 30;
 		repaint();
 
 		try {
@@ -176,48 +173,43 @@ public class BuildPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
+		int lr = (int) Math.floor(length);
+		int dy = (720 - board.length*lr)/2;
+		int dx = (950 - board.length*lr)/2;
 
 		for (int i = 0; i < board.length; i++)
 			for (int j = 0; j < board[i].length; j++) {
+				
+				int lx = dx + j*lr;
+				int ly = dy + i*lr;
+				
 				if (board[i][j] == 'X') {
-					g.drawImage(wall, j * length, 75 + i * length, length, length,
-							null);
+					g.drawImage(wall, lx, ly, lr, lr, null);
 				}
 				if (board[i][j] == 'H') {
-					g.drawImage(hero_small, j * length, 75 + i * length, length,
-							length, null);
-
+					g.drawImage(hero_small, lx, ly, lr, lr, null);
 				}
 				if (board[i][j] == 'A') {
-					g.drawImage(hero, j * length, 75 + i * length, length, length,
-							null);
-
+					g.drawImage(hero, lx, ly, lr, lr, null);
 				}
 
 				if (board[i][j] == 'D') {
-					g.drawImage(dragon, j * length, 75 + i * length, length, length,
-							null);
+					g.drawImage(dragon, lx, ly, lr, lr, null);
 				}
-				
 				if (board[i][j] == 'd') {
-					g.drawImage(dragon_sleep, j * length, 75 + i * length, length, length,
-							null);
+					g.drawImage(dragon_sleep, lx, ly, lr, lr, null);
 				}
-
 				if (board[i][j] == 'E') {
-					g.drawImage(espada, j * length, 75 + i * length, length, length,
-							null);
+					g.drawImage(espada, lx, ly, lr, lr, null);
 				}
 				if (board[i][j] == 'F') {
-					g.drawImage(dragon_espada, j * length, 75 + i * length, length, length,
-							null);
+					g.drawImage(dragon_espada, lx, ly, lr, lr, null);
 				}
 				if (board[i][j] == 'S') {
-					g.drawImage(gate, j * length, 75 + i * length, length, length,
-							null);
+					g.drawImage(gate, lx, ly, lr, lr, null);
 				}
-			}
-
+			}	
 	}
 	
 	
@@ -225,41 +217,40 @@ public class BuildPanel extends JPanel {
 		x = e.getX();
 		y = e.getY();
 		
-		if (board.length >= 15)
-			length = 450 / board.length;
-		else
-			length = 30;
+		int lr = (int) Math.floor(length);
+		int dy = (720 - board.length*lr)/2;
+		int dx = (950 - board.length*lr)/2;
 		
-		if ((y-75)/length < board.length && x/length < board.length && (y-75) >= 0 && x >= 0) {
+		if ((y-dy)/length < board.length && (x-dx)/length < board.length && (y-dy) >= 0 && (x-dx) >= 0) {
 			if (SwingUtilities.isLeftMouseButton(e))
 				switch (cursor) {
 				case 0:
-					board[(y-75)/length][x/length] = 'X';
+					board[(y-dy)/lr][(x-dx)/lr] = 'X';
 					break;
 				case 1:
-					if (x/length != 0 && (y-75)/length != 0 && x/length != board.length - 1 && (y-75)/length != board.length - 1) {
-						board[(y-75)/length][x/length] = 'H';
+					if ((x-dx)/lr != 0 && (y-dy)/lr != 0 && (x-dx)/lr != board.length - 1 && (y-dy)/lr != board.length - 1) {
+						board[(y-dy)/lr][(x-dx)/lr] = 'H';
 						button_hero.setEnabled(false);
 						setCursor(Cursor.getDefaultCursor());
 						cursor = -1;
 					}
 					break;
 				case 2:
-					if (x/length != 0 && (y-75)/length != 0 && x/length != board.length - 1 && (y-75)/length != board.length - 1) {
-						board[(y-75)/length][x/length] = 'D';
+					if ((x-dx)/lr != 0 && (y-dy)/lr != 0 && (x-dx)/lr != board.length - 1 && (y-dy)/lr != board.length - 1) {
+						board[(y-dy)/lr][(x-dx)/lr] = 'D';
 					}
 					break;
 				case 3:
-					if (x/length != 0 && (y-75)/length != 0 && x/length != board.length - 1 && (y-75)/length != board.length - 1) {
-						board[(y-75)/length][x/length] = 'E';
+					if ((x-dx)/lr != 0 && (y-dy)/lr != 0 && (x-dx)/lr != board.length - 1 && (y-dy)/lr != board.length - 1) {
+						board[(y-dy)/lr][(x-dx)/lr] = 'E';
 						button_sword.setEnabled(false);
 						setCursor(Cursor.getDefaultCursor());
 						cursor = -1;
 					}
 					break;
 				case 4:
-					if (x/length == 0 || (y-75)/length == 0 || x/length == board.length - 1 || (y-75)/length == board.length - 1) {
-						board[(y-75)/length][x/length] = 'S';
+					if ((x-dx)/lr == 0 || (y-dy)/lr == 0 || (x-dx)/lr == board.length - 1 || (y-dy)/lr == board.length - 1) {
+						board[(y-dy)/lr][(x-dx)/lr] = 'S';
 						button_exit.setEnabled(false);
 						setCursor(Cursor.getDefaultCursor());
 						cursor = -1;
@@ -268,8 +259,8 @@ public class BuildPanel extends JPanel {
 				
 				}
 				
-			else if (SwingUtilities.isRightMouseButton(e) && x/length != 0 && (y-75)/length != 0 && x/length != board.length - 1 && (y-75)/length != board.length - 1) {
-				board[(y-75)/length][x/length] = ' ';
+			else if (SwingUtilities.isRightMouseButton(e) && (x-dx)/lr != 0 && (y-dy)/lr != 0 && (x-dx)/lr != board.length - 1 && (y-dy)/lr != board.length - 1) {
+				board[(y-dy)/lr][(x-dx)/lr] = ' ';
 			}
 		}
 		
@@ -306,17 +297,22 @@ public class BuildPanel extends JPanel {
 	}
 	
 	public void buttonAction(String image, String name) {
+		int l = (int) Math.round(length);
+		
 		ImageIcon icon = new ImageIcon(image);
-		icon.setImage(icon.getImage().getScaledInstance(length, length, Image.SCALE_DEFAULT));
 		
-		BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB); 
-		Graphics g = bi.createGraphics();
-		Color transparent = new Color(0,0,0,0);
-		g.setColor(transparent);
-		g.drawRect(0, 0, 32, 32);
-		g.drawImage(icon.getImage(), 0, 0, length, length, null); 
-		
-		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(bi, new java.awt.Point(length/2,length/2), name));
+		if (l >= 32) {
+			setCursor(Toolkit.getDefaultToolkit().createCustomCursor(icon.getImage(), new java.awt.Point(16,16), name));
+		}
+		else {
+			BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB); 
+			Graphics g = bi.createGraphics();
+			Color transparent = new Color(0,0,0,0);
+			g.setColor(transparent);
+			g.drawRect(0, 0, 32, 32);
+			g.drawImage(icon.getImage(), 0, 0, l, l, null); 
+			setCursor(Toolkit.getDefaultToolkit().createCustomCursor(bi, new java.awt.Point(l/2,l/2), name));
+		}
 
 		if (image == "wall.jpg") {
 			cursor = 0;

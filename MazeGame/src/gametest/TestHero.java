@@ -11,9 +11,22 @@ public class TestHero {
 	char[][] m1 = {
 			{ 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', ' ', ' ', 'H', 'S' },
-			{ 'X', ' ', 'X', ' ', 'X' }, 
+			{ 'X', ' ', ' ', ' ', 'X' }, 
 			{ 'X', 'E', ' ', 'D', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X' } };
+
+	@Test
+	public void testStarts() {
+		Hero h= new Hero(m1);
+		assertequal(3,h.getX());
+		assertequal(1,h.getY());
+		
+	};
+	
+	private void assertequal(int i, int x) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Test
 	public void testMoveHeroToFreeCell() {
@@ -39,12 +52,8 @@ public class TestHero {
 		game.getMaze().getSword().setX(1);
 		game.getMaze().getSword().setY(3);
 		
-		game.getHero().move("a", game.getMaze());
-		game.getHero().move("a", game.getMaze());
-		game.getHero().move("s", game.getMaze());
-		game.getHero().move("s", game.getMaze());
-			
-		assertEquals(true,game.getHero().pickUpSword(game.getMaze().getSword(), game.getMaze()));
+		assertEquals(false,game.getHero().move("w", game.getMaze()));
+	
 	}
 	
 	@Test
@@ -83,6 +92,10 @@ public class TestHero {
 		game.getHero().move("s", game.getMaze());
 			
 		assertEquals(1, game.getHero().fightDragon(game.getDragons().get(0)));
+		
+		game.getHero().move("a", game.getMaze());
+		game.getHero().move("s", game.getMaze());
+		assertEquals(1, game.getHero().fightDragon(game.getDragons().get(0)));
 	}
 	
 	@Test
@@ -100,8 +113,11 @@ public class TestHero {
 		game.getHero().move("s", game.getMaze());
 		
 		assertEquals(2, game.getHero().fightDragon(game.getDragons().get(0)));
-	
-	
+		
+		game.getHero().move("a", game.getMaze());
+		game.getHero().move("s", game.getMaze());
+		assertEquals(2, game.getHero().fightDragon(game.getDragons().get(0)));
+
 	}
 	
 	@Test
@@ -124,6 +140,7 @@ public class TestHero {
 		{
 			game.getMaze().getBoard()[1][4]=' ';
 		}
+
 		assertEquals(' ', game.getMaze().getBoard()[1][4]);//killed dragon
 		
 		game.getHero().move("w", game.getMaze());

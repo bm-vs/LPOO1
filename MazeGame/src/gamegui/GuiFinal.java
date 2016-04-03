@@ -1,7 +1,5 @@
 package gamegui;
 
-import gamelogic.GamePanel;
-import gamelogic.BuildPanel;
 import gamelogic.Dragon;
 import gamelogic.Game;
 import gamelogic.Hero;

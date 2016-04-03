@@ -87,14 +87,10 @@ public class TestHero {
 		game.getHero().setY(1);
 		
 		game.getDragons().get(0).setX(3);
-		game.getDragons().get(0).setX(3);
+		game.getDragons().get(0).setY(3);
 		
 		game.getHero().move("s", game.getMaze());
 			
-		assertEquals(1, game.getHero().fightDragon(game.getDragons().get(0)));
-		
-		game.getHero().move("a", game.getMaze());
-		game.getHero().move("s", game.getMaze());
 		assertEquals(1, game.getHero().fightDragon(game.getDragons().get(0)));
 	}
 	
@@ -108,14 +104,10 @@ public class TestHero {
 		game.getHero().setSymbol('A');
 		
 		game.getDragons().get(0).setX(3);
-		game.getDragons().get(0).setX(3);
+		game.getDragons().get(0).setY(3);
 
 		game.getHero().move("s", game.getMaze());
 		
-		assertEquals(2, game.getHero().fightDragon(game.getDragons().get(0)));
-		
-		game.getHero().move("a", game.getMaze());
-		game.getHero().move("s", game.getMaze());
 		assertEquals(2, game.getHero().fightDragon(game.getDragons().get(0)));
 
 	}
@@ -132,7 +124,7 @@ public class TestHero {
 		game.getMaze().getExit().setX(4);
 		game.getMaze().getExit().setY(1);
 		game.getDragons().get(0).setX(3);
-		game.getDragons().get(0).setX(3);
+		game.getDragons().get(0).setY(3);
 		
 				
 		game.getHero().move("s", game.getMaze());

@@ -24,17 +24,30 @@ public class Hero {
 	 * <p>
 	 * Checks the grid for the position of the hero creates the hero accordingly.
 	 * </p>
+	 * <p>
+	 * Makes x and y to -1 if not found.
+	 * </p>
 	 * @param grid grid to create the hero from
 	 */
-	public Hero(char[][] grid) {		
+	public Hero(char[][] grid) {
+		boolean found = false;
+		
 		for (int i = 0; i < grid.length; i++) {
 			for (int a = 0; a < grid.length; a++) {
 				if (grid[a][i] == 'H') {
 					x = i;
 					y = a;
+					found = true;
 				}
 			}
 		}
+		
+		if (!found) {
+			x = -1;
+			y = -1;
+		}
+		
+		
 		
 		this.symbol = 'H';
 	}

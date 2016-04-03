@@ -87,7 +87,7 @@ public class GuiFinal {
 		// PLAY
 		
 		JButton button_play = new JButton("Jogar");
-		button_play.setBounds(380, 125, 200, 60);
+		button_play.setBounds(375, 125, 200, 60);
 		menu.add(button_play);
 		button_play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,7 +134,7 @@ public class GuiFinal {
 				cl.show(frame.getContentPane(), "configuration");
 			}
 		});
-		button_configuration.setBounds(380, 325, 200, 60);
+		button_configuration.setBounds(375, 325, 200, 60);
 		menu.add(button_configuration);
 		
 		
@@ -144,41 +144,41 @@ public class GuiFinal {
 
 		maze_size = new JLabel("Dimens\u00E3o do labirinto");
 		maze_size.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		maze_size.setBounds(310, 146, 175, 19);
+		maze_size.setBounds(305, 146, 175, 19);
 		configuration.add(maze_size);
 
 		input_maze_size = new JTextField();
 		input_maze_size.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		input_maze_size.setText(Integer.toString(size));
-		input_maze_size.setBounds(513, 145, 65, 20);
+		input_maze_size.setBounds(508, 145, 65, 20);
 		configuration.add(input_maze_size);
 		input_maze_size.setColumns(10);
 
 		number_dragons = new JLabel("N\u00FAmero de drag\u00F5es");
 		number_dragons.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		number_dragons.setBounds(310, 182, 175, 19);
+		number_dragons.setBounds(305, 182, 175, 19);
 		configuration.add(number_dragons);
 
 		input_number_dragons = new JTextField();
 		input_number_dragons.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		input_number_dragons.setText(Integer.toString(dragons));
 		input_number_dragons.setColumns(10);
-		input_number_dragons.setBounds(513, 181, 65, 20);
+		input_number_dragons.setBounds(508, 181, 65, 20);
 		configuration.add(input_number_dragons);
 
 		config_status = new JLabel("");
 		config_status.setFont(new Font("Tahoma", Font.BOLD, 14));
-		config_status.setBounds(310, 280, 341, 20);
+		config_status.setBounds(305, 280, 341, 20);
 		configuration.add(config_status);
 
 		dragon_type = new JLabel("Tipo de drag\u00F5es");
 		dragon_type.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dragon_type.setBounds(310, 217, 163, 19);
+		dragon_type.setBounds(305, 217, 163, 19);
 		configuration.add(dragon_type);
 
 		input_dragon_type = new JComboBox<String>();
 		input_dragon_type.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		input_dragon_type.setBounds(513, 216, 138, 20);
+		input_dragon_type.setBounds(508, 216, 138, 20);
 		configuration.add(input_dragon_type);
 
 		input_dragon_type.addItem("Est\u00E1ticos");
@@ -223,14 +223,14 @@ public class GuiFinal {
 				cl.show(frame.getContentPane(), "menu");
 			}
 		});
-		save_button.setBounds(421, 332, 118, 37);
+		save_button.setBounds(416, 332, 118, 37);
 		configuration.add(save_button);
 		
 		// ===================================================================================================
 		// BUILD
 		
 		JButton button_build = new JButton("Construir");
-		button_build.setBounds(380, 225, 200, 60);
+		button_build.setBounds(375, 225, 200, 60);
 		menu.add(button_build);
 		
 		button_build.addActionListener(new ActionListener() {
@@ -295,9 +295,28 @@ public class GuiFinal {
 				button_play.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						game = new Game(build.getBoard());
+						// Check selected item
 						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
 							return;
 						}
+						// Check number of dragons (>0)
+						if (game.getNumDragons() == 0) {
+							return;
+						}
+						// Check hero
+						if (game.getHero().getX() == -1 && game.getHero().getY() == -1) {
+							return;
+						}
+						// Check sword
+						if (game.getMaze().getSword().getX() == -1 && game.getMaze().getSword().getY() == -1) {
+							return;
+						}
+						// Check exit
+						if (game.getMaze().getExit().getX() == -1 && game.getMaze().getExit().getY() == -1) {
+							return;
+						}
+						
+						
 						if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
 							game.setGameMode("2");
 						} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(2))) {
@@ -345,7 +364,7 @@ public class GuiFinal {
 				System.exit(0);
 			}
 		});
-		button_exit.setBounds(380, 425, 200, 60);
+		button_exit.setBounds(375, 425, 200, 60);
 		menu.add(button_exit);
 	}
 }

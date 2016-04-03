@@ -68,18 +68,32 @@ public class Maze {
 	public Maze(char[][] grid) {
 		this.grid = grid;
 		
+		boolean found_sword = false;
+		boolean found_exit = false;
 		for (int i = 0; i < grid.length; i++) {
 			for (int a = 0; a < grid.length; a++) {
 				if (grid[a][i] == 'S') {
 					exit.x = i;
 					exit.y = a;
+					found_exit = true;
 				}
 				else if (grid[a][i] == 'E') {
 					sword.x = i;
 					sword.y = a;
 					sword_exists = true;
+					found_sword = true;
 				}
 			}
+		}
+		
+		if (!found_exit) {
+			exit.x = -1;
+			exit.y = -1;
+		}
+		
+		if (!found_sword) {
+			sword.x = -1;
+			sword.y = -1;
 		}
 	}
 	

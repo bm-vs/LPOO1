@@ -262,7 +262,7 @@ public class GamePanel extends JPanel {
 		case 3:
 			if (game.getNumDragons() == 0)
 				if (n_dragons == 1)
-					game_status.setText("Drag\u00E3es morto!");
+					game_status.setText("Drag\u00E3o morto!");
 				else {
 					game_status.setText("Drag\u00F5es mortos!");
 				}

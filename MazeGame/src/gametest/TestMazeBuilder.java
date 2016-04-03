@@ -147,7 +147,7 @@ public class TestMazeBuilder {
 		for (int i = 0; i < numMazes; i++) {
 			int size = maxMazeSize == minMazeSize? minMazeSize : minMazeSize + 2 * rand.nextInt((maxMazeSize - minMazeSize)/2);
 			Game g = new Game(size, 1);
-			char[][] m = g.getMaze().getBoard();
+			char[][] m = g.getMaze().getGrid();
 			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));			
 			assertTrue("Invalid walls in maze:\n" + m, ! hasSquare(m, badWalls));
 			assertTrue("Invalid spaces in maze:\n" + m, ! hasSquare(m, badSpaces));
@@ -190,10 +190,10 @@ public class TestMazeBuilder {
 		Maze maze = new Maze(3, " ");
 		int vazio=0;
 		
-		for(int i=0; i< maze.getBoardLength(); i++)
+		for(int i=0; i< maze.getGridLength(); i++)
 		{
-			for(int j=0; j < maze.getBoardLength(); j++)
-			if(maze.getBoard()[i][j]== ' ')
+			for(int j=0; j < maze.getGridLength(); j++)
+			if(maze.getGrid()[i][j]== ' ')
 				vazio++;	
 		}
 		assertEquals(1,vazio);
@@ -205,11 +205,11 @@ public class TestMazeBuilder {
 	{
 		Maze maze = new Maze(m1);
 		
-		System.out.println(maze.return_board());//este teste tem que ser igual ao  parametro m1 que esta em cima
+		System.out.println(maze.return_grid());//este teste tem que ser igual ao  parametro m1 que esta em cima
 		
-		maze.setBoard(m2);
+		maze.setGrid(m2);
 		
-		System.out.println(maze.return_board());
+		System.out.println(maze.return_grid());
 	}
 	
 	@Test

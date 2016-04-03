@@ -84,6 +84,6 @@ public class Ui {
 	}
 	
 	public static void printBoard(Game game) {
-		System.out.print(game.return_board());
+		System.out.print(game.return_grid());
 	}
 }

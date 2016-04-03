@@ -18,7 +18,7 @@ public class TestDragon {
 	public void testDragonMoves() { // Check if every direction
 		Game game = new Game(5,1);
 		
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		
 		game.getMaze().getSword().setX(1);
 		game.getMaze().getSword().setY(3);
@@ -59,7 +59,7 @@ public class TestDragon {
 	public void testDragonMovesToSword() { // Check if every direction
 		Game game = new Game(5,1);
 		
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		
 		game.getMaze().getSword().setX(2);
 		game.getMaze().getSword().setY(2);
@@ -106,7 +106,7 @@ public class TestDragon {
 		Game g = new Game(m1);
 		g.getDragons().get(0).setPosition(1, 1, g.getMaze());
 		
-		assertEquals(g.getMaze().getBoard()[1][1], g.getDragons().get(0).getSymbol());
+		assertEquals(g.getMaze().getGrid()[1][1], g.getDragons().get(0).getSymbol());
 	}
 	
 	
@@ -116,7 +116,7 @@ public class TestDragon {
 		g.getDragons().get(0).setPosition(1, 1, g.getMaze());
 		g.getDragons().get(0).dies(g.getMaze());		
 		
-		assertEquals(g.getMaze().getBoard()[1][1], ' ');
+		assertEquals(g.getMaze().getGrid()[1][1], ' ');
 	}
 	
 	
@@ -125,7 +125,7 @@ public class TestDragon {
 	public void testDragonSleep() {
 		Game game = new Game(5,1);
 		
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getDragons().get(0).setX(2);
 		game.getDragons().get(0).setY(2);
 		
@@ -164,7 +164,7 @@ public class TestDragon {
 			
 		}
 				
-		assertEquals(game.getMaze().getBoard()[3][1], 'F');
+		assertEquals(game.getMaze().getGrid()[3][1], 'F');
 		assertTrue(wake_up && sleep && wake_up_on_sword);
 	}
 }

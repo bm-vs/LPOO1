@@ -1,7 +1,7 @@
 package gamelogic;
 
 public class Maze {
-	private char board[][];
+	private char grid[][];
 	private boolean sword_exists;
 
 	public class Exit {
@@ -52,16 +52,16 @@ public class Maze {
 	public Maze() {
 	}
 	
-	public Maze(char[][] board) {
-		this.board = board;
+	public Maze(char[][] grid) {
+		this.grid = grid;
 		
-		for (int i = 0; i < board.length; i++) {
-			for (int a = 0; a < board.length; a++) {
-				if (board[a][i] == 'S') {
+		for (int i = 0; i < grid.length; i++) {
+			for (int a = 0; a < grid.length; a++) {
+				if (grid[a][i] == 'S') {
 					exit.x = i;
 					exit.y = a;
 				}
-				else if (board[a][i] == 'E') {
+				else if (grid[a][i] == 'E') {
 					sword.x = i;
 					sword.y = a;
 					sword_exists = true;
@@ -72,7 +72,7 @@ public class Maze {
 	
 	public Maze(int maze_size) {
 		MazeBuilder mb = new MazeBuilder();
-		board = mb.buildMaze(maze_size);
+		grid = mb.buildMaze(maze_size);
 		
 		exit.x = mb.getExitX();
 		exit.y = mb.getExitY();
@@ -84,23 +84,23 @@ public class Maze {
 	}
 	
 	public Maze(int maze_size, String empty) {
-		board = new char[maze_size][maze_size];
+		grid = new char[maze_size][maze_size];
 		
 		for (int i = 0; i < maze_size; i++) {
 			for (int a = 0; a < maze_size; a++) {
 				if (i == 0 || a == 0 || a == maze_size - 1 || i == maze_size - 1) {
-					board[a][i] = 'X';
+					grid[a][i] = 'X';
 				}
 				else {
-					board[a][i] = ' ';
+					grid[a][i] = ' ';
 				}
 			}
 		}
 		
 	}
 	
-	public char[][] getBoard() {
-		return board;
+	public char[][] getGrid() {
+		return grid;
 	}
 		
 	public Sword getSword() {
@@ -115,30 +115,30 @@ public class Maze {
 		return sword_exists;
 	}
 
-	public int getBoardLength() {
-		return board.length;
+	public int getGridLength() {
+		return grid.length;
 	}
 
 	public void setSwordExists(boolean sword_exists) {
 		this.sword_exists = sword_exists;
 	}
 
-	public void setBoard(char[][] board) {
-		this.board = board;
+	public void setGrid(char[][] grid) {
+		this.grid = grid;
 	}
 	
 	
-	public String return_board () {
-		String board_string = "";
+	public String return_grid () {
+		String grid_string = "";
 		
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				board_string += board[i][j] + " ";
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[i].length; j++) {
+				grid_string += grid[i][j] + " ";
 			}
 
-			board_string += System.lineSeparator();
+			grid_string += System.lineSeparator();
 		}
 		
-		return board_string;
+		return grid_string;
 	}
 }

@@ -13,10 +13,10 @@ public class Hero {
 	public Hero() {
 	}
 	
-	public Hero(char[][] board) {		
-		for (int i = 0; i < board.length; i++) {
-			for (int a = 0; a < board.length; a++) {
-				if (board[a][i] == 'H') {
+	public Hero(char[][] grid) {		
+		for (int i = 0; i < grid.length; i++) {
+			for (int a = 0; a < grid.length; a++) {
+				if (grid[a][i] == 'H') {
 					x = i;
 					y = a;
 				}
@@ -31,19 +31,19 @@ public class Hero {
 		
 		// Get random starting position for hero
 		while (true) {
-			x = rand.nextInt(maze.getBoardLength() - 2);
-			y = rand.nextInt(maze.getBoardLength() - 2);
+			x = rand.nextInt(maze.getGridLength() - 2);
+			y = rand.nextInt(maze.getGridLength() - 2);
 			x++;
 			y++;
 			
-			if (maze.getBoard()[y][x] == ' ') {
+			if (maze.getGrid()[y][x] == ' ') {
 				break;
 			}
 		}
 		
-		// Place hero on board
+		// Place hero on grid
 		this.symbol = 'H';
-		maze.getBoard()[y][x] = symbol;
+		maze.getGrid()[y][x] = symbol;
 	}
 	
 	public Point getHeroPosition() {
@@ -76,37 +76,37 @@ public class Hero {
 	
 	public boolean move(String key, Maze maze) {		
 		if (key.equals("w")) {
-			if (maze.getBoard()[y - 1][x] == ' ' || maze.getBoard()[y - 1][x] == 'E') {
-				maze.getBoard()[y][x] = ' ';
+			if (maze.getGrid()[y - 1][x] == ' ' || maze.getGrid()[y - 1][x] == 'E') {
+				maze.getGrid()[y][x] = ' ';
 				y --;
-				maze.getBoard()[y][x] = symbol;
+				maze.getGrid()[y][x] = symbol;
 			
 				return true;
 			}
 		}
 		else if (key.equals("a")) {
-			if (maze.getBoard()[y][x - 1] == ' ' || maze.getBoard()[y][x - 1] == 'E') {
-				maze.getBoard()[y][x] = ' ';
+			if (maze.getGrid()[y][x - 1] == ' ' || maze.getGrid()[y][x - 1] == 'E') {
+				maze.getGrid()[y][x] = ' ';
 				x --;
-				maze.getBoard()[y][x] = symbol;
+				maze.getGrid()[y][x] = symbol;
 				
 				return true;
 			}
 		}
 		else if (key.equals("d")) {
-			if (maze.getBoard()[y][x + 1] == ' ' || maze.getBoard()[y][x + 1] == 'E') {
-				maze.getBoard()[y][x] = ' ';
+			if (maze.getGrid()[y][x + 1] == ' ' || maze.getGrid()[y][x + 1] == 'E') {
+				maze.getGrid()[y][x] = ' ';
 				x ++;
-				maze.getBoard()[y][x] = symbol;
+				maze.getGrid()[y][x] = symbol;
 				
 				return true;
 			}
 		}
 		else if (key.equals("s")) {
-			if (maze.getBoard()[y + 1][x] == ' ' || maze.getBoard()[y + 1][x] == 'E') {
-				maze.getBoard()[y][x] = ' ';
+			if (maze.getGrid()[y + 1][x] == ' ' || maze.getGrid()[y + 1][x] == 'E') {
+				maze.getGrid()[y][x] = ' ';
 				y ++;
-				maze.getBoard()[y][x] = symbol;
+				maze.getGrid()[y][x] = symbol;
 				
 				return true;
 			}
@@ -146,7 +146,7 @@ public class Hero {
 	public boolean pickUpSword(Maze.Sword sword, Maze maze) {
 		if (sword.getX() == x && sword.getY() == y) {
 			symbol = 'A';
-			maze.getBoard()[y][x] = symbol;
+			maze.getGrid()[y][x] = symbol;
 			maze.setSwordExists(false);
 			
 			return true;

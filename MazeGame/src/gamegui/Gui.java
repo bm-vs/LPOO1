@@ -212,7 +212,7 @@ public class Gui {
 						game.addDragon(new Dragon(game.getMaze()));
 					}
 
-					maze_area.setText(game.return_board());
+					maze_area.setText(game.return_grid());
 				}
 			}
 		});
@@ -232,7 +232,7 @@ public class Gui {
 	}
 	
 	private void close() {
-		maze_area.setText(game.return_board());
+		maze_area.setText(game.return_grid());
 		move_up.setEnabled(false);
 		move_down.setEnabled(false);
 		move_left.setEnabled(false);
@@ -251,22 +251,22 @@ public class Gui {
 
 		switch (game.play(game_mode, key)) {
 		case 1:
-			maze_area.setText(game.return_board()); // WIN
+			maze_area.setText(game.return_grid()); // WIN
 			estado.setText("The hero has won!");
 			close();
 			break;
 		case 2:
-			maze_area.setText(game.return_board());
+			maze_area.setText(game.return_grid());
 			estado.setText("The hero has died!"); // LOSE
 			close();
 			break;
 		case 3:
-			maze_area.setText(game.return_board());
+			maze_area.setText(game.return_grid());
 			estado.setText("The dragon has died!"); // DRAGON DIES
 			break;
 		}
 
-		maze_area.setText(game.return_board());
+		maze_area.setText(game.return_grid());
 	}
 
 }

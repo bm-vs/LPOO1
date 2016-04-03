@@ -32,7 +32,7 @@ public class TestHero {
 	public void testMoveHeroToFreeCell() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 
@@ -46,7 +46,7 @@ public class TestHero {
 	public void testHeroWall() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 		game.getMaze().getSword().setX(1);
@@ -60,7 +60,7 @@ public class TestHero {
 	public void testHeroSword() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 		
@@ -82,7 +82,7 @@ public class TestHero {
 	public void testHeroDies() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 		
@@ -98,7 +98,7 @@ public class TestHero {
 	public void testHeroKillDragon() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 		game.getHero().setSymbol('A');
@@ -116,7 +116,7 @@ public class TestHero {
 	public void testHerowins() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 		game.getHero().setSymbol('A');//pickup sword
@@ -130,10 +130,10 @@ public class TestHero {
 		game.getHero().move("s", game.getMaze());
 		if(game.getHero().fightDragon(game.getDragons().get(0))== 2)
 		{
-			game.getMaze().getBoard()[1][4]=' ';
+			game.getMaze().getGrid()[1][4]=' ';
 		}
 
-		assertEquals(' ', game.getMaze().getBoard()[1][4]);//killed dragon
+		assertEquals(' ', game.getMaze().getGrid()[1][4]);//killed dragon
 		
 		game.getHero().move("w", game.getMaze());
 		game.getHero().move("d", game.getMaze());
@@ -145,7 +145,7 @@ public class TestHero {
 	public void testHeroOut() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 
@@ -162,7 +162,7 @@ public class TestHero {
 	public void testHeroOutWithSword() {
 		Game game = new Game(5,1);
 
-		game.getMaze().setBoard(m1);
+		game.getMaze().setGrid(m1);
 		game.getHero().setX(3);
 		game.getHero().setY(1);
 		game.getHero().setSymbol('A');

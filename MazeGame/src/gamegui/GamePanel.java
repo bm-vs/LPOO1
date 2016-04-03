@@ -41,7 +41,7 @@ public class GamePanel extends JPanel {
 	private char board[][];
 
 	public GamePanel(Game game) {
-		this.board = game.getMaze().getBoard();
+		this.board = game.getMaze().getGrid();
 		this.game = game;
 		n_dragons = game.getNumDragons();
 		

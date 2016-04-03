@@ -6,30 +6,51 @@ import gamelogic.Dragon;
 import gamelogic.Hero;
 import gamelogic.Maze;
 
+/**
+ * Class to represent the game state.
+ **/
 public class Game {
 	private Maze maze;
 	private Hero hero;
 	private String game_mode;
 	private ArrayList<Dragon> dragons = new ArrayList<Dragon>();
 
+	/**
+	 * Creates an empty game.
+	 */
 	public Game() {
 		maze = new Maze();
 		hero = new Hero();
 	}
 	
-	public Game (char[][] board) {
-		maze = new Maze(board);
-		hero = new Hero(board);
+	/**
+	 * Creates a game from the given grid.
+	 * <p>
+	 * Checks the grid for the position of the sword, exit, hero and dragons and creates the game state accordingly.
+	 * </p>
+	 * @param grid grid to build the game from
+	 */
+	public Game (char[][] grid) {
+		maze = new Maze(grid);
+		hero = new Hero(grid);
 		
-		for (int i = 0; i < board.length; i++) {
-			for (int a = 0; a < board.length; a++) {
-				if (board[a][i] == 'D') {
+		for (int i = 0; i < grid.length; i++) {
+			for (int a = 0; a < grid.length; a++) {
+				if (grid[a][i] == 'D') {
 					dragons.add(new Dragon(i,a));
 				}
 			}
 		}
 	}
 	
+	/**
+	 * Creates a game with the given maze size and number of dragons.
+	 * <p>
+	 * Creates a random maze with the given size and places the sword, exit, hero and dragons randomly on it.
+	 * </p>
+	 * @param maze_size size of the maze
+	 * @param number_dragons number of dragons
+	 */
 	public Game(int maze_size, int number_dragons) {		
 		maze = new Maze(maze_size);
 		hero = new Hero(maze);
@@ -39,57 +60,134 @@ public class Game {
 		}
 	} 
 
-	
+	/**
+	 * Returns the maze of the game.
+	 * @return maze
+	 */
 	public Maze getMaze() {
 		return maze;
 	}
 	
+	/**
+	 * Returns the hero of the game.
+	 * @return hero
+	 */
 	public Hero getHero() {
 		return hero;
 	}
 	
+	/**
+	 * Returns the game mode that defines the dragons' behavior.
+	 *  <p>
+	 *  "0" makes the dragons move.
+	 *  </p>
+	 *  <p>
+	 *  "1" makes the dragons move and sleep.
+	 *  </p>
+	 *  <p>
+	 *  "2" makes the dragons stand still.
+	 *  </p>
+	 * @return game mode
+	 */
 	public String getGameMode() {
 		return game_mode;
 	}
 	
+	/**
+	 * Returns the dragons of the game.
+	 * @return dragons
+	 */
 	public ArrayList<Dragon> getDragons() {
 		return dragons;
 	}
 	
-	
+	/**
+	 * Sets the maze of the game.
+	 * @param maze maze
+	 */
 	public void setMaze(Maze maze) {
 		this.maze = maze;
 	}
 	
+	/**
+	 * Sets the hero of the game.
+	 * @param hero hero
+	 */
 	public void setHero(Hero hero) {
 		this.hero = hero;
 	}
 	
+	/**
+	 * Sets the game mode that defines the dragons' behavior.
+	 *  <p>
+	 *  "0" makes the dragons move.
+	 *  </p>
+	 *  <p>
+	 *  "1" makes the dragons move and sleep.
+	 *  </p>
+	 *  <p>
+	 *  "2" makes the dragons stand still.
+	 *  </p>
+	 * @param game_mode game mode
+	 */
 	public void setGameMode(String game_mode) {
 		this.game_mode = game_mode;
 	}
 	
+	/**
+	 * Sets the dragons of the game.
+	 * @param dragons dragons
+	 */
 	public void setDragons(ArrayList<Dragon> dragons) {
 		this.dragons = dragons;
 	}
 
+	/**
+	 * Removes all dragons from the game.
+	 */
 	public void clearDragons() {
 		dragons.clear();
 	}
 
+	/**
+	 * Adds the given dragon to the game.
+	 * @param d dragon to add
+	 */
 	public void addDragon(Dragon d) {
 		dragons.add(d);
 	}
 
+	/**
+	 * Returns the number of dragons in the game.
+	 * @return number of dragons in the game
+	 */
 	public int getNumDragons() {
 		return dragons.size();
 	}
 	
-	
-	public String return_board() {
-		return maze.return_board();
+	/**
+	 * Returns a formatted string of the maze grid.
+	 * @return formatted string of the maze grid
+	 */
+	public String return_grid() {
+		return maze.return_grid();
 	}
 
+	/**
+	 * Simulates a user's play.
+	 * <p>
+	 * Moves the hero according to the key string given("a"-left, "d"-right, "w"-up, "s"-down).
+	 * </p>
+	 * <p>
+	 * Simulates the dragons' actions according to the given game mode("0"-dragons move,"1"-dragons move/sleep,"2"-dragons stand still).
+	 * </p>
+	 * <p>
+	 * Simulates the fight between hero and dragons if they are in adjacent cells.
+	 * </p>
+	 * @param game_mode gives the dragon behavior
+	 * @param key gives the hero's movement
+	 * @return 1 if the hero is at the exit. 2 if the hero has died. 3 if all dragons have died. 0 for default.
+	 */
 	public int play(String game_mode, String key) {
 		if (game_mode.equals("0")) {
 			for (int i = 0; i < dragons.size(); i++) {
@@ -133,7 +231,7 @@ public class Game {
 				d.dies(maze); // WIN
 				dragons.remove(d);
 				if (dragons.isEmpty())
-					maze.getBoard()[maze.getExit().getY()][maze.getExit().getX()] = ' ';
+					maze.getGrid()[maze.getExit().getY()][maze.getExit().getX()] = ' ';
 				
 				return 3;
 			}

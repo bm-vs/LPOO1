@@ -201,18 +201,6 @@ public class TestMazeBuilder {
 	}
 	
 	@Test
-	public void testPrintMaze()
-	{
-		Maze maze = new Maze(m1);
-		
-		System.out.println(maze.return_grid());//este teste tem que ser igual ao  parametro m1 que esta em cima
-		
-		maze.setGrid(m2);
-		
-		System.out.println(maze.return_grid());
-	}
-	
-	@Test
 	public void testSword()
 	{
 		Maze maze = new Maze(m1);

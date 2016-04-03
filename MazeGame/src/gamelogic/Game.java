@@ -47,22 +47,23 @@ public class Game {
 
 	public int play(String game_mode, String key) {
 		if (game_mode.equals("0")) {
-			for (Dragon d : dragons)
-				d.move(maze);
+			for (int i = 0; i < dragons.size(); i++) {
+				dragons.get(i).move(maze);
+			}
 		}
 
 		if (game_mode.equals("1")) {
-			for (Dragon d : dragons) {
-				if (d.is_sleeping == 'D') {
-					if (d.mode(maze) == 0)
-						d.move(maze);
+			for (int i = 0; i < dragons.size(); i++) {
+				if (dragons.get(i).is_sleeping == 'D') {
+					if (dragons.get(i).mode(maze) == 0)
+						dragons.get(i).move(maze);
 
-					else if (d.mode(maze) == 1)
-						d.fallAsleep(maze);
+					else if (dragons.get(i).mode(maze) == 1)
+						dragons.get(i).fallAsleep(maze);
 
-				} else if (d.is_sleeping == 'd')
-					if (d.mode(maze) == 0 || d.mode(maze) == 1)
-						d.wakeUp(maze);	
+				} else if (dragons.get(i).is_sleeping == 'd')
+					if (dragons.get(i).mode(maze) == 0 || dragons.get(i).mode(maze) == 1)
+						dragons.get(i).wakeUp(maze);	
 			}
 		}
 		// gameMode == "2" -> stand still
@@ -76,7 +77,7 @@ public class Game {
 			return 1;
 		}
 
-		hero.pickUpSword(maze.sword, maze);
+		hero.pickUpSword(maze.sword, maze);		
 
 		for (Dragon d : dragons) {
 

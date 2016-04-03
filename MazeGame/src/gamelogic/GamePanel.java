@@ -35,11 +35,13 @@ public class GamePanel extends JPanel {
 	private JButton move_right;
 	private JLabel game_status;
 	double length;
+	int n_dragons;
 	public char board[][];
 
 	public GamePanel(Game game) {
 		this.board = game.maze.board;
 		this.game = game;
+		n_dragons = game.dragons.size();
 		
 		length = 600.0 / board.length;
 		
@@ -257,7 +259,11 @@ public class GamePanel extends JPanel {
 			break;
 		case 3:
 			if (game.dragons.isEmpty())
-				game_status.setText("Drag\u00E3o morto!"); // DRAGON DIES
+				if (n_dragons == 1)
+					game_status.setText("Drag\u00E3es morto!");
+				else {
+					game_status.setText("Drag\u00F5es mortos!");
+				}
 			break;
 		}
 	}

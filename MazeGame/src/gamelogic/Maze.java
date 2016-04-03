@@ -32,6 +32,7 @@ public class Maze {
 				else if (board[a][i] == 'E') {
 					sword.x = i;
 					sword.y = a;
+					sword_exists = true;
 				}
 			}
 		}

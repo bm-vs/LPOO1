@@ -11,18 +11,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Component;
 
 import javax.swing.JPanel;
 import java.awt.Font;
@@ -97,7 +93,6 @@ public class GuiFinal {
 		menu.add(button_play);
 		button_play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				game.maze = new Maze(size);
 				game.hero = new Hero(game.maze);
 

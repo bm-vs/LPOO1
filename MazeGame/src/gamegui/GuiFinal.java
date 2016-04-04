@@ -268,6 +268,10 @@ public class GuiFinal {
 					config_status.setText("ARGUMENTOS INV\u00C1LIDOS");
 					return;
 				}
+				
+				input_number_dragons.setText(Integer.toString(dragons));
+				input_maze_size.setText(Integer.toString(size));
+				
 
 				if (size * size < 50.0 && dragons == 1)
 					config_status.setText("");
@@ -404,6 +408,14 @@ public class GuiFinal {
 						input_dragon_type.addItem("MOVER");
 						input_dragon_type.addItem("MOVER E ADORMECER");
 						build.add(input_dragon_type);
+						
+						Object child = input_dragon_type.getAccessibleContext().getAccessibleChild(0);
+						BasicComboPopup popup = (BasicComboPopup)child;
+						JList<?> list = popup.getList();
+						list.setSelectionBackground(color_lime);
+						list.setBackground(color_pine);
+						list.setForeground(Color.WHITE);
+						list.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 						
 						JButton button_back = new JButton("VOLTAR");
 						buttonConfig(button_back, 12);

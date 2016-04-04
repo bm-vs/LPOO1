@@ -66,7 +66,7 @@ public class GamePanel extends JPanel {
 		
 		game_status = new JLabel("", SwingConstants.CENTER);
 		game_status.setBounds(682, 410, 186, 50);
-		game_status.setFont(new Font("Dialog", Font.BOLD, 20));
+		game_status.setFont(new Font("Dialog", Font.BOLD, 18));
 		game_status.setForeground(Color.WHITE);
 		add(game_status);
 

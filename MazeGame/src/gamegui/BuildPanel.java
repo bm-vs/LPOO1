@@ -45,21 +45,39 @@ public class BuildPanel extends JPanel {
 	private JButton button_dragon;
 	private JButton button_sword;
 	private JButton button_exit;
+	private JButton button_change_lang;
 	private int x, y;
-	private int cursor = -1;
+	private int cursor;
 	private double length;
 	private char board[][];
-	private Color color_pine = new Color(32,62,71);
-	private Color color_blue = new Color(76,181,245);
-	private Color color_lime = new Color(179,193,0);
+	
+	private Color color_pine;
+	private Color color_blue;
+	private Color color_lime;
 
-	public BuildPanel(char board[][]) {
-		this.setBackground(color_pine);
-		this.board = board;
-		length = 600.0 / board.length;
-		this.setLayout(null);	
+	public BuildPanel(char board[][], String language) {
 		
-		button_wall = new JButton("PAREDE");
+		this.board = board;
+		
+		length = 600.0 / board.length;
+		color_pine = new Color(32,62,71);
+		color_blue = new Color(76,181,245);
+		color_lime = new Color(179,193,0);
+		cursor = -1;
+		
+		
+		setLayout(null);
+		setBackground(color_pine);
+		
+		
+		button_wall = new JButton();
+		button_hero = new JButton();
+		button_dragon = new JButton();
+		button_sword = new JButton();
+		button_exit = new JButton();
+		setLanguage(language);
+		
+		
 		buttonConfig(button_wall, 12);
 		this.add(button_wall);
 		button_wall.setBounds(10, 10, 112, 30);
@@ -73,7 +91,7 @@ public class BuildPanel extends JPanel {
 				buttonAction("wall.jpg", "cursor wall");
 			}});
 		
-		button_hero = new JButton("HER\u00D3I");
+		
 		buttonConfig(button_hero, 12);
 		this.add(button_hero);
 		button_hero.setBounds(122, 10, 112, 30);
@@ -87,7 +105,7 @@ public class BuildPanel extends JPanel {
 				buttonAction("hero_small.jpg", "cursor hero");
 			}});
 		
-		button_dragon = new JButton("DRAG\u00C3O");
+		
 		buttonConfig(button_dragon, 12);
 		this.add(button_dragon);
 		button_dragon.setBounds(234, 10, 112, 30);
@@ -101,7 +119,7 @@ public class BuildPanel extends JPanel {
 				buttonAction("dragon.jpg", "cursor dragon");
 			}});
 		
-		button_sword = new JButton("ESPADA");
+		
 		buttonConfig(button_sword, 12);
 		this.add(button_sword);
 		button_sword.setBounds(346, 10, 112, 30);
@@ -115,7 +133,7 @@ public class BuildPanel extends JPanel {
 				buttonAction("sword_floor.jpg", "cursor sword");
 			}});
 		
-		button_exit = new JButton("SA\u00CDDA");
+		
 		buttonConfig(button_exit, 12);
 		this.add(button_exit);
 		button_exit.setBounds(458, 10, 112, 30);
@@ -184,6 +202,7 @@ public class BuildPanel extends JPanel {
 			public void mouseExited(MouseEvent e) {
 			}
 		});
+		
 	}
 
 	@Override
@@ -390,4 +409,21 @@ public class BuildPanel extends JPanel {
         	b.setBackground(color_blue);
         }
 	}	
+	
+	private void setLanguage(String language) {
+		if (language == "POR") {
+			button_wall.setText("PAREDE");
+			button_hero.setText("HER\u00D3I");
+			button_dragon.setText("DRAG\u00C3O");
+			button_sword.setText("ESPADA");
+			button_exit.setText("SA\u00CDDA");
+		}
+		else {
+			button_wall.setText("WALL");
+			button_hero.setText("HERO");
+			button_dragon.setText("DRAGON");
+			button_sword.setText("SWORD");
+			button_exit.setText("EXIT");
+		}
+	}
 }

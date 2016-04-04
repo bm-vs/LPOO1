@@ -50,27 +50,41 @@ public class GamePanel extends JPanel {
 	private double length;
 	private int n_dragons;
 	private char board[][];
-	private Color color_pine = new Color(32,62,71);
-	private Color color_blue = new Color(76,181,245);
-	private Color color_lime = new Color(179,193,0);
+	private Color color_pine;
+	private Color color_blue;
+	private Color color_lime;
+	private String language;
 
-	public GamePanel(Game game) {
-		this.setBackground(color_pine);
-		this.board = game.getMaze().getGrid();
-		this.game = game;
-		n_dragons = game.getNumDragons();
+	public GamePanel(Game game, String language) {
 		
+		this.game = game;
+		board = game.getMaze().getGrid();
+		n_dragons = game.getNumDragons();
 		length = 600.0 / board.length;
 		
-		this.setLayout(null);
+		color_pine = new Color(32,62,71);
+		color_blue = new Color(76,181,245);
+		color_lime = new Color(179,193,0);
 		
-		game_status = new JLabel("", SwingConstants.CENTER);
+		setBackground(color_pine);
+		setLayout(null);
+		
+		this.language = language;
+		move_up = new JButton("CIMA");
+		move_left = new JButton("ESQUERDA");
+		move_down = new JButton("BAIXO");
+		move_right = new JButton("DIREITA");
+		setLanguage(this.language);
+		
+		
+		game_status = new JLabel("");
+		game_status.setHorizontalAlignment(JLabel.CENTER);
+		game_status.setVerticalAlignment(JLabel.CENTER);
 		game_status.setBounds(682, 410, 186, 50);
 		game_status.setFont(new Font("Dialog", Font.BOLD, 18));
 		game_status.setForeground(Color.WHITE);
 		add(game_status);
 
-		move_up = new JButton("CIMA");
 		buttonConfig(move_up, 12);
 		move_up.setBounds(732, 105, 88, 44);
 		this.add(move_up);
@@ -87,7 +101,7 @@ public class GamePanel extends JPanel {
 			}
 		});
 		
-		move_left = new JButton("ESQUERDA");
+		
 		buttonConfig(move_left, 12);
 		move_left.setBounds(682, 160, 88, 44);
 		add(move_left);
@@ -105,7 +119,6 @@ public class GamePanel extends JPanel {
 		});
 		
 		
-		move_down = new JButton("BAIXO");
 		buttonConfig(move_down, 12);
 		move_down.setBounds(732, 215, 88, 44);
 		this.add(move_down);
@@ -122,7 +135,6 @@ public class GamePanel extends JPanel {
 			}
 		});
 		
-		move_right = new JButton("DIREITA");
 		buttonConfig(move_right, 12);
 		move_right.setBounds(780, 160, 88, 44);
 		this.add(move_right);
@@ -308,18 +320,30 @@ public class GamePanel extends JPanel {
 		switch (game.play(game.getGameMode(), key)) {
 		case 1:
 			close();
-			game_status.setText("VIT\u00D3RIA!");// WIN
+			if (language == "POR")
+				game_status.setText("GANHASTE!");
+			else 
+				game_status.setText("YOU WIN!");
 			break;
 		case 2:
 			close();
-			game_status.setText("DERROTA!"); // LOSE
+			if (language == "POR")
+				game_status.setText("PERDESTE!");
+			else
+				game_status.setText("YOU LOST!");
 			break;
 		case 3:
 			if (game.getNumDragons() == 0)
 				if (n_dragons == 1)
-					game_status.setText("DRAG\u00C3O MORTO!");
+					if (language == "POR")
+						game_status.setText("<html>MATASTE<br>O DRAG\u00C3O!</html>");
+					else
+						game_status.setText("<html>YOU HAVE SLAIN<br>THE DRAGON!</html>");
 				else {
-					game_status.setText("DRAG\u00D5ES MORTOS!");
+					if (language == "POR")
+						game_status.setText("<html>MATASTE<br>OS DRAG\u00D5ES!</html>");
+					else
+						game_status.setText("<html>YOU HAVE SLAIN<br>THE DRAGONS!</html>");
 				}
 			break;
 		}
@@ -351,6 +375,22 @@ public class GamePanel extends JPanel {
         else {
         	b.setBackground(color_blue);
         }
+	}
+	
+	private void setLanguage(String language) {
+		
+		if (language == "POR") {
+			move_up.setText("CIMA");
+			move_left.setText("ESQUERDA");
+			move_down.setText("BAIXO");
+			move_right.setText("DIREITA");
+		}
+		else {
+			move_up.setText("UP");
+			move_left.setText("LEFT");
+			move_down.setText("DOWN");
+			move_right.setText("RIGHT");
+		}
 	}
 	
 }

@@ -43,23 +43,35 @@ public class GuiFinal {
 	private Game game;
 	private JPanel menu;
 	private JPanel configuration;
-	private JButton button_exit;
 	private JTextField input_maze_size;
 	private JTextField input_number_dragons;
-	private JComboBox<String> input_dragon_type;
+	private JComboBox<String> input_dragon_type1;
+	private JComboBox<String> input_dragon_type2;
 	private JLabel maze_size;
 	private JLabel dragon_type;
 	private JLabel config_status;
 	private JLabel number_dragons;
 	private JButton button_save;
-	private int size = 11;
-	private int dragons = 1;
-	private int build_size = 11;
-	private int frame_width = 950;
-	private int frame_height = 720;
-	private Color color_pine = new Color(32,62,71);
-	private Color color_blue = new Color(76,181,245);
-	private Color color_lime = new Color(179,193,0);
+	private JButton button_play1;
+	private JButton button_play2;
+	private JButton button_back1;
+	private JButton button_back2;
+	private JButton button_back3;
+	private JButton button_configuration;
+	private JButton button_build;
+	private JButton dialog_ok;
+	private JButton button_exit;
+	private JButton button_change_lang;
+	private JLabel dialog_maze_size;
+	private String language;
+	private int size;
+	private int dragons;
+	private int build_size;
+	private int frame_width;
+	private int frame_height;
+	private Color color_pine;
+	private Color color_blue;
+	private Color color_lime;
 	
 	
 	public static void main(String[] args) {
@@ -76,6 +88,42 @@ public class GuiFinal {
 	}
 
 	public GuiFinal() {
+		language = "POR";
+		size = 11;
+		dragons = 1;
+		build_size = 11;
+		frame_width = 950;
+		frame_height = 720;
+		color_pine = new Color(32,62,71);
+		color_blue = new Color(76,181,245);
+		color_lime = new Color(179,193,0);
+		
+		button_save = new JButton("GUARDAR");
+		button_play1 = new JButton("JOGAR");
+		button_play2 = new JButton("JOGAR");
+		button_back1 = new JButton("VOLTAR");
+		button_back2 = new JButton("VOLTAR");
+		button_back3 = new JButton("VOLTAR");
+		button_configuration = new JButton("CONFIGURAR");
+		button_build = new JButton("CONSTRUIR");
+		dialog_ok = new JButton("OK");
+		button_exit = new JButton("SAIR");
+		button_change_lang = new JButton("ENG");
+		dialog_maze_size = new JLabel("DIMENS\u00C3O DO LABIRINTO");
+		input_dragon_type1 = new JComboBox<String>();
+		input_dragon_type1.addItem("EST\u00C1TICOS");
+		input_dragon_type1.addItem("MOVER");
+		input_dragon_type1.addItem("MOVER E ADORMECER");
+		input_dragon_type2 = new JComboBox<String>();
+		input_dragon_type2.addItem("TIPO DE DRAG\u00D5ES");
+		input_dragon_type2.addItem("EST\u00C1TICOS");
+		input_dragon_type2.addItem("MOVER");
+		input_dragon_type2.addItem("MOVER E ADORMECER");
+		
+		maze_size = new JLabel("DIMENS\u00C3O DO LABIRINTO");
+		number_dragons = new JLabel("N\u00DAMERO DE DRAG\u00D5ES");
+		dragon_type = new JLabel("TIPO DE DRAG\u00D5ES");
+		
 		initialize();	
 	}
 
@@ -117,17 +165,16 @@ public class GuiFinal {
 		// =================================================================================================
 		// PLAY
 		
-		JButton button_play = new JButton("JOGAR");
-		button_play.setBounds(375, 125, 200, 60);
-		buttonConfig(button_play, 15);		
-		menu.add(button_play);
-		button_play.getModel().addChangeListener(new ChangeListener() {
+		button_play1.setBounds(375, 125, 200, 60);
+		buttonConfig(button_play1, 15);		
+		menu.add(button_play1);
+		button_play1.getModel().addChangeListener(new ChangeListener() {
 		    public void stateChanged(ChangeEvent e) {
-		    	buttonHoverAction(button_play, e);
+		    	buttonHoverAction(button_play1, e);
 		    }
 		});
 		
-		button_play.addActionListener(new ActionListener() {
+		button_play1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.setMaze(new Maze(size));
 				game.setHero(new Hero(game.getMaze()));
@@ -137,19 +184,18 @@ public class GuiFinal {
 					game.addDragon(new Dragon(game.getMaze()));
 				}
 				
-				GamePanel game_panel = new GamePanel(game);
+				GamePanel game_panel = new GamePanel(game, language);
 				game_panel.setLayout(null);
 				
-				JButton button_back = new JButton("VOLTAR");
-				button_back.setBounds(10, 10, 100, 30);
-				buttonConfig(button_back, 12);
-				game_panel.add(button_back);
-				button_back.getModel().addChangeListener(new ChangeListener() {
+				button_back1.setBounds(10, 10, 100, 30);
+				buttonConfig(button_back1, 12);
+				game_panel.add(button_back1);
+				button_back1.getModel().addChangeListener(new ChangeListener() {
 				    public void stateChanged(ChangeEvent e) {
-				    	buttonHoverAction(button_back, e);
+				    	buttonHoverAction(button_back1, e);
 				    }
 				});
-				button_back.addActionListener(new ActionListener() {
+				button_back1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {					
 						CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
 						cl.show(frame.getContentPane(), "menu");
@@ -170,7 +216,6 @@ public class GuiFinal {
 		// =================================================================================================
 		// CONFIGURATION
 		
-		JButton button_configuration = new JButton("CONFIGURAR");
 		button_configuration.setBounds(375, 325, 200, 60);
 		buttonConfig(button_configuration, 15);		
 		menu.add(button_configuration);
@@ -193,7 +238,6 @@ public class GuiFinal {
 		frame.getContentPane().add(configuration, "configuration");
 		configuration.setLayout(null);
 
-		maze_size = new JLabel("DIMENS\u00C3O DO LABIRINTO");
 		maze_size.setForeground(Color.WHITE);
 		maze_size.setFont(new Font("Design", Font.BOLD, 14));
 		maze_size.setBounds(260, 146, 220, 19);
@@ -206,7 +250,6 @@ public class GuiFinal {
 		configuration.add(input_maze_size);
 		input_maze_size.setColumns(3);
 
-		number_dragons = new JLabel("N\u00DAMERO DE DRAG\u00D5ES");
 		number_dragons.setForeground(Color.WHITE);
 		number_dragons.setFont(new Font("Design", Font.BOLD, 14));
 		number_dragons.setBounds(260, 182, 220, 19);
@@ -220,20 +263,18 @@ public class GuiFinal {
 		configuration.add(input_number_dragons);
 		
 
-		dragon_type = new JLabel("TIPO DE DRAG\u00D5ES");
 		dragon_type.setForeground(Color.WHITE);
 		dragon_type.setFont(new Font("Design", Font.BOLD, 14));
 		dragon_type.setBounds(260, 217, 220, 19);
 		configuration.add(dragon_type);
 
-		input_dragon_type = new JComboBox<String>();
-		input_dragon_type.setUI(new ComboBoxUI());
-		comboBoxConfig(input_dragon_type, 14, color_pine);
-		input_dragon_type.setBounds(490, 216, 200, 20);
-		configuration.add(input_dragon_type);
+		input_dragon_type1.setUI(new ComboBoxUI());
+		comboBoxConfig(input_dragon_type1, 14, color_pine);
+		input_dragon_type1.setBounds(490, 216, 200, 20);
+		configuration.add(input_dragon_type1);
 
 
-		Object child = input_dragon_type.getAccessibleContext().getAccessibleChild(0);
+		Object child = input_dragon_type1.getAccessibleContext().getAccessibleChild(0);
 		BasicComboPopup popup = (BasicComboPopup)child;
 		JList<?> list = popup.getList();
 		list.setSelectionBackground(color_lime);
@@ -241,10 +282,6 @@ public class GuiFinal {
 		list.setForeground(Color.WHITE);
 		list.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		
-		input_dragon_type.addItem("EST\u00C1TICOS");
-		input_dragon_type.addItem("MOVER");
-		input_dragon_type.addItem("MOVER E ADORMECER");
-
 		
 		config_status = new JLabel("");
 		config_status.setForeground(color_lime);
@@ -253,7 +290,6 @@ public class GuiFinal {
 		configuration.add(config_status);
 		
 		
-		button_save = new JButton("GUARDAR");
 		buttonConfig(button_save, 12);
 		button_save.getModel().addChangeListener(new ChangeListener() {
 		    public void stateChanged(ChangeEvent e) {
@@ -266,7 +302,10 @@ public class GuiFinal {
 					size = Integer.parseInt(input_maze_size.getText());
 					dragons = Integer.parseInt(input_number_dragons.getText());
 				} catch (Exception exc) {
-					config_status.setText("ARGUMENTOS INV\u00C1LIDOS");
+					if (language == "POR")
+						config_status.setText("ARGUMENTOS INV\u00C1LIDOS");
+					else
+						config_status.setText("INVALID ARGUMENTS");
 					return;
 				}
 				
@@ -279,18 +318,24 @@ public class GuiFinal {
 				else if (dragons <= size * size / 50.0 && dragons > 0) {
 					config_status.setText("");
 				} else {
-					config_status.setText("N\u00DAMERO DE DRAG\u00D5ES INV\u00C1LIDO");
+					if (language == "POR")
+						config_status.setText("N\u00DAMERO DE DRAG\u00D5ES INV\u00C1LIDO");
+					else
+						config_status.setText("INVALID NUMBER OF DRAGONS");
 					return;
 				}
 
 				if (size < 5 || size > 100) {
-					config_status.setText("DIMENS\u00C3O DO LABIRINTO INV\u00C1LIDO");
+					if (language == "POR")
+						config_status.setText("DIMENS\u00C3O DO LABIRINTO INV\u00C1LIDO");
+					else
+						config_status.setText("INVALID MAZE DIMENSIONS");
 					return;
 				}
 				
-				if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
+				if (input_dragon_type1.getSelectedItem().equals(input_dragon_type1.getItemAt(0))) {
 					game.setGameMode("2");
-				} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
+				} else if (input_dragon_type1.getSelectedItem().equals(input_dragon_type1.getItemAt(1))) {
 					game.setGameMode("0");
 				} else {
 					game.setGameMode("1");
@@ -306,7 +351,6 @@ public class GuiFinal {
 		// ===================================================================================================
 		// BUILD
 		
-		JButton button_build = new JButton("CONSTRUIR");
 		button_build.setBounds(375, 225, 200, 60);
 		buttonConfig(button_build, 15);
 		menu.add(button_build);
@@ -338,7 +382,6 @@ public class GuiFinal {
 				dialog_panel.setLayout(null);
 				dialog_panel.setBackground(color_pine);
 				
-				JLabel dialog_maze_size = new JLabel("DIMENS\u00C3O DO LABIRINTO");
 				dialog_maze_size.setForeground(Color.WHITE);
 				dialog_maze_size.setFont(new Font("Design", Font.BOLD, 14));
 				dialog_maze_size.setBounds(10, 25, 220, 19);
@@ -353,7 +396,6 @@ public class GuiFinal {
 				dialog_input_maze_size.setColumns(3);
 				dialog_panel.add(dialog_input_maze_size);
 				
-				JButton dialog_ok = new JButton();
 				dialog_ok.setText("OK");
 				buttonConfig(dialog_ok, 12);
 				dialog_ok.setBounds(245, 65, 80, 25);
@@ -400,20 +442,16 @@ public class GuiFinal {
 							}
 						}
 						
-						BuildPanel build = new BuildPanel(board);
+						BuildPanel build = new BuildPanel(board, language);
 						frame.getContentPane().add(build, "build");
 						
-						input_dragon_type = new JComboBox<String>();
-						input_dragon_type.setUI(new ComboBoxUI2());
-						input_dragon_type.setBounds(570, 10, 140, 30);
-						comboBoxConfig(input_dragon_type, 12, color_blue);
-						input_dragon_type.addItem("TIPO DE DRAG\u00D5ES");
-						input_dragon_type.addItem("EST\u00C1TICOS");
-						input_dragon_type.addItem("MOVER");
-						input_dragon_type.addItem("MOVER E ADORMECER");
-						build.add(input_dragon_type);
 						
-						Object child = input_dragon_type.getAccessibleContext().getAccessibleChild(0);
+						input_dragon_type2.setUI(new ComboBoxUI2());
+						input_dragon_type2.setBounds(570, 10, 140, 30);
+						comboBoxConfig(input_dragon_type2, 12, color_blue);
+						build.add(input_dragon_type2);
+						
+						Object child = input_dragon_type2.getAccessibleContext().getAccessibleChild(0);
 						BasicComboPopup popup = (BasicComboPopup)child;
 						JList<?> list = popup.getList();
 						list.setSelectionBackground(color_lime);
@@ -421,33 +459,30 @@ public class GuiFinal {
 						list.setForeground(Color.WHITE);
 						list.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 						
-						JButton button_back = new JButton("VOLTAR");
-						buttonConfig(button_back, 12);
-						button_back.getModel().addChangeListener(new ChangeListener() {
+						buttonConfig(button_back2, 12);
+						button_back2.getModel().addChangeListener(new ChangeListener() {
 						    public void stateChanged(ChangeEvent e) {
-						    	buttonHoverAction(button_back, e);
+						    	buttonHoverAction(button_back2, e);
 						    }
 						});
-						build.add(button_back);
-						button_back.setBounds(710, 10, 112, 30);
-						button_back.addActionListener(new ActionListener() {
+						build.add(button_back2);
+						button_back2.setBounds(710, 10, 112, 30);
+						button_back2.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {					
 								CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
 								cl.show(frame.getContentPane(), "menu");
 							}});
 						
 						
-						
-						JButton button_play = new JButton("JOGAR");
-						buttonConfig(button_play, 12);
-						button_play.getModel().addChangeListener(new ChangeListener() {
+						buttonConfig(button_play2, 12);
+						button_play2.getModel().addChangeListener(new ChangeListener() {
 						    public void stateChanged(ChangeEvent e) {
-						    	buttonHoverAction(button_play, e);
+						    	buttonHoverAction(button_play2, e);
 						    }
 						});
-						build.add(button_play);
-						button_play.setBounds(822, 10, 112, 30);
-						button_play.addActionListener(new ActionListener() {
+						build.add(button_play2);
+						button_play2.setBounds(822, 10, 112, 30);
+						button_play2.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								try {
 									game = new Game(build.getBoard());
@@ -456,31 +491,30 @@ public class GuiFinal {
 									return;
 								}
 								// Check selected item
-								if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(0))) {
+								if (input_dragon_type2.getSelectedItem().equals(input_dragon_type2.getItemAt(0))) {
 									return;
 								}
 								
-								if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(1))) {
+								if (input_dragon_type2.getSelectedItem().equals(input_dragon_type2.getItemAt(1))) {
 									game.setGameMode("2");
-								} else if (input_dragon_type.getSelectedItem().equals(input_dragon_type.getItemAt(2))) {
+								} else if (input_dragon_type2.getSelectedItem().equals(input_dragon_type2.getItemAt(2))) {
 									game.setGameMode("0");
 								} else {
 									game.setGameMode("1");
 								}
 								
-								GamePanel game_panel = new GamePanel(game);
+								GamePanel game_panel = new GamePanel(game, language);
 								game_panel.setLayout(null);
 								
-								JButton button_back = new JButton("VOLTAR");
-								buttonConfig(button_back, 12);
-								button_back.getModel().addChangeListener(new ChangeListener() {
+								buttonConfig(button_back3, 12);
+								button_back3.getModel().addChangeListener(new ChangeListener() {
 								    public void stateChanged(ChangeEvent e) {
-								    	buttonHoverAction(button_back, e);
+								    	buttonHoverAction(button_back3, e);
 								    }
 								});
-								game_panel.add(button_back);
-								button_back.setBounds(10, 10, 100, 30);
-								button_back.addActionListener(new ActionListener() {
+								game_panel.add(button_back3);
+								button_back3.setBounds(10, 10, 100, 30);
+								button_back3.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {					
 										CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
 										cl.show(frame.getContentPane(), "menu");
@@ -512,8 +546,6 @@ public class GuiFinal {
 		// ===================================================================================================
 		// TERMINAR
 
-
-		button_exit = new JButton("SAIR");
 		button_exit.setBounds(375, 425, 200, 60);
 		buttonConfig(button_exit, 15);		
 		menu.add(button_exit);
@@ -530,8 +562,93 @@ public class GuiFinal {
 		});
 		
 		
+		// ===================================================================================================
+		// MUDAR LINGUAGEM
+		
+		button_change_lang.setBounds(820, 620, 60, 30);
+		buttonConfig(button_change_lang, 12);		
+		menu.add(button_change_lang);
+		button_change_lang.getModel().addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent e) {
+		    	buttonHoverAction(button_change_lang, e);
+		    }
+		});
+		
+		button_change_lang.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (language == "POR") {
+					language = "ENG";
+				}
+				else {
+					language = "POR";
+				}
+				
+				changeLanguage(language);
+			}
+		});
+		
+		
 	}
 
+	private void changeLanguage(String language) {
+		if (language == "POR") {
+			button_save.setText("GUARDAR");
+			button_play1.setText("JOGAR");
+			button_play2.setText("JOGAR");
+			button_back1.setText("VOLTAR");
+			button_back2.setText("VOLTAR");
+			button_back3.setText("VOLTAR");
+			button_configuration.setText("CONFIGURAR");
+			button_build.setText("CONSTRUIR");
+			button_exit.setText("SAIR");
+			button_change_lang.setText("ENG");
+			dialog_maze_size.setText("DIMENS\u00C3O DO LABIRINTO");
+			
+			input_dragon_type1.removeAllItems();
+			input_dragon_type1.addItem("EST\u00C1TICOS");
+			input_dragon_type1.addItem("MOVER");
+			input_dragon_type1.addItem("MOVER E ADORMECER");
+			
+			input_dragon_type2.removeAllItems();
+			input_dragon_type2.addItem("TIPO DE DRAG\u00D5ES");
+			input_dragon_type2.addItem("EST\u00C1TICOS");
+			input_dragon_type2.addItem("MOVER");
+			input_dragon_type2.addItem("MOVER E ADORMECER");
+			
+			maze_size.setText("DIMENS\u00C3O DO LABIRINTO");
+			number_dragons.setText("N\u00DAMERO DE DRAG\u00D5ES");
+			dragon_type.setText("TIPO DE DRAG\u00D5ES");
+		}
+		else {
+			button_save.setText("SAVE");
+			button_play1.setText("PLAY");
+			button_play2.setText("PLAY");
+			button_back1.setText("BACK");
+			button_back2.setText("BACK");
+			button_back3.setText("BACK");
+			button_configuration.setText("CONFIGURE");
+			button_build.setText("BUILD");
+			button_exit.setText("EXIT");
+			button_change_lang.setText("POR");
+			dialog_maze_size.setText("MAZE DIMENSION");
+			
+			input_dragon_type1.removeAllItems();
+			input_dragon_type1.addItem("STATIONARY");
+			input_dragon_type1.addItem("MOVING");
+			input_dragon_type1.addItem("MOVING & SLEEPING");
+			
+			input_dragon_type2.removeAllItems();
+			input_dragon_type2.addItem("DRAGON TYPE");
+			input_dragon_type2.addItem("STATIONARY");
+			input_dragon_type2.addItem("MOVING");
+			input_dragon_type2.addItem("MOVING & SLEEPING");
+			
+			maze_size.setText("MAZE DIMESION");
+			number_dragons.setText("NUMBER OF DRAGONS");
+			dragon_type.setText("DRAGON TYPE");
+		}
+	}
+	
 	private void buttonConfig(JButton b, int font_size) {
 		b.setBackground(color_blue);
 		b.setForeground(Color.WHITE);

@@ -54,6 +54,7 @@ public class GuiFinal {
 	private JButton button_save;
 	private int size = 11;
 	private int dragons = 1;
+	private int build_size = 11;
 	private int frame_width = 950;
 	private int frame_height = 720;
 	private Color color_pine = new Color(32,62,71);
@@ -347,7 +348,7 @@ public class GuiFinal {
 				
 				JTextField dialog_input_maze_size = new JTextField();
 				textFieldConfig(dialog_input_maze_size);
-				dialog_input_maze_size.setText(Integer.toString(size));
+				dialog_input_maze_size.setText(Integer.toString(build_size));
 				dialog_input_maze_size.setBounds(245, 25, 40, 20);
 				dialog_input_maze_size.setColumns(3);
 				dialog_panel.add(dialog_input_maze_size);
@@ -380,6 +381,9 @@ public class GuiFinal {
 						if (size < 5 || size > 100) {
 							return;
 						}
+						
+						build_size = size;
+						dialog_input_maze_size.setText(Integer.toString(build_size));
 						
 						dialog.setVisible(false);
 						dialog.dispose();

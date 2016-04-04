@@ -35,7 +35,9 @@ public class TestDragon {
 			int tmp_x = game.getDragons().get(0).getX();
 			int tmp_y = game.getDragons().get(0).getY();
 			
-			game.getDragons().get(0).move(game.getMaze());
+			try {
+				game.getDragons().get(0).move(game.getMaze());
+			} catch (Exception e) {}
 			
 			if (game.getDragons().get(0).getX() - tmp_x == 1) {
 				move_right = true;
@@ -76,7 +78,9 @@ public class TestDragon {
 			int tmp_x = game.getDragons().get(0).getX();
 			int tmp_y = game.getDragons().get(0).getY();
 			
-			game.getDragons().get(0).move(game.getMaze());
+			try {
+				game.getDragons().get(0).move(game.getMaze());
+			} catch (Exception e) {}
 			
 			if (game.getDragons().get(0).getX() == game.getMaze().getSword().getX() && game.getDragons().get(0).getY() == game.getMaze().getSword().getY()) {
 				if (game.getDragons().get(0).getX() - tmp_x == 1) {

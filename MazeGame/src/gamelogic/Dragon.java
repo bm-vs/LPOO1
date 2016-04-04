@@ -177,8 +177,9 @@ public class Dragon {
 	/**
 	 * Moves the dragon within the maze.
 	 * @param maze maze the dragon is in
+	 * @throws FightHero if the dragon moves to a cell adjacent do the hero
 	 */	
-	public void move(Maze maze) {
+	public void move(Maze maze) throws FightHero{
 		Random rand = new Random();
 
 		while (true) {
@@ -243,6 +244,15 @@ public class Dragon {
 				break;
 			}
 		}
+		
+		if (maze.getGrid()[y][x+1] == 'H' || maze.getGrid()[y][x-1] == 'H' || maze.getGrid()[y+1][x] == 'H' || maze.getGrid()[y-1][x] == 'H') {
+			throw new FightHero(true);
+		}
+		if (maze.getGrid()[y][x+1] == 'A' || maze.getGrid()[y][x-1] == 'A' || maze.getGrid()[y+1][x] == 'A' || maze.getGrid()[y-1][x] == 'A') {
+			throw new FightHero(false);
+		}
+		
+		
 
 		if ((maze.getSword().getY() != y || maze.getSword().getX() != x)
 				&& maze.swordExists()) {

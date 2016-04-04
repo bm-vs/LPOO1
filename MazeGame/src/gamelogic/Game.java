@@ -207,7 +207,22 @@ public class Game {
 	public int play(String game_mode, String key) {
 		if (game_mode.equals("0")) {
 			for (int i = 0; i < dragons.size(); i++) {
-				dragons.get(i).move(maze);
+				try {
+					dragons.get(i).move(maze);
+				}
+				catch (FightHero e) {
+					if (e.getHeroDies()) {
+						return 2;
+					}
+					else {
+						dragons.get(i).dies(maze);
+						dragons.remove(dragons.get(i));
+						if (dragons.isEmpty())
+							maze.getGrid()[maze.getExit().getY()][maze.getExit().getX()] = ' ';
+						
+						return 3;
+					}
+				}
 			}
 		}
 
@@ -215,7 +230,22 @@ public class Game {
 			for (int i = 0; i < dragons.size(); i++) {
 				if (dragons.get(i).getSymbol() == 'D') {
 					if (dragons.get(i).mode(maze) == 0)
-						dragons.get(i).move(maze);
+						try {
+							dragons.get(i).move(maze);
+						}
+						catch (FightHero e) {
+							if (e.getHeroDies()) {
+								return 2;
+							}
+							else {
+								dragons.get(i).dies(maze);
+								dragons.remove(dragons.get(i));
+								if (dragons.isEmpty())
+									maze.getGrid()[maze.getExit().getY()][maze.getExit().getX()] = ' ';
+								
+								return 3;
+							}
+						}
 
 					else if (dragons.get(i).mode(maze) == 1)
 						dragons.get(i).fallAsleep(maze);

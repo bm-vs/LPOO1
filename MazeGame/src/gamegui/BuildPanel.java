@@ -2,6 +2,7 @@ package gamegui;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -14,10 +15,15 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class BuildPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -25,10 +31,15 @@ public class BuildPanel extends JPanel {
 	private BufferedImage hero_small;
 	private BufferedImage wall;
 	private BufferedImage dragon;
-	private BufferedImage espada;
-	private BufferedImage dragon_espada;
+	private BufferedImage sword_floor;
+	private BufferedImage dragon_sword;
 	private BufferedImage dragon_sleep;
-	private BufferedImage gate;
+	private BufferedImage gate_closed_top;
+	private BufferedImage gate_closed_bottom;
+	private BufferedImage gate_closed_left;
+	private BufferedImage gate_closed_right;
+	private BufferedImage floor;
+	private BufferedImage wall3d;
 	private JButton button_wall;
 	private JButton button_hero;
 	private JButton button_dragon;
@@ -38,50 +49,84 @@ public class BuildPanel extends JPanel {
 	private int cursor = -1;
 	private double length;
 	private char board[][];
+	private Color color_pine = new Color(32,62,71);
+	private Color color_blue = new Color(76,181,245);
+	private Color color_lime = new Color(179,193,0);
 
 	public BuildPanel(char board[][]) {
+		this.setBackground(color_pine);
 		this.board = board;
 		length = 600.0 / board.length;
 		this.setLayout(null);	
 		
-		button_wall = new JButton("Parede");
+		button_wall = new JButton("PAREDE");
+		buttonConfig(button_wall, 12);
 		this.add(button_wall);
 		button_wall.setBounds(10, 10, 112, 30);
+		button_wall.getModel().addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent e) {
+		    	buttonHoverAction(button_wall, e);
+		    }
+		});
 		button_wall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonAction("wall.jpg", "cursor wall");
 			}});
 		
-		button_hero = new JButton("Herói");
+		button_hero = new JButton("HER\u00D3I");
+		buttonConfig(button_hero, 12);
 		this.add(button_hero);
 		button_hero.setBounds(122, 10, 112, 30);
+		button_hero.getModel().addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent e) {
+		    	buttonHoverAction(button_hero, e);
+		    }
+		});
 		button_hero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buttonAction("hero.jpg", "cursor hero");
+				buttonAction("hero_small.jpg", "cursor hero");
 			}});
 		
-		button_dragon = new JButton("Dragão");
+		button_dragon = new JButton("DRAG\u00C3O");
+		buttonConfig(button_dragon, 12);
 		this.add(button_dragon);
 		button_dragon.setBounds(234, 10, 112, 30);
+		button_dragon.getModel().addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent e) {
+		    	buttonHoverAction(button_dragon, e);
+		    }
+		});
 		button_dragon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonAction("dragon.jpg", "cursor dragon");
 			}});
 		
-		button_sword = new JButton("Espada");
+		button_sword = new JButton("ESPADA");
+		buttonConfig(button_sword, 12);
 		this.add(button_sword);
 		button_sword.setBounds(346, 10, 112, 30);
+		button_sword.getModel().addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent e) {
+		    	buttonHoverAction(button_sword, e);
+		    }
+		});
 		button_sword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				buttonAction("espada.jpg", "cursor sword");
+				buttonAction("sword_floor.jpg", "cursor sword");
 			}});
 		
-		button_exit = new JButton("Saída");
+		button_exit = new JButton("SA\u00CDDA");
+		buttonConfig(button_exit, 12);
 		this.add(button_exit);
 		button_exit.setBounds(458, 10, 112, 30);
+		button_exit.getModel().addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent e) {
+		    	buttonHoverAction(button_exit, e);
+		    }
+		});
 		button_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buttonAction("gate.jpg", "cursor exit");
+				buttonAction("gate_closed_top.jpg", "cursor exit");
 			}});
 		
 		
@@ -98,13 +143,13 @@ public class BuildPanel extends JPanel {
 			e.printStackTrace();
 		}
 		try {
-			espada = ImageIO.read(new File("espada.jpg"));
+			sword_floor = ImageIO.read(new File("sword_floor.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			dragon_espada = ImageIO.read(new File("dragon_espada.jpg"));
+			dragon_sword = ImageIO.read(new File("dragon_sword.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -127,12 +172,41 @@ public class BuildPanel extends JPanel {
 		}
 		
 		try {
-			gate = ImageIO.read(new File("gate.jpg"));
+			gate_closed_top = ImageIO.read(new File("gate_closed_top.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
+		
+		try {
+			gate_closed_bottom = ImageIO.read(new File("gate_closed_bottom.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			gate_closed_left = ImageIO.read(new File("gate_closed_left.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			gate_closed_right = ImageIO.read(new File("gate_closed_right.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			floor = ImageIO.read(new File("floor.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			wall3d = ImageIO.read(new File("wall3d.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		addMouseMotionListener(new MouseMotionListener() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
@@ -184,7 +258,12 @@ public class BuildPanel extends JPanel {
 				int ly = dy + i*lr;
 				
 				if (board[i][j] == 'X') {
-					g.drawImage(wall, lx, ly, lr, lr, null);
+					if (i == board.length - 1 || (board[i+1][j] != 'X' && board[i+1][j] != 'S')) {
+						g.drawImage(wall3d, lx, ly, lr, lr,null);
+					}
+					else {
+						g.drawImage(wall, lx, ly, lr, lr,null);
+					}
 				}
 				if (board[i][j] == 'H') {
 					g.drawImage(hero_small, lx, ly, lr, lr, null);
@@ -200,13 +279,25 @@ public class BuildPanel extends JPanel {
 					g.drawImage(dragon_sleep, lx, ly, lr, lr, null);
 				}
 				if (board[i][j] == 'E') {
-					g.drawImage(espada, lx, ly, lr, lr, null);
+					g.drawImage(sword_floor, lx, ly, lr, lr, null);
 				}
 				if (board[i][j] == 'F') {
-					g.drawImage(dragon_espada, lx, ly, lr, lr, null);
+					g.drawImage(dragon_sword, lx, ly, lr, lr, null);
 				}
 				if (board[i][j] == 'S') {
-					g.drawImage(gate, lx, ly, lr, lr, null);
+					if (i == 0)
+						g.drawImage(gate_closed_top, lx, ly, lr, lr,null);
+					if (i == board.length - 1) {
+						g.drawImage(gate_closed_bottom, lx, ly, lr, lr,null);
+					}
+					if (j == 0)
+						g.drawImage(gate_closed_left, lx, ly, lr, lr,null);
+					if (j == board.length - 1) {
+						g.drawImage(gate_closed_right, lx, ly, lr, lr,null);
+					}
+				}
+				if (board[i][j] == ' ') {
+					g.drawImage(floor, lx, ly, lr, lr, null);
 				}
 			}	
 	}
@@ -318,16 +409,16 @@ public class BuildPanel extends JPanel {
 		if (image == "wall.jpg") {
 			cursor = 0;
 		}
-		else if (image == "hero.jpg") {
+		else if (image == "hero_small.jpg") {
 			cursor = 1;
 		}
 		else if (image == "dragon.jpg") {
 			cursor = 2;
 		}
-		else if (image == "espada.jpg") {
+		else if (image == "sword_floor.jpg") {
 			cursor = 3;
 		}
-		else if (image == "gate.jpg") {
+		else if (image == "gate_closed_top.jpg") {
 			cursor = 4;
 		}
 		
@@ -337,4 +428,23 @@ public class BuildPanel extends JPanel {
 	public char[][] getBoard() {
 		return board;
 	}
+	
+	private void buttonConfig(JButton b, int font_size) {
+		b.setBackground(color_blue);
+		b.setForeground(new Color(255,255,255));
+		Border border = new LineBorder(Color.WHITE, 2);
+		b.setBorder(border);
+		b.setFont(new Font("Dialog", Font.BOLD, font_size));
+		b.setFocusPainted(false);
+	}
+	
+	private void buttonHoverAction(JButton b, ChangeEvent e) {
+		ButtonModel model = (ButtonModel) e.getSource();
+        if (model.isRollover()) {
+        	b.setBackground(color_lime);
+        }
+        else {
+        	b.setBackground(color_blue);
+        }
+	}	
 }

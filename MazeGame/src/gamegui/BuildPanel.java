@@ -45,7 +45,6 @@ public class BuildPanel extends JPanel {
 	private JButton button_dragon;
 	private JButton button_sword;
 	private JButton button_exit;
-	private JButton button_change_lang;
 	private int x, y;
 	private int cursor;
 	private double length;

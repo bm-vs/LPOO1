@@ -21,6 +21,7 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.ButtonModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -128,7 +129,7 @@ public class GuiFinal {
 	}
 
 	private void initialize() {
-
+		
 		// =================================================================================================
 		// WINDOW
 		
@@ -142,6 +143,8 @@ public class GuiFinal {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setTitle("Maze game");
+		ImageIcon img = new ImageIcon("dragon_icon.png");
+		frame.setIconImage(img.getImage());
 		frame.setAutoRequestFocus(false);
 		if (width < frame_width || height < frame_height) {
 			frame.setBounds(0, 0, 950, 720);

@@ -134,74 +134,17 @@ public class BuildPanel extends JPanel {
 
 		try {
 			hero = ImageIO.read(new File("hero.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			hero_small = ImageIO.read(new File("hero_small.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			sword_floor = ImageIO.read(new File("sword_floor.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			dragon_sword = ImageIO.read(new File("dragon_sword.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			dragon_sleep = ImageIO.read(new File("dragon_sleep.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			wall = ImageIO.read(new File("wall.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			dragon = ImageIO.read(new File("dragon.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
+			wall = ImageIO.read(new File("wall.jpg"));
 			gate_closed_top = ImageIO.read(new File("gate_closed_top.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			gate_closed_bottom = ImageIO.read(new File("gate_closed_bottom.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			gate_closed_left = ImageIO.read(new File("gate_closed_left.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			gate_closed_right = ImageIO.read(new File("gate_closed_right.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			floor = ImageIO.read(new File("floor.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			wall3d = ImageIO.read(new File("wall3d.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();

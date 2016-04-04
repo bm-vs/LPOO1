@@ -565,6 +565,7 @@ public class GuiFinal {
 		c.setBackground(bc);
 		c.setForeground(Color.WHITE);
 		c.setFont(new Font("Design", Font.BOLD, font_size));
+		c.setFocusable(false);
 		if (bc.equals(color_blue)) {
 			Border border = new LineBorder(Color.WHITE, 2);
 			c.setBorder(border);

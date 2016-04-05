@@ -46,6 +46,7 @@ public class GuiFinal {
 	private JPanel configuration;
 	private JTextField input_maze_size;
 	private JTextField input_number_dragons;
+	private JTextField dialog_input_maze_size;
 	private JComboBox<String> input_dragon_type1;
 	private JComboBox<String> input_dragon_type2;
 	private JLabel maze_size;
@@ -392,7 +393,7 @@ public class GuiFinal {
 				dialog_panel.add(dialog_maze_size);
 				
 				
-				JTextField dialog_input_maze_size = new JTextField();
+				dialog_input_maze_size = new JTextField();
 				textFieldConfig(dialog_input_maze_size);
 				dialog_input_maze_size.setText(Integer.toString(build_size));
 				dialog_input_maze_size.setBounds(245, 25, 40, 20);
